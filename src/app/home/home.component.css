@@ -1,0 +1,38 @@
+
+.sec-home{
+    background-color: white;
+    color: black;
+    height: 26rem;
+}
+.position-sec {
+    top: 75%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 98%; 
+    z-index: 10; 
+    position: absolute;
+    display: flex;
+  }
+.carousel-control-next, .carousel-control-prev{
+   bottom: 60%;
+}
+.carousel-control-next-icon ,.carousel-control-prev-icon{
+   background-color:  black !important;
+}
+.bg-color{
+    background-color: #E3E6E6;
+}
+.padding{
+padding-top: 30px;
+}
+@media screen and (max-width:768px) {
+    .sec-home{
+        background-color: white;
+        color: black;  
+        height: 50rem;
+         padding-bottom: 100px !important;
+    }
+    .position-sec {
+        display: none;
+      }
+}

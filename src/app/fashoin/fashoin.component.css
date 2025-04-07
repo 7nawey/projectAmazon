@@ -1,0 +1,41 @@
+.fashoin-cateegory img{
+  border-radius: 50%;
+  width: 60%;
+  margin: auto;
+}
+.margin{
+  margin-left: 80px;
+}
+h1{
+  font-size: 80px;
+  width: 75%;
+}
+.position{
+  top: 30%;
+}
+.carousel-indicators button{
+  border-radius: 50%;
+  background-color: rgba(0,0,0.8);
+  width: 1rem;
+  height: 1rem;
+}
+.sub button{
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+.sub button:hover{
+  background-color: white;
+  color: black;
+}
+h2{
+  font-size: 40px;
+}
+.ancor a{
+  color: black;
+}
+.ancor a:hover{
+  color: #FC5732;
+}

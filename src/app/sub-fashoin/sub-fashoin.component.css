@@ -1,0 +1,27 @@
+.fashoin-cateegory img{
+    border-radius: 50%;
+    width: 60%;
+    margin: auto;
+  }
+  .margin{
+    margin-left: 80px;
+  }
+  .position-btn{
+   bottom: 10%;
+    left: 40%;
+    transition: all 0.5s;
+  }
+   .sub button{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 10px 20px;
+  }
+.sub button:hover{
+    background-color: white;
+    color: black;
+  }
+  .bg-sub{
+    background-color: #F7F7F7;
+  }

@@ -1,0 +1,30 @@
+<div class="product-details p-5">
+  <div class="product-images d-flex">
+    <div class="thumbnail-images">
+      <div *ngFor="let image of product.productImages" class="thumbnail mb-3 me-5" (click)="changeMainImage(image.imageURL)">
+        <img [src]="image.imageURL" alt="Thumbnail" width="100" height="100">
+      </div>
+    </div>
+    <div class="main-image">
+      <img [src]="product.imgCover" alt="{{ product.title }}" id="mainImage" >
+    </div>
+
+  </div>
+
+  <div class="product-info mt-5">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.descreption }}</p>
+    <h2 class="price">$ {{ product.price }}</h2>
+    <h2> {{ product.priceAfterDiscount }}</h2>
+    <div class="rating">
+      <span *ngFor="let star of [1,2,3,4,5]" 
+            [class.filled]="star <= product.rating" 
+            class="star">
+        ★
+      </span>
+    </div>
+    <button class="buy-btn">Buy Now</button>
+  </div>
+</div>
+
+  
