@@ -12,9 +12,9 @@
     transition: all 0.5s;
   }
    .sub button{
-    background-color: black;
+    background-color: #FFCE12;
     color: white;
-    border: 1px solid black;
+    border: 1px solid #FFCE12;
     border-radius: 4px;
     padding: 10px 20px;
   }

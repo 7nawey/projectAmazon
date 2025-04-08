@@ -11,21 +11,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent  {
   @Input() products: any[] = [];  
    isLoading: boolean = true; 
  
    constructor(private apiService: ApiService) {}
  
-   ngOnInit(): void {
-     this.apiService.getAllProducts().subscribe(
-       (data) => {
-         console.log(data); 
-         this.products = data;
-         this.isLoading = false;
-         console.log(data);
-         
-       }
-     );
-   }
 }

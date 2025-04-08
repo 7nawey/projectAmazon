@@ -15,6 +15,11 @@ import { DrinksComponent } from './drinks/drinks.component';
 import { MenComponent } from './men/men.component';
 import { WomenComponent } from './women/women.component';
 import { ChildrenComponent } from './children/children.component';
+import { HomecategoryComponent } from './homecategory/homecategory.component';
+import { SubHomeComponent } from './sub-home/sub-home.component';
+import { KitchenComponent } from './kitchen/kitchen.component';
+import { BedComponent } from './bed/bed.component';
+import { LivingComponent } from './living/living.component';
 
 export const routes: Routes = [
     {
@@ -54,4 +59,9 @@ export const routes: Routes = [
     { path: 'men', component: MenComponent },
     { path: 'women', component: WomenComponent },
     { path: 'children', component: ChildrenComponent },
+    { path: 'homecategory', component: HomecategoryComponent },
+    { path: 'subhome', component: SubHomeComponent },
+    { path: 'kitchen', component: KitchenComponent },
+    { path: 'bed', component: BedComponent },
+    { path: 'living', component: LivingComponent },
 ];

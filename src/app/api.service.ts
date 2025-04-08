@@ -49,7 +49,17 @@ export class ApiService {
   getChildren(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/childern`);
   }
+  getKitchen(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/kitchen`);
+  }
+  getBed(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/bed`);
+  }
+  getLiving(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/living%20room`);
+  }
   getProductById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/Product/${id}`);
   }
+
 }

@@ -1,1 +1,26 @@
-<p>cart works!</p>
+<div class="container my-5">
+    <div class=" mx-auto bg-main-light p-5 ">
+    <h2>Shop Cart:</h2>
+    <h3 class='h5 text-main py-2'>Total Cart Price: EGP</h3>
+     <div class="row my-3 border-bottom" *ngFor="let product of cartItems">
+      <div class="col-md-2">
+        <img src="https://themesflat.co/html/ecomus/images/collections/collection-21.jpg" class='w-100 mb-4' alt="" />
+      </div>
+      <div class="col-md-10 ">
+        <div class="d-flex justify-content-between align-items-center  ">
+          <div class="left-side ">
+            <h3>{{product.name}}</h3>
+            <h3>{{product.descreption}}</h3>
+            <h3>{{product.price}}</h3>
+            <p class=' cursor-pointer'><i class="fa-solid fa-trash-can text-main pe-2" ></i>Remove</p>
+          </div>
+          <div class="right-side">
+            <button class='btn bg-maiin'>+</button>
+            <span class='mx-2'>1</span>
+            <button class='btn bg-maiin'>-</button>
+          </div>
+        </div>
+      </div>
+    </div>   
+    </div>
+  </div>
