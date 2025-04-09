@@ -18,7 +18,7 @@ export class FashoinComponent implements OnInit {
        constructor(private apiService: ApiService) {}
          
            ngOnInit(): void {
-             this.apiService.getMen().subscribe(
+             this.apiService.getFashoincategory().subscribe(
                (data) => {
                  console.log(data); 
                  this.products = data;

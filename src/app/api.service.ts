@@ -79,6 +79,22 @@ export class ApiService {
   getBodycare(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/bodycare`);
   }
+  getElectroniccategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/electronic`);
+  }
+  getFashoincategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Fashion`);
+  }
+  getHomecategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Home`);
+  }
+  getGrocerycategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Grocery`);
+  }
+  getBeautycategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Beauty & Personal Care`);
+  }
+
   getProductById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/Product/${id}`);
   }

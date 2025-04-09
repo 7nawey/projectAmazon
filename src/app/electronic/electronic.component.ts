@@ -18,13 +18,10 @@ export class ElectronicComponent{
          constructor(private apiService: ApiService) {}
            
              ngOnInit(): void {
-               this.apiService.getLaptop().subscribe(
+               this.apiService.getElectroniccategory().subscribe(
                  (data) => {
-                   console.log(data); 
                    this.products = data;
-                   this.isLoading = false;
-                   console.log(data);
-                   
+                   this.isLoading = false;         
                  }
                  
                );

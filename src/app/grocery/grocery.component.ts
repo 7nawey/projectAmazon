@@ -19,7 +19,7 @@ export class GroceryComponent  {
        constructor(private apiService: ApiService) {}
          
            ngOnInit(): void {
-             this.apiService.getAllProducts().subscribe(
+             this.apiService.getGrocerycategory().subscribe(
                (data) => {
                  console.log(data); 
                  this.products = data;
