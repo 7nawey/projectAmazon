@@ -25,6 +25,26 @@
 .padding{
 padding-top: 30px;
 }
+.sub button{
+    background-color: #FFCE12;
+    color: white;
+    border: 1px solid #FFCE12;
+    border-radius: 4px;
+    padding: 10px 20px;
+  }
+  .sub button:hover{
+    background-color: white;
+    color: black;
+  }
+  h2{
+    font-size: 40px;
+  }
+  .ancor a{
+    color: black;
+  }
+  .ancor a:hover{
+    color: #FC5732;
+  }
 @media screen and (max-width:768px) {
     .sec-home{
         background-color: white;

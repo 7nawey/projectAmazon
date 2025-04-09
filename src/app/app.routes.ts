@@ -20,6 +20,18 @@ import { SubHomeComponent } from './sub-home/sub-home.component';
 import { KitchenComponent } from './kitchen/kitchen.component';
 import { BedComponent } from './bed/bed.component';
 import { LivingComponent } from './living/living.component';
+import { SubElectronicComponent } from './sub-electronic/sub-electronic.component';
+import { LaptopComponent } from './laptop/laptop.component';
+import { PhonesComponent } from './phones/phones.component';
+import { BeautyComponent } from './beauty/beauty.component';
+import { SubBeautyComponent } from './sub-beauty/sub-beauty.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { SkincareComponent } from './skincare/skincare.component';
+import { MakeupComponent } from './makeup/makeup.component';
+import { PerfumeComponent } from './perfume/perfume.component';
+import { JewelryComponent } from './jewelry/jewelry.component';
+import { BodycareComponent } from './bodycare/bodycare.component';
 
 export const routes: Routes = [
     {
@@ -64,4 +76,16 @@ export const routes: Routes = [
     { path: 'kitchen', component: KitchenComponent },
     { path: 'bed', component: BedComponent },
     { path: 'living', component: LivingComponent },
+    { path: 'subelectronic', component: SubElectronicComponent },
+    { path: 'laptop', component: LaptopComponent },
+    { path: 'phones', component: PhonesComponent },
+    { path: 'beauty', component: BeautyComponent },
+    { path: 'subbeauty', component: SubBeautyComponent},
+    { path: 'register', component: RegisterComponent},
+    { path: 'login', component: LoginComponent},
+    { path: 'skincare', component: SkincareComponent},
+    { path: 'makeup', component: MakeupComponent},
+    { path: 'perfume', component: PerfumeComponent},
+    { path: 'jewelry', component: JewelryComponent},
+    { path: 'bodycare', component: BodycareComponent},
 ];
