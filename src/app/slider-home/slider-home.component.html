@@ -1,0 +1,17 @@
+<div class="pb-5">
+    <div class="slider-container">
+        <h5 class="py-2">Fashoin items</h5>
+        <div class="slider-wrapper">
+           
+          <div 
+            *ngFor="let product of products" 
+            class="slider-item"
+            >
+            <a [routerLink]="['/product-details', product.productID]"> <img [src]="product.imgCover" [alt]="product.name"  /></a>
+           
+          </div>
+        </div>
+      </div>
+      
+</div>
+

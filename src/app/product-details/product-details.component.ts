@@ -34,4 +34,16 @@ export class ProductDetailsComponent implements OnInit {
     const mainImage = document.getElementById('mainImage') as HTMLImageElement;
     mainImage.src = image; 
   }
+// products.component.ts
+expandedDescriptions: Set<number> = new Set();
+
+toggleDescription(productID: number): void {
+  if (this.expandedDescriptions.has(productID)) {
+    this.expandedDescriptions.delete(productID);
+  } else {
+    this.expandedDescriptions.add(productID);
+  }
+}
+
+
 }

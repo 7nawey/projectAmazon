@@ -13,9 +13,24 @@
 
   <div class="product-info mt-5">
     <h2>{{ product.name }}</h2>
-    <p>{{ product.descreption }}</p>
+    <h4 class="mt-4">About This Item</h4>
+    <p>
+      {{ expandedDescriptions.has(product.productID) || product.descreption.length <= 100 
+          ? product.descreption 
+          : (product.descreption | slice:0:500) + '...' }}
+    </p>
+    
+    <a 
+      *ngIf="product.descreption.length > 100" 
+      href="#" 
+      (click)="toggleDescription(product.productID); $event.preventDefault()">
+      {{ expandedDescriptions.has(product.productID) ? 'See Less' : 'See More' }}
+    </a>
     <h2 class="price">$ {{ product.price }}</h2>
     <h2> {{ product.priceAfterDiscount }}</h2>
+    <p class="  rounded-5  ms-1 stock d-flex justify-content-center  text-white" [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
+      {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
+    </p> 
     <div class="rating">
       <span *ngFor="let star of [1,2,3,4,5]" 
             [class.filled]="star <= product.rating" 
@@ -23,7 +38,7 @@
         ★
       </span>
     </div>
-    <button class="buy-btn">Buy Now</button>
+    <button class="buy-btn">Add to cart</button>
   </div>
 </div>
 

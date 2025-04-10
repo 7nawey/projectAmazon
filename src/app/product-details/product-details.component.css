@@ -46,7 +46,7 @@
   
   .price {
     font-size: 20px;
-    color: green;
+    color: #FC5732;
     margin-top: 10px;
   }
   
@@ -77,3 +77,10 @@
   .filled {
     color: gold; 
   }
+  .stock{
+    width: 35%;
+  }
+
+  
+  
+  

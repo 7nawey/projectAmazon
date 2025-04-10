@@ -94,3 +94,7 @@
     display: flex; 
     justify-content: center;
   }
+  .stock{
+    top: 2%;
+    width: 35%;
+  }

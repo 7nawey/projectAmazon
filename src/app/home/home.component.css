@@ -41,10 +41,13 @@ padding-top: 30px;
   }
   .ancor a{
     color: black;
+    cursor: pointer;
   }
   .ancor a:hover{
     color: #FC5732;
   }
+
+  
 @media screen and (max-width:768px) {
     .sec-home{
         background-color: white;
