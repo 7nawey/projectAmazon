@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from '../api.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { WishlistService } from '../services/wishlist.service';
 
 @Component({
   selector: 'app-products',
@@ -15,6 +16,10 @@ export class ProductsComponent  {
   @Input() products: any[] = [];  
    isLoading: boolean = true; 
  
-   constructor(private apiService: ApiService) {}
- 
-}
+   constructor(private apiService: ApiService , private wishlistService:WishlistService) {}
+
+   
+  }
+  
+
+

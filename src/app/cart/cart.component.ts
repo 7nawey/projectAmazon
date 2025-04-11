@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-cart',

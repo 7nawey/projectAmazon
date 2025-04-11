@@ -33,6 +33,7 @@ import { PerfumeComponent } from './perfume/perfume.component';
 import { JewelryComponent } from './jewelry/jewelry.component';
 import { BodycareComponent } from './bodycare/bodycare.component';
 import { SliderHomeComponent } from './slider-home/slider-home.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 export const routes: Routes = [
     {
@@ -90,4 +91,5 @@ export const routes: Routes = [
     { path: 'jewelry', component: JewelryComponent},
     { path: 'bodycare', component: BodycareComponent},
     { path: 'sliderhome', component: SliderHomeComponent},
+    { path: 'wishlist', component: WishlistComponent},
 ];

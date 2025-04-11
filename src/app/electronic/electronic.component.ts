@@ -8,7 +8,7 @@ import { ProductsComponent } from '../products/products.component';
 
 @Component({
   selector: 'app-electronic',
-  imports: [RouterOutlet,CommonModule,SubElectronicComponent,ProductsComponent],
+  imports: [CommonModule,SubElectronicComponent,ProductsComponent],
   templateUrl: './electronic.component.html',
   styleUrl: './electronic.component.css'
 })

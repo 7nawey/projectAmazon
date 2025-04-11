@@ -14,13 +14,16 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-regular fa-heart fa-sm me-2"></i>Wishlist</a>
+          <a class="nav-link" routerLink="/wishlist"><i class="fa-regular fa-heart fa-sm me-2"></i>Wishlist</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/cart"><i class="fa-solid fa-cart-arrow-down fa-sm me-2"></i>Cart</a>
         </li>
         <li class="nav-item ms-3 ">
-          <button class="log">  <a class="nav-link"  (click)="logout()"> {{ isLoggedIn ? 'Logout' : 'Login' }}</a></button>
+          <button class="log nav-link" (click)="logout()">
+            {{ isLoggedIn ? 'Log out' : 'Login' }}
+          </button>
+                    
         
         </li>
     

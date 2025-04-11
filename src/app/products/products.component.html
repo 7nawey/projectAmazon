@@ -6,7 +6,7 @@
                   <img [src]="product.imgCover" class=" rounded-3" alt="{{ product.name}}">
                   <div class="icon-team d-flex  justify-content-end ">
                       <div class="icon-teamgro ">
-                      <div class="icon  rounded-circle d-flex align-items-center justify-content-center ">
+                      <div class="icon  rounded-circle d-flex align-items-center justify-content-center " >
                           <i class="fa-regular fa-heart fa-lg"></i>
                       </div>
                       </div>                    
@@ -29,6 +29,7 @@
                   <div class="btn-group d-flex">
                       <button class="p-2 add me-2"  [disabled]="product.stockQuantity === 0" >Add to cart</button>
                       <button class="p-2 details" [routerLink]="['/product-details', product.productID]">View Details</button> 
+                      <!-- <button (click)="addToWishlist(product.productId)">Add to Wishlist</button> -->
                   </div>
 
           </div>

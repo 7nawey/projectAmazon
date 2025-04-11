@@ -8,7 +8,7 @@ import { SubGroceryComponent } from '../sub-grocery/sub-grocery.component';
 
 @Component({
   selector: 'app-grocery',
-  imports: [CommonModule,RouterLink,ProductsComponent,SubGroceryComponent],
+  imports: [CommonModule,ProductsComponent,SubGroceryComponent],
   standalone: true,
   templateUrl: './grocery.component.html',
   styleUrl: './grocery.component.css'

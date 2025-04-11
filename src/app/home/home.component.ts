@@ -8,7 +8,7 @@ import { SliderHomeComponent } from '../slider-home/slider-home.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ProductsComponent,SliderComponent,FashoinComponent,SliderHomeComponent],
+  imports: [ProductsComponent,SliderHomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

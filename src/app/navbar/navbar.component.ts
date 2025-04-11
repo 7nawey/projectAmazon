@@ -13,16 +13,16 @@ export class NavbarComponent {
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.checkAuthStatus();
-  }
-
-  checkAuthStatus(): void {
-    this.isLoggedIn = localStorage.getItem('auth_token') !== null;
+  ngOnInit(): void {
+    // اشتراك في الـ observable من AuthService
+    this.authService.isLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+    });
   }
 
   logout(): void {
-    this.authService.logout();
-    this.checkAuthStatus();  
+    console.log('Logout clicked');
+    this.authService.logout();  // استدعاء دالة logout
   }
+  
 }

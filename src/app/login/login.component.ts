@@ -12,28 +12,31 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  email: string = '';
-  errorMessage: string = '';
-  successMessage: string = '';
+username: string = '';
+password: string = '';
+email: string = '';
+errorMessage: string = '';
+successMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
-  login() {
-    const loginData = {
-      userName: this.username, 
-      password: this.password,
-      email: this.email,
-    };
+constructor(private authService: AuthService, private router: Router) {}
 
-    this.authService.login(loginData).subscribe({
-      next: (response) => {
-        localStorage.setItem('authToken', response.token); 
-        this.router.navigate(['']); 
-      },
-      error: (error) => {
-        this.errorMessage = 'Login failed, please check your credentials and try again!';
-      }
-    });
-  }
+login(): void {
+  const loginData = {
+    userName: this.username,
+    password: this.password,
+    email: this.email
+  };
+
+  this.authService.login(loginData).subscribe({
+    next: (response) => {
+      localStorage.setItem('token', response.token); 
+      localStorage.setItem('application_user_id', response.applicationUserId); 
+      this.router.navigate(['']); 
+    },
+    error: (error) => {
+      this.errorMessage = 'Login failed, please check your credentials and try again!';
+    }
+  });
+}
+
 }

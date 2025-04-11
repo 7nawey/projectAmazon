@@ -8,7 +8,7 @@ import { SubFashoinComponent } from '../sub-fashoin/sub-fashoin.component';
 declare var bootstrap: any;
 @Component({
   selector: 'app-fashoin',
-  imports: [RouterOutlet,CommonModule , RouterModule,ProductsComponent,SubFashoinComponent],
+  imports: [CommonModule , RouterModule,ProductsComponent,SubFashoinComponent],
   templateUrl: './fashoin.component.html',
   styleUrl: './fashoin.component.css'
 })
