@@ -30,10 +30,7 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
       tap((response) => {
         if (response.token) {
-          // حفظ التوكن في localStorage
           localStorage.setItem('auth_token', response.token);
-
-          // حفظ applicationUserId بشكل منفصل عن التوكن
           if (response.applicationUserId) {
             localStorage.setItem('application_user_id', response.applicationUserId);
           }

@@ -1,29 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { CartService } from '../services/cart.service';
-import Swal from 'sweetalert2';  // استيراد SweetAlert2
-import { CommonModule } from '@angular/common';  // استيراد CommonModule
-import { Router } from '@angular/router';  // استيراد Router لتوجيه المستخدم
-import { RouterLink } from '@angular/router';  // استيراد RouterLink
+import Swal from 'sweetalert2'; 
+import { CommonModule } from '@angular/common'; 
+import { Router } from '@angular/router';  
+import { RouterLink } from '@angular/router';  
+import { WishlistService } from '../services/wishlist.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
-  standalone: true,  // لأنه مكون مستقل (standalone)
-  imports: [CommonModule, RouterLink]  // تأكد من إضافة CommonModule و RouterLink هنا
+  standalone: true, 
+  imports: [CommonModule, RouterLink]  
 })
 export class ProductsComponent implements OnInit {
   @Input() products: any[] = [];
   isLoading: boolean = true;
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  constructor(private apiService: ApiService, private cartService: CartService, private router: Router) {}  // إضافة الـ Router
+  constructor(private apiService: ApiService, private cartService: CartService, private router: Router , private wishlistService: WishlistService) {}  // إضافة الـ Router
 
   ngOnInit(): void {
-    // يمكنك هنا إضافة أي منطق لتحميل البيانات إذا كان لديك
   }
-
-  // دالة لاستخراج التوكن من الـ localStorage
   private getToken(): string | null {
     return localStorage.getItem('auth_token');
   }
@@ -37,25 +37,22 @@ export class ProductsComponent implements OnInit {
         icon: 'error',
         confirmButtonText: 'OK'
       }).then(() => {
-        // بعد إغلاق التنبيه، سيتم توجيه المستخدم إلى صفحة تسجيل الدخول
-        this.router.navigate(['/login']);  // توجيه المستخدم إلى صفحة تسجيل الدخول
+        this.router.navigate(['/login']);  
       });
       return;
     }
 
     this.cartService.addToCart(product.productID).subscribe({
       next: () => {
-        // استخدام SweetAlert2 لإظهار التنبيه
         Swal.fire({
           title: 'Product Added!',
           text: `${product.name} has been added to your cart.`,
           icon: 'success',
           confirmButtonText: 'OK',
-          timer: 3000, // يمكنك تعديل الوقت إذا أردت
+          timer: 3000, 
         });
       },
       error: (err) => {
-        // في حال حدوث خطأ
         Swal.fire({
           title: 'Failed!',
           text: 'Unable to add the product to your cart.',
@@ -65,4 +62,5 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+  
 }

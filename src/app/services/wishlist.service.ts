@@ -1,24 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WishlistService {
-  private apiUrl = 'https://localhost:7105/api/Wishlist';  
+  private baseUrl = 'https://localhost:7105/api/Wishlist';  
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  getWishlistByCustomerId(): Observable<any> {
-    const applicationUserId = localStorage.getItem('application_user_id');
-    console.log('applicationUserId:', applicationUserId);
-    if (!applicationUserId) {
-      return new Observable(observer => {
-        observer.error('User not logged in');
-      });
-    }
-  
-    return this.http.get<any>(`${this.apiUrl}/${applicationUserId}`);
-  }
 }
