@@ -1,0 +1,142 @@
+<div class="container py-4">
+    <h2 class="mb-4 text-center text-uppercase text-danger fw-bold">
+      <i class="fas fa-shopping-cart me-2"></i> Proceed to Buy
+    </h2>
+  
+    <!-- Step 1: Address -->
+    <div class="card shadow-sm mb-4 border-primary">
+      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <span><strong>1. Delivery Address</strong></span>
+        <button class="btn btn-outline-light btn-sm" (click)="toggleStep(1)">Change</button>
+      </div>
+  
+      <div class="collapse" [ngClass]="{ 'show': step === 1 }">
+        <div class="card-body">
+          <form [formGroup]="addressForm" class="row g-3">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="form-label">Street Name</label>
+                <input type="text" class="form-control" formControlName="street" placeholder="e.g. Talaat Harb Street">
+                <div *ngIf="addressForm.get('street')?.touched && addressForm.get('street')?.invalid" class="text-danger small mt-1">
+                  Street name is required.
+                </div>
+              </div>
+            
+              <div class="col-md-6">
+                <label class="form-label">Building Number</label>
+                <input type="text" class="form-control" formControlName="building" placeholder="e.g. Building 15">
+                <div *ngIf="addressForm.get('building')?.touched && addressForm.get('building')?.invalid" class="text-danger small mt-1">
+                  Building number is required.
+                </div>
+              </div>
+            
+              <div class="col-md-6 mt-3">
+                <label class="form-label">City</label>
+                <input type="text" class="form-control" formControlName="city" placeholder="e.g. Cairo">
+                <div *ngIf="addressForm.get('city')?.touched && addressForm.get('city')?.invalid" class="text-danger small mt-1">
+                  City is required.
+                </div>
+              </div>
+            
+              <div class="col-md-6 mt-3">
+                <label class="form-label">District</label>
+                <input type="text" class="form-control" formControlName="district" placeholder="e.g. Nasr City">
+                <div *ngIf="addressForm.get('district')?.touched && addressForm.get('district')?.invalid" class="text-danger small mt-1">
+                  District is required.
+                </div>
+              </div>
+            
+              <div class="col-md-6 mt-3">
+                <label class="form-label">Governorate</label>
+                <input type="text" class="form-control" formControlName="governorate" placeholder="e.g. Cairo Governorate">
+                <div *ngIf="addressForm.get('governorate')?.touched && addressForm.get('governorate')?.invalid" class="text-danger small mt-1">
+                  Governorate is required.
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-12 mt-3">
+              <button type="button" class="btn btn-primary w-100" (click)="deliverToThisAddress()">
+                <i class="fas fa-truck me-2"></i> Deliver to this address
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Step 2: Payment Method -->
+    <div class="card shadow-sm mb-4 border-success">
+      <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <span><strong>2. Payment Method</strong></span>
+        <button class="btn btn-outline-light btn-sm" [disabled]="step < 2" (click)="toggleStep(2)">Change</button>
+      </div>
+  
+      <div class="collapse" [ngClass]="{ 'show': step === 2 }">
+        <div class="card-body">
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="payment" value="PayPal"
+              [(ngModel)]="paymentMethod" id="paypalOption">
+            <label class="form-check-label" for="paypalOption">
+              <i class="fab fa-cc-paypal me-2 text-primary"></i> PayPal
+            </label>
+          </div>
+  
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="payment" value="Visa"
+              [(ngModel)]="paymentMethod" id="visaOption">
+            <label class="form-check-label" for="visaOption">
+              <i class="fab fa-cc-visa me-2 text-info"></i> Visa (Coming Soon)
+            </label>
+          </div>
+  
+          <div *ngIf="unsupportedMethodSelected" class="alert alert-warning">
+            This payment method is not supported yet. Please select PayPal.
+          </div>
+  
+          <button class="btn btn-success w-100" (click)="useThisPaymentMethod()">
+            <i class="fas fa-credit-card me-2"></i> Use this payment method
+          </button>
+        </div>
+      </div>
+    </div>
+  
+  
+    <!-- Step 3: Order Summary -->
+  <div class="card shadow-sm border-dark">
+    <div class="card-header bg-dark text-white">
+      <strong>3. Order Summary</strong>
+    </div>
+  
+    <div class="collapse" [ngClass]="{ 'show': step === 3 }">
+      <div class="card-body">
+        <div class="mb-3">
+          <strong><i class="fas fa-map-marker-alt me-2 text-danger"></i>Shipping Address:</strong>
+          <div class="card mt-2">
+            <div class="card-body p-2">
+              <p class="mb-1"><i class="fas fa-road me-2 text-muted"></i>{{ addressForm.value.street }}</p>
+              <p class="mb-1"><i class="fas fa-building me-2 text-muted"></i>{{ addressForm.value.building }}</p>
+              <p class="mb-1"><i class="fas fa-city me-2 text-muted"></i>{{ addressForm.value.city }}</p>
+              <p class="mb-1"><i class="fas fa-location-arrow me-2 text-muted"></i>{{ addressForm.value.district }}</p>
+              <p class="mb-0"><i class="fas fa-map me-2 text-muted"></i>{{ addressForm.value.governorate }}</p>
+            </div>
+          </div>
+        </div>
+  
+        <div class="mb-3">
+          <strong><i class="fas fa-credit-card me-2 text-success"></i>Payment Method:</strong>
+          {{ paymentMethod }}
+        </div>
+  
+        <div class="mb-4">
+          <strong><i class="fas fa-money-bill-wave me-2 text-warning"></i>Total Amount:</strong>
+          EGP {{ totalAmount }}
+        </div>
+  
+        <button class="btn btn-lg btn-warning w-100 fw-bold" (click)="verifyAndPlaceOrder()">
+          <i class="fas fa-check-circle me-2"></i> Verify and Place Your Order
+        </button>
+      </div>
+    </div>
+  </div>
+  
