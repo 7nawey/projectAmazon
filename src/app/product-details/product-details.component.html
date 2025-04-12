@@ -8,7 +8,6 @@
     <div class="main-image">
       <img [src]="product.imgCover" alt="{{ product.title }}" class="w-100" id="mainImage" >
     </div>
-
   </div>
 
   <div class="product-info mt-5">
@@ -26,11 +25,14 @@
       (click)="toggleDescription(product.productID); $event.preventDefault()">
       {{ expandedDescriptions.has(product.productID) ? 'See Less' : 'See More' }}
     </a>
+    
     <h2 class="price">$ {{ product.price }}</h2>
     <h2> {{ product.priceAfterDiscount }}</h2>
-    <p class="  rounded-5  ms-1 stock d-flex justify-content-center  text-white" [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
+    
+    <p class="rounded-5 ms-1 stock d-flex justify-content-center text-white" [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
       {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
     </p> 
+    
     <div class="rating">
       <span *ngFor="let star of [1,2,3,4,5]" 
             [class.filled]="star <= product.rating" 
@@ -38,8 +40,7 @@
         ★
       </span>
     </div>
-    <button class="buy-btn">Add to cart</button>
+    
+    <button class="buy-btn" (click)="addToCart()">Add to Cart</button>  <!-- ربط الزر بـ addToCart -->
   </div>
 </div>
-
-  
