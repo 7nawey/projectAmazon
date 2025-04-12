@@ -34,6 +34,9 @@ import { JewelryComponent } from './jewelry/jewelry.component';
 import { BodycareComponent } from './bodycare/bodycare.component';
 import { SliderHomeComponent } from './slider-home/slider-home.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import { ShippingComponent } from './shipping/shipping.component';
 
 export const routes: Routes = [
     {
@@ -92,4 +95,8 @@ export const routes: Routes = [
     { path: 'bodycare', component: BodycareComponent},
     { path: 'sliderhome', component: SliderHomeComponent},
     { path: 'wishlist', component: WishlistComponent},
+    {path: 'checkout', component: CheckoutComponent},
+    {path: 'thank-you', component: ThankYouComponent},
+    {path: 'shipping', component: ShippingComponent},  
+    
 ];
