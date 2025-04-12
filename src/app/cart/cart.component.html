@@ -1,25 +1,21 @@
 <div class="cart-container">
-  <!-- حالة التحميل -->
   <div *ngIf="isLoading" class="loading-spinner">
     <div class="spinner"></div>
-    <p>جاري تحميل سلة التسوق...</p>
+    <p>Loading your cart...</p>
   </div>
 
-  <!-- المحتوى الرئيسي -->
   <div *ngIf="!isLoading">
-    <!-- السلة فارغة -->
     <div *ngIf="isCartEmpty()" class="empty-cart">
       <i class="fas fa-shopping-basket"></i>
-      <h3>سلة التسوق فارغة</h3>
-      <p>لا توجد منتجات في سلة التسوق الخاصة بك</p>
-      <button class="browse-btn" routerLink="/homecategory">تصفح المنتجات</button> <!-- تم ربطه بـ /home -->
+      <h3>Your cart is empty</h3>
+      <p>No products in your shopping cart</p>
+      <button class="browse-btn" routerLink="/homecategory">Browse Products</button>
     </div>
 
-    <!-- السلة تحتوي على منتجات -->
     <div *ngIf="!isCartEmpty()" class="cart-content">
       <div class="cart-items">
         <div *ngFor="let item of items" class="cart-item">
-          <img [src]="item.imgCover" alt="صورة المنتج" class="cart-item-image">
+          <img [src]="item.imgCover" alt="Product image" class="cart-item-image">
           <div class="cart-item-details">
             <h5>{{ item.productName }}</h5>
             <div class="price-section">
@@ -32,27 +28,25 @@
               <button (click)="increaseQuantity(item)" class="qty-btn">+</button>
             </div>
           </div>
-          <button class="remove-btn" (click)="removeItem(item.productID)">
-            ×
-          </button>
+          <button class="remove-btn" (click)="removeItem(item.productID)">×</button>
         </div>
       </div>
 
       <div class="cart-summary">
         <div class="summary-row">
-          <span>عدد المنتجات:</span>
+          <span>Items Count:</span>
           <span>{{ getTotalItems() }}</span>
         </div>
         <div class="summary-row">
-          <span>المجموع الفرعي:</span>
+          <span>Subtotal:</span>
           <span>{{ getSubTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
         <div class="summary-row total">
-          <span>المجموع الكلي:</span>
+          <span>Total:</span>
           <span>{{ getTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
         <button class="checkout-btn">
-          اتمام الشراء
+          Checkout
         </button>
       </div>
     </div>
