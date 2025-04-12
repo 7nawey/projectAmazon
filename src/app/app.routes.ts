@@ -34,6 +34,15 @@ import { JewelryComponent } from './jewelry/jewelry.component';
 import { BodycareComponent } from './bodycare/bodycare.component';
 import { SliderHomeComponent } from './slider-home/slider-home.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { SportsComponent } from './sports/sports.component';
+import { SubSportsComponent } from './sub-sports/sub-sports.component';
+import { FootballComponent } from './football/football.component';
+import { GymComponent } from './gym/gym.component';
+import { BasketballComponent } from './basketball/basketball.component';
+import { ScreenComponent } from './screen/screen.component';
+import { AccesoriesComponent } from './accesories/accesories.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 export const routes: Routes = [
     {
@@ -92,4 +101,13 @@ export const routes: Routes = [
     { path: 'bodycare', component: BodycareComponent},
     { path: 'sliderhome', component: SliderHomeComponent},
     { path: 'wishlist', component: WishlistComponent},
+    { path: 'sports', component: SportsComponent},
+    { path: 'subsports', component: SubSportsComponent},
+    { path: 'football', component: FootballComponent},
+    { path: 'gym', component: GymComponent},
+    { path: 'basketball', component: BasketballComponent},
+    { path: 'screen', component: ScreenComponent},
+    { path: 'accesories', component: AccesoriesComponent},
+    { path: 'forgetpassword', component: ForgetpasswordComponent},
+    { path: 'resetpassword', component: ResetpasswordComponent},
 ];

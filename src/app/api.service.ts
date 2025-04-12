@@ -79,6 +79,21 @@ export class ApiService {
   getBodycare(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/bodycare`);
   }
+  getFootball(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/football`);
+  }
+  getGym(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/GYM`);
+  }
+  getBasketball(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/basketball`);
+  }
+  getScreen(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/screens & printers`);
+  }
+  getaccesories(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/accesories & other`);
+  }
   getElectroniccategory(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/electronic`);
   }
@@ -93,6 +108,9 @@ export class ApiService {
   }
   getBeautycategory(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Beauty & Personal Care`);
+  }
+  getSportscategory(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Sports & Outdoors`);
   }
 
   getProductById(id: number): Observable<any> {

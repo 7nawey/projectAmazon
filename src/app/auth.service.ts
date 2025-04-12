@@ -58,4 +58,17 @@ export class AuthService {
     this.isLoggedInSubject.next(false);
     this.router.navigate(['/login']);
   }
+  verifyEmail(email: string) {
+    return this.http.post(`${this.apiUrl}/SendEmailForForgetPassword?email=${email}`, {});
+
+  }
+  
+  
+  resetPassword(email: string, token: string, newPassword: string) {
+    return this.http.post(`${this.apiUrl}/ResetPassword`, {
+      email,
+      token,
+      password: newPassword
+    });
+  } 
 }
