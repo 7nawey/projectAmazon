@@ -1,37 +1,48 @@
-nav{
+nav {
     background-color: #485769;
     padding: 10px 0px;
-}
-.log{
+  }
+  
+  .log {
     background-color: #FFCE12;
-    border: 1px solid transparent;
+    border: none;
     border-radius: 8px;
+    color: #232f3e;
+    font-weight: bold;
+  }
+  
+  li a,
+  .navbar-nav .nav-link.active,
+  .navbar-nav .nav-link.show {
     color: white;
-
-}
-
-li a , .navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
-    color: white;
-}
-.img-nav{
+  }
+  
+  input {
     width: 100%;
-    height: 50px;
-}
-input{
-    width: 60rem;
     height: 2rem;
     align-self: center;
-}
-.list-items{
+  }
+  
+  .list-items {
     background-color: #232F3E;
-}
-.list-items ul li{
+  }
+  
+  .list-items ul li {
     list-style-type: none;
-}
-.list-items ul a{
+  }
+  
+  .list-items ul a {
     text-decoration: none;
-}
-[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled){
-    border: 1px solid transparent;
+  }
+  
+  .cart-item-count {
+    background-color: #f08804;
     color: white;
-}
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: -10px;
+  }
+  

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router'; // إضافة الـ Router
+import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';  // إضافة هذه السطر
+
 
 export interface CartItem {
   productID: number;
@@ -15,21 +17,21 @@ export interface Cart {
   applicationUserId: string;
   items: CartItem[];
 }
-
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private baseUrl = 'https://localhost:7105/api/Cart';
+  
+  private cartSubject = new BehaviorSubject<Cart | null>(this.loadCartFromLocalStorage());  // تحميل السلة من LocalStorage
+  cart$ = this.cartSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {} // إضافة الـ Router
+  constructor(private http: HttpClient, private router: Router) {}
 
-  // الحصول على الـ applicationUserId من localStorage
   private getApplicationUserId(): string {
-    return localStorage.getItem('application_user_id') || ''; // احصل على applicationUserId من الـ localStorage
+    return localStorage.getItem('application_user_id') || '';
   }
 
-  // إضافة التوكن إلى رأس الطلب
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
     return new HttpHeaders({
@@ -37,64 +39,83 @@ export class CartService {
     });
   }
 
-  // التحقق من وجود المستخدم وتوجيهه إلى صفحة تسجيل الدخول في حال عدم وجوده
-  private checkUserLogin() {
+  private checkUserLogin(): boolean {
     const userId = this.getApplicationUserId();
     if (!userId) {
-      // إذا لم يكن المستخدم مسجل الدخول، توجيهه إلى صفحة تسجيل الدخول
       this.router.navigate(['/login']);
       return false;
     }
     return true;
   }
 
-  // الحصول على الـ Cart
+  private saveCartToLocalStorage(cart: Cart): void {
+    localStorage.setItem('cart', JSON.stringify(cart));  // حفظ السلة في LocalStorage
+  }
+
+  private loadCartFromLocalStorage(): Cart | null {
+    const cartData = localStorage.getItem('cart');
+    return cartData ? JSON.parse(cartData) : null;  // استرجاع السلة من LocalStorage
+  }
+
   getCart(): Observable<Cart> {
     if (!this.checkUserLogin()) {
-      return new Observable<Cart>(); // العودة بـ Observable فارغ لأننا قمنا بتوجيهه إلى صفحة تسجيل الدخول
+      return new Observable<Cart>(); 
     }
 
     const userId = this.getApplicationUserId();
     return this.http.get<Cart>(`${this.baseUrl}/${userId}`, { headers: this.getHeaders() });
   }
 
-  // إضافة منتج إلى السلة
+  updateCart(): void {
+    const userId = this.getApplicationUserId();
+    this.http.get<Cart>(`${this.baseUrl}/${userId}`, { headers: this.getHeaders() }).subscribe(cart => {
+      this.cartSubject.next(cart);  // تحديث الـ BehaviorSubject عند الحصول على السلة
+      this.saveCartToLocalStorage(cart);  // حفظ السلة في LocalStorage
+    });
+  }
+
   addToCart(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
-      return new Observable<any>(); // العودة بـ Observable فارغ لأننا قمنا بتوجيهه إلى صفحة تسجيل الدخول
+      return new Observable<any>();
     }
 
     const userId = this.getApplicationUserId();
-    return this.http.post(`${this.baseUrl}/add?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/add?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() }).pipe(
+      tap(() => this.updateCart())
+    );
   }
 
-  // إزالة منتج من السلة
   removeFromCart(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
-      return new Observable<any>(); // العودة بـ Observable فارغ لأننا قمنا بتوجيهه إلى صفحة تسجيل الدخول
+      return new Observable<any>();
     }
 
     const userId = this.getApplicationUserId();
-    return this.http.post(`${this.baseUrl}/remove?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/remove?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() }).pipe(
+      tap(() => this.updateCart())
+    );
   }
 
-  // زيادة الكمية
   increaseQuantity(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
-      return new Observable<any>(); // العودة بـ Observable فارغ لأننا قمنا بتوجيهه إلى صفحة تسجيل الدخول
+      return new Observable<any>();
     }
 
     const userId = this.getApplicationUserId();
-    return this.http.post(`${this.baseUrl}/increase?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/increase?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() }).pipe(
+      tap(() => this.updateCart())
+    );
   }
 
-  // تقليل الكمية
   decreaseQuantity(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
-      return new Observable<any>(); // العودة بـ Observable فارغ لأننا قمنا بتوجيهه إلى صفحة تسجيل الدخول
+      return new Observable<any>();
     }
 
     const userId = this.getApplicationUserId();
-    return this.http.post(`${this.baseUrl}/decrease?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/decrease?applicationUserId=${userId}&productId=${productId}`, {}, { headers: this.getHeaders() }).pipe(
+      tap(() => this.updateCart())
+    );
   }
 }
+

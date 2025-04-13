@@ -98,3 +98,8 @@
     top: 2%;
     width: 35%;
   }
+  .disabled-btn {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
