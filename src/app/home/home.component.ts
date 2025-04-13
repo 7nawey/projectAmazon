@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { ProductsComponent } from '../products/products.component';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SliderComponent } from '../slider/slider.component';
 import { FashoinComponent } from '../fashoin/fashoin.component';
 import { ApiService } from '../api.service';
@@ -8,7 +8,7 @@ import { SliderHomeComponent } from '../slider-home/slider-home.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ProductsComponent,SliderHomeComponent],
+  imports: [ProductsComponent,SliderHomeComponent,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

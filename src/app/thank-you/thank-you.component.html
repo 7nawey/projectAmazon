@@ -1,0 +1,10 @@
+<div class="thank-you-container">
+    <div class="thank-you-box">
+      <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Checkmark" class="check-icon" />
+      <h1>Thank you for your order!</h1>
+      <p *ngIf="orderId">Your Order ID is: <strong>#{{ orderId }}</strong></p>
+      <p>You will receive a notification once your order is processed and shipped.</p>
+      <button (click)="goHome()">Return to Homepage</button>
+    </div>
+  </div>
+  

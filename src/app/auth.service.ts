@@ -30,10 +30,7 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
       tap((response) => {
         if (response.token) {
-          // حفظ التوكن في localStorage
           localStorage.setItem('auth_token', response.token);
-
-          // حفظ applicationUserId بشكل منفصل عن التوكن
           if (response.applicationUserId) {
             localStorage.setItem('application_user_id', response.applicationUserId);
           }
@@ -55,10 +52,22 @@ export class AuthService {
   }
 
   logout(): void {
-    // إزالة التوكن وapplicationUserId من localStorage
     localStorage.removeItem('auth_token');
     localStorage.removeItem('application_user_id');
     this.isLoggedInSubject.next(false);
     this.router.navigate(['/login']);
   }
+  verifyEmail(email: string) {
+    return this.http.post(`${this.apiUrl}/SendEmailForForgetPassword?email=${email}`, {});
+
+  }
+  
+  
+  resetPassword(email: string, token: string, newPassword: string) {
+    return this.http.post(`${this.apiUrl}/ResetPassword`, {
+      email,
+      token,
+      password: newPassword
+    });
+  } 
 }

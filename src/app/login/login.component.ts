@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -37,6 +37,12 @@ login(): void {
       this.errorMessage = 'Login failed, please check your credentials and try again!';
     }
   });
+}
+ngOnInit(): void {
+  const token = localStorage.getItem('token');
+  if (token) {
+    this.router.navigate(['']); // يرجّع المستخدم للـ home
+  }
 }
 
 }

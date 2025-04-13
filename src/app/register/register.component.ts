@@ -45,7 +45,13 @@ export class RegisterComponent {
       }
     });
     localStorage.clear();
-  }
     
+  }
+  ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['']);
+    }
+  } 
   
 }

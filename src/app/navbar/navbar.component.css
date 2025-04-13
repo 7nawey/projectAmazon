@@ -19,9 +19,10 @@ nav {
   
   input {
     width: 100%;
-    height: 2rem;
-    align-self: center;
-  }
+  align-self: center;
+    height: 50px;
+}
+
   
   .list-items {
     background-color: #232F3E;

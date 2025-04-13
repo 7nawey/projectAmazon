@@ -1,21 +1,6 @@
-<div *ngIf="errorMessage" class="error-message">
-    <p>{{ errorMessage }}</p>
-  </div>
-  
-  <div *ngIf="wishlist.length > 0; else noItems">
-    <h2>Your Wishlist</h2>
-    <div class="wishlist-items">
-      <div *ngFor="let item of wishlist" class="wishlist-item">
-        <img [src]="item.imgCover" alt="Product Image" />
-        <p>Product ID: {{ item.productID }}</p>
-        <!-- <button (click)="removeFromWishlist(item.productID)">Remove</button> -->
-      </div>
-    </div>
-  </div>
-  
-  <ng-template #noItems>
-    <p>Your wishlist is empty. Add items to your wishlist!</p>
-  </ng-template>
+
+
+
   
   
 

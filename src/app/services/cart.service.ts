@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';  // إضافة هذه السطر
+
 
 
 export interface CartItem {
@@ -26,7 +28,9 @@ export class CartService {
   private cartSubject = new BehaviorSubject<Cart | null>(this.loadCartFromLocalStorage());  // تحميل السلة من LocalStorage
   cart$ = this.cartSubject.asObservable();
 
+
   constructor(private http: HttpClient, private router: Router) {}
+
 
   private getApplicationUserId(): string {
     return localStorage.getItem('application_user_id') || '';
@@ -39,7 +43,9 @@ export class CartService {
     });
   }
 
+
   private checkUserLogin(): boolean {
+
     const userId = this.getApplicationUserId();
     if (!userId) {
       this.router.navigate(['/login']);
@@ -47,6 +53,7 @@ export class CartService {
     }
     return true;
   }
+
 
   private saveCartToLocalStorage(cart: Cart): void {
     localStorage.setItem('cart', JSON.stringify(cart));  // حفظ السلة في LocalStorage
@@ -57,6 +64,7 @@ export class CartService {
     return cartData ? JSON.parse(cartData) : null;  // استرجاع السلة من LocalStorage
   }
 
+
   getCart(): Observable<Cart> {
     if (!this.checkUserLogin()) {
       return new Observable<Cart>(); 
@@ -65,6 +73,7 @@ export class CartService {
     const userId = this.getApplicationUserId();
     return this.http.get<Cart>(`${this.baseUrl}/${userId}`, { headers: this.getHeaders() });
   }
+
 
   updateCart(): void {
     const userId = this.getApplicationUserId();
@@ -77,6 +86,7 @@ export class CartService {
   addToCart(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
       return new Observable<any>();
+
     }
 
     const userId = this.getApplicationUserId();
@@ -87,7 +97,9 @@ export class CartService {
 
   removeFromCart(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
+
       return new Observable<any>();
+
     }
 
     const userId = this.getApplicationUserId();
@@ -98,7 +110,9 @@ export class CartService {
 
   increaseQuantity(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
+
       return new Observable<any>();
+
     }
 
     const userId = this.getApplicationUserId();
@@ -109,7 +123,9 @@ export class CartService {
 
   decreaseQuantity(productId: number): Observable<any> {
     if (!this.checkUserLogin()) {
+
       return new Observable<any>();
+
     }
 
     const userId = this.getApplicationUserId();
