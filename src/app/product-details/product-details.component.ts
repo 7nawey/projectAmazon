@@ -5,7 +5,6 @@ import { CartService } from '../services/cart.service';
 import { ReviewService } from '../services/review.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { trigger, transition, style, animate } from '@angular/animations';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,12 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
   animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 }))
-      ])
-    ])
+   
   ]
 })
 export class ProductDetailsComponent implements OnInit {

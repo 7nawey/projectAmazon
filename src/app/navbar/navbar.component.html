@@ -14,9 +14,10 @@
         </li>
 
 
-        <form class="d-flex flex-grow-1 mx-3" role="search">
-          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        </form>
+        <li class="nav-item d-flex">
+        <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search">
+        <button (click)="onSearch()" class="log px-3 ms-2">Search</button>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" routerLink="/wishlist"><i class="fa-regular fa-heart me-2"></i>Wishlist</a>
