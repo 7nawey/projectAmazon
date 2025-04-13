@@ -44,6 +44,8 @@ import { GymComponent } from './gym/gym.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShippingComponent } from './shipping/shipping.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
     {
@@ -112,4 +114,6 @@ export const routes: Routes = [
     { path: 'thankyou', component: ThankYouComponent},
     { path: 'checkout', component: CheckoutComponent},
     { path: 'shipping', component: ShippingComponent},
+    { path: 'search', component: SearchComponent},
+    { path: '**', component: NotfoundComponent},
 ];

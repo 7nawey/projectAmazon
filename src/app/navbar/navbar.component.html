@@ -10,10 +10,16 @@
         <li class="nav-item">
           <a class="nav-link" href="#"><i class="fa-solid fa-location-dot fa-sm me-2"></i>Deliver to Egypt</a>
         </li>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        </form>
-        <li class="nav-item">
+        <li class="nav-item d-flex">
+        <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search">
+        <button class="log nav-link ms-2" (click)="onSearch()">Search</button>
+        </li>
+      
+        
+      
+        
+        
+        <li class="nav-item ms-5">
           <a class="nav-link" routerLink="/wishlist"><i class="fa-regular fa-heart fa-sm me-2"></i>Wishlist</a>
         </li>
         <li class="nav-item">
