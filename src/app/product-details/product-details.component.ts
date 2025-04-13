@@ -6,6 +6,7 @@ import { ReviewService } from '../services/review.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-details',
@@ -73,7 +74,13 @@ export class ProductDetailsComponent implements OnInit {
   submitReview(): void {
     const userId = localStorage.getItem('application_user_id');
     if (!userId || !this.product) {
-      alert("You must be logged in to submit a review.");
+      Swal.fire({
+        title: 'Error',
+        text: 'You must be logged in to submit a review.',
+        icon: 'error',
+        timer: 2000,
+        showConfirmButton: false
+      });
       this.router.navigate(['/login']);
       return;
     }
@@ -91,6 +98,13 @@ export class ProductDetailsComponent implements OnInit {
         this.rating = 5;
         this.reviewText = '';
         setTimeout(() => this.loadReviews(this.product.productID), 300);
+        Swal.fire({
+          title: 'Success',
+          text: 'Your review has been submitted.',
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
       },
       error: (err: any) => {
         console.error("Error submitting review", err);
@@ -99,7 +113,13 @@ export class ProductDetailsComponent implements OnInit {
           this.reviewText = '';
           setTimeout(() => this.loadReviews(this.product.productID), 300);
         } else {
-          alert("Failed to submit review.");
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to submit review.',
+            icon: 'error',
+            timer: 2000,
+            showConfirmButton: false
+          });
         }
       }
     });
@@ -125,7 +145,13 @@ export class ProductDetailsComponent implements OnInit {
           this.router.navigate(['/cart']);
         },
         error: (err) => {
-          alert('Failed to add product to cart.');
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to add product to cart.',
+            icon: 'error',
+            timer: 2000,
+            showConfirmButton: false
+          });
           console.error(err);
         }
       });

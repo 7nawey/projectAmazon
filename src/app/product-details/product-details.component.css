@@ -163,7 +163,7 @@
 }
 
 .star {
-  color: gold;
+  color:#888;
   margin-right: 2px;
 }
 
@@ -173,4 +173,8 @@
 
 .review {
   margin-bottom: 20px;
+}
+
+.valid-purchaser-icon {
+  font-size: 1.2rem;
 }

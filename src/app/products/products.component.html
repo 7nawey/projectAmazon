@@ -31,9 +31,7 @@
 
         <div class="btn-group d-flex">
           <button 
-            class="p-2 add me-2" 
-            [disabled]="product.stockQuantity === 0"
-            [ngClass]="{'disabled-btn': product.stockQuantity === 0}"
+            class="p-2 add me-2"
             (click)="addToCart(product)">
             Add to cart
           </button>
