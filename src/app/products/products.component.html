@@ -15,20 +15,30 @@
 
         <h3 class="mt-3">{{ product.name | slice: 0:30 }}</h3>
         <p>{{ product.descreption | slice: 0:30 }}...</p>
+
         <div class="rating">
           <span *ngFor="let star of [1, 2, 3, 4, 5]" [class.filled]="star <= product.rating" class="star">
             ★
           </span>
         </div>
-        <p class="rounded-5 position-absolute ms-1 stock d-flex justify-content-center text-white" [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
+
+        <p class="rounded-5 position-absolute ms-1 stock d-flex justify-content-center text-white" 
+           [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
           {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
         </p>
+
         <p class="fs-4 price">{{ product.price }} EGP</p>
+
         <div class="btn-group d-flex">
-          <button class="p-2 add me-2" [disabled]="product.stockQuantity === 0" (click)="addToCart(product)">
+          <button 
+            class="p-2 add me-2"
+            (click)="addToCart(product)">
             Add to cart
           </button>
-          <button class="p-2 details" [routerLink]="['/product-details', product.productID]">View Details</button>
+          
+          <button class="p-2 details" [routerLink]="['/product-details', product.productID]">
+            View Details
+          </button>
         </div>
       </div>
     </div>
