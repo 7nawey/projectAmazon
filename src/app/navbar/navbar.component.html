@@ -1,77 +1,67 @@
-<!-- <img src="http://www.userlogos.org/files/logos/ArkAngel06/Amazon.png" class="img-nav" alt=""> -->
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg position-relative">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#">Amazon</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand text-white" href="#"><i class="fa-brands fa-amazon fa-lg me-2"></i>Amazon</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-location-dot fa-sm me-2"></i>Deliver to Egypt</a>
-        </li>
-        <li class="nav-item d-flex">
-        <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search">
-        <button class="log nav-link ms-2" (click)="onSearch()">Search</button>
-        </li>
-      
-        
-      
-        
-        
-        <li class="nav-item ms-5">
-          <a class="nav-link" routerLink="/wishlist"><i class="fa-regular fa-heart fa-sm me-2"></i>Wishlist</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/cart"><i class="fa-solid fa-cart-arrow-down fa-sm me-2"></i>Cart</a>
-        </li>
-        <li class="nav-item ms-3 ">
-          <button class="log nav-link" (click)="logout()">
-            {{ isLoggedIn ? 'Log out' : 'Login' }}
-          </button>
-                    
-        
-        </li>
     
-      </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center w-100">
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-location-dot me-2"></i>Deliver to Egypt</a>
+        </li>
 
+
+        <form class="d-flex flex-grow-1 mx-3" role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        </form>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/wishlist"><i class="fa-regular fa-heart me-2"></i>Wishlist</a>
+
+        </li>
+
+        <li class="nav-item position-relative" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/cart">
+            <i class="fa-solid fa-cart-shopping me-2"></i>Cart
+            <span *ngIf="cartItemCount > 0" class="cart-item-count">{{ cartItemCount }}</span>
+          </a>
+        </li>
+
+        <li class="nav-item ms-3">
+          <button class="log nav-link px-3" (click)="logout()">
+            <i class="fa-solid" [ngClass]="isLoggedIn ? 'fa-right-from-bracket' : 'fa-right-to-bracket'"></i>
+            {{ isLoggedIn ? 'Logout' : 'Login' }}
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
+
+<!-- Navbar 2 -->
 <nav class="navbar navbar-expand-lg list-items">
   <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1"
+      aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse " id="navbarSupportedContent1">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
       <ul class="navbar-nav me-auto mb-1 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/electronic">Electronics</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/fashoin">Fashoin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Books</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/homecategory">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Toy & Games</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/sports">Sports & Outdoors</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/beauty">Beauty & Personal Care</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/grocery">Grocery</a>
-        </li>
+
+        <li class="nav-item"><a class="nav-link" routerLink="/electronic">Electronics</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/fashoin">Fashion</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Books</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/homecategory">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Toys & Games</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Sports & Outdoors</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/beauty">Beauty & Personal Care</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/grocery">Grocery</a></li>
+
       </ul>
     </div>
   </div>
 </nav>
-
-  
