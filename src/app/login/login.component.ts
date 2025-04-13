@@ -38,5 +38,11 @@ login(): void {
     }
   });
 }
+ngOnInit(): void {
+  const token = localStorage.getItem('token');
+  if (token) {
+    this.router.navigate(['']); // يرجّع المستخدم للـ home
+  }
+}
 
 }

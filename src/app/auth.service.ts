@@ -52,7 +52,6 @@ export class AuthService {
   }
 
   logout(): void {
-    // إزالة التوكن وapplicationUserId من localStorage
     localStorage.removeItem('auth_token');
     localStorage.removeItem('application_user_id');
     this.isLoggedInSubject.next(false);

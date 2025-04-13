@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar',
   imports: [RouterLink],
@@ -11,10 +11,10 @@ import { AuthService } from '../auth.service';
 export class NavbarComponent {
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
-    // اشتراك في الـ observable من AuthService
+  
     this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
     });
@@ -22,7 +22,10 @@ export class NavbarComponent {
 
   logout(): void {
     console.log('Logout clicked');
-    this.authService.logout();  // استدعاء دالة logout
+  localStorage.removeItem('token');
+  localStorage.removeItem('application_user_id');
+  this.router.navigate(['/login']);
+    this.authService.logout(); 
   }
   
 }
