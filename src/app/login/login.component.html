@@ -12,12 +12,8 @@
           </div>
           <form (ngSubmit)="login()" #loginForm="ngForm">
             <div class="mb-3">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control" required />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required />
+              <label for="emailOrUserName" class="form-label">Username / Email</label>
+              <input type="text" id="emailOrUserName" [(ngModel)]="emailOrUserName" name="emailOrUserName" class="form-control" required />
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>

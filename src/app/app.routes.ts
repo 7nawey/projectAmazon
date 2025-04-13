@@ -46,6 +46,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { SearchComponent } from './search/search.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 export const routes: Routes = [
     {
@@ -115,5 +117,7 @@ export const routes: Routes = [
     { path: 'checkout', component: CheckoutComponent},
     { path: 'shipping', component: ShippingComponent},
     { path: 'search', component: SearchComponent},
+    { path: 'forgetpassword', component: ForgetpasswordComponent},
+    { path: 'resetpassword', component: ResetpasswordComponent},
     { path: '**', component: NotfoundComponent},
 ];

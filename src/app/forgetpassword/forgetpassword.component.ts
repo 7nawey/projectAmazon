@@ -20,7 +20,6 @@ export class ForgetpasswordComponent {
   onSubmit() {
     this.auth.verifyEmail(this.email).subscribe({
       next: () => {
-        // الإيميل موجود → الانتقال لصفحة تغيير الباسورد مع تمرير الإيميل
         this.router.navigate(['/resetpassword'], { queryParams: { email: this.email } });
       },
       error: () => {

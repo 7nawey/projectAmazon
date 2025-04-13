@@ -12,9 +12,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-username: string = '';
+
 password: string = '';
-email: string = '';
+emailOrUserName: string = '';
 errorMessage: string = '';
 successMessage: string = '';
 
@@ -22,9 +22,8 @@ constructor(private authService: AuthService, private router: Router) {}
 
 login(): void {
   const loginData = {
-    userName: this.username,
     password: this.password,
-    email: this.email
+    emailOrUserName: this.emailOrUserName
   };
 
   this.authService.login(loginData).subscribe({
@@ -41,7 +40,7 @@ login(): void {
 ngOnInit(): void {
   const token = localStorage.getItem('token');
   if (token) {
-    this.router.navigate(['']); // يرجّع المستخدم للـ home
+    this.router.navigate(['']);
   }
 }
 

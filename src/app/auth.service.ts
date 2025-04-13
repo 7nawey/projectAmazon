@@ -47,7 +47,6 @@ export class AuthService {
   }
 
   getApplicationUserId(): string | null {
-    // استرجاع applicationUserId من localStorage
     return localStorage.getItem('application_user_id');
   }
 
@@ -63,11 +62,7 @@ export class AuthService {
   }
   
   
-  resetPassword(email: string, token: string, newPassword: string) {
-    return this.http.post(`${this.apiUrl}/ResetPassword`, {
-      email,
-      token,
-      password: newPassword
-    });
-  } 
+  resetPassword(data: { email: string, token: string, password: string }) {
+    return this.http.post(`${this.apiUrl}/ResetPassword`, data);
+  }
 }
