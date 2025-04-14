@@ -3,11 +3,12 @@ import { Category } from '../types/category';
 import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 @Component({
   selector: 'app-add-subcategory',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './add-subcategory.component.html',
   styleUrl: './add-subcategory.component.css'
 })

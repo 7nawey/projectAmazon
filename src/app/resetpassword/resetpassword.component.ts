@@ -1,59 +1,66 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-resetpassword',
-  standalone: true,  
-  imports: [ReactiveFormsModule,CommonModule],
+  selector: 'app-reset-password',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './resetpassword.component.html',
   styleUrls: ['./resetpassword.component.css']
 })
 export class ResetpasswordComponent implements OnInit {
+  resetPasswordForm!: FormGroup;
   email: string = '';
-  token: string = '';
-  resetPasswordForm!: FormGroup;  // FormGroup for the form
   errorMessage: string = '';
+  successMessage: string = '';
+  loading = false;
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
-    private fb: FormBuilder
+    private authService: AuthService
   ) {}
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.email = params['email'];
-      this.token = params['token'];  
-    });
+  ngOnInit(): void {
+    // Get email from query params
+    this.email = this.route.snapshot.queryParamMap.get('email') || '';
+
     this.resetPasswordForm = this.fb.group({
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      otp: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  onSubmit() {
-    if (this.resetPasswordForm.invalid) {
+  onSubmit(): void {
+    if (this.resetPasswordForm.invalid || !this.email) {
+      this.errorMessage = 'Please enter a valid OTP and password.';
       return;
     }
+
+    this.loading = true;
+
     const data = {
       email: this.email,
-      token: this.token,  
+      token: this.resetPasswordForm.value['otp'],
       password: this.resetPasswordForm.value['password']
     };
 
-    this.authService.resetPassword(data).subscribe({
-      next: (res) => {
-        alert('Password reset successful!');
-        console.log(res);
-        this.router.navigate(['/login']); 
+    this.authService.resetPasswordWithOtp(data).subscribe({
+      next: () => {
+        this.successMessage = 'Password reset successfully. You can now log in.';
+        this.errorMessage = '';
+        this.resetPasswordForm.reset();
+        setTimeout(() => this.router.navigate(['/login']), 3000);
       },
       error: (err) => {
-        console.error(err);
-        this.errorMessage = 'Password reset failed.';
-      }
+        this.errorMessage = err.error?.message || 'Something went wrong.';
+        this.successMessage = '';
+      },
+      complete: () => this.loading = false
     });
   }
 }

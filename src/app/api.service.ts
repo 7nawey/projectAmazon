@@ -105,6 +105,12 @@ export class ApiService {
   getFashoincategory(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Fashion`);
   }
+  getToys(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Toys & Games`);
+  }
+  getBook(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Books`);
+  }
   getHomecategory(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetByCategory/Home`);
   }

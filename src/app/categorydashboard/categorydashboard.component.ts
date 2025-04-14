@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ConfirmDeleteModalComponent } from '../shared/confirm-delete-modal/confirm-delete-modal.component';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 
@@ -11,7 +12,7 @@ import { ConfirmDeleteModalComponent } from '../shared/confirm-delete-modal/conf
   selector: 'app-categorydashboard',
   templateUrl: './categorydashboard.component.html',
   styleUrls: ['./categorydashboard.component.css'] ,
-  imports: [CommonModule,RouterModule,ConfirmDeleteModalComponent],
+  imports: [CommonModule,RouterModule,ConfirmDeleteModalComponent,NavDashbordComponent],
 })
 export class CategorydashboardComponent implements OnInit {
   categories: Category[] = [];

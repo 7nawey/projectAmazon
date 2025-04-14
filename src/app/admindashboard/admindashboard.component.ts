@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ApiService } from '../api.service';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 @Component({
   selector: 'app-admindashboard',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive,NavDashbordComponent],
   templateUrl: './admindashboard.component.html',
   styleUrl: './admindashboard.component.css'
 })

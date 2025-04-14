@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, FormControl,Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 @Component({
   selector: 'app-update-product',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './update-product.component.html',
   styleUrl: './update-product.component.css'
 })

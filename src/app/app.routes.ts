@@ -34,6 +34,28 @@ import { JewelryComponent } from './jewelry/jewelry.component';
 import { BodycareComponent } from './bodycare/bodycare.component';
 import { SliderHomeComponent } from './slider-home/slider-home.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { SportsComponent } from './sports/sports.component';
+import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { DeleteProductComponent } from './delete-product/delete-product.component';
+import { CategorydashboardComponent } from './categorydashboard/categorydashboard.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { UpdateCategoryComponent } from './update-category/update-category.component';
+import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
+import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
+import { SubcategoryDashboardComponent } from './subcategory-dashboard/subcategory-dashboard.component';
+import { UpdateSubcategoryComponent } from './update-subcategory/update-subcategory.component';
+import { NavDashbordComponent } from './nav-dashbord/nav-dashbord.component';
+import { ToysComponent } from './toys/toys.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { BookComponent } from './book/book.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
+import { SearchComponent } from './search/search.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 
 export const routes: Routes = [
     {
@@ -92,4 +114,26 @@ export const routes: Routes = [
     { path: 'bodycare', component: BodycareComponent},
     { path: 'sliderhome', component: SliderHomeComponent},
     { path: 'wishlist', component: WishlistComponent},
+    { path: 'sport', component: SportsComponent},
+    {path:'admindashboard', component:AdmindashboardComponent},
+    {path:'AddProduct',component:AddProductComponent},
+    {path:'updateproduct/:id',component:UpdateProductComponent},
+    {path:'deleteproduct',component:DeleteProductComponent},
+    {path:'CategoryList', component:CategorydashboardComponent},
+    {path:'AddCategory',component:AddCategoryComponent},
+    { path: 'update-category/:id', component: UpdateCategoryComponent },
+    {path:'ProductList', component:ProductDashboardComponent},
+    {path:'AddSubcategory', component:AddSubcategoryComponent},
+    {path:'SubcategoryList', component:SubcategoryDashboardComponent},
+    {path:'navdash', component:NavDashbordComponent},
+    {path:'updatesubcategory/:id',component:UpdateSubcategoryComponent},
+    {path:'toys', component:ToysComponent},
+    {path:'book', component:BookComponent},
+    {path:'checkout', component:CheckoutComponent},
+    {path:'thankyou', component:ThankYouComponent},
+    {path:'verify-otp', component:VerifyOtpComponent},
+    {path:'search', component:SearchComponent},
+    {path:'forgetpassword', component:ForgetpasswordComponent},
+    {path:'resetpassword', component:ResetpasswordComponent},
+    {path:'**', component:NotfoundComponent},
 ];

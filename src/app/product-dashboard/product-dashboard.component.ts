@@ -3,11 +3,12 @@ import { ApiService } from '../api.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ConfirmDeleteModalComponent } from '../shared/confirm-delete-modal/confirm-delete-modal.component';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 @Component({
   selector: 'app-product-dashboard',
-  imports: [RouterLink,CommonModule,ConfirmDeleteModalComponent],
+  imports: [RouterLink,CommonModule,ConfirmDeleteModalComponent,NavDashbordComponent],
   templateUrl: './product-dashboard.component.html',
   styleUrl: './product-dashboard.component.css'
 })

@@ -1,0 +1,16 @@
+<div class="container mt-5">
+    <h3>Verify Your Email</h3>
+    <p>We've sent a verification code to {{ email }}.</p>
+  
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  
+    <form (ngSubmit)="verifyOtp()">
+      <div class="mb-3">
+        <label for="otp">Enter OTP</label>
+        <input type="text" id="otp" [(ngModel)]="otp" name="otp" class="form-control" required />
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Verify</button>
+    </form>
+  </div>

@@ -3,12 +3,13 @@ import { ProductsComponent } from '../products/products.component';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, FormControl,Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 
 @Component({
   selector: 'app-add-product',
-  imports: [ProductsComponent,ReactiveFormsModule],
+  imports: [ProductsComponent,ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })

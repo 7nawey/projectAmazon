@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../api.service';
 import { CommonModule } from '@angular/common';
 import { ConfirmDeleteModalComponent } from '../shared/confirm-delete-modal/confirm-delete-modal.component';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 @Component({
   selector: 'app-subcategory-dashboard',
-  imports: [RouterLink,CommonModule,ConfirmDeleteModalComponent],
+  imports: [RouterLink,CommonModule,ConfirmDeleteModalComponent,NavDashbordComponent],
   templateUrl: './subcategory-dashboard.component.html',
   styleUrl: './subcategory-dashboard.component.css'
 })

@@ -34,16 +34,17 @@ export class RegisterComponent {
     this.authService.register(registerData).subscribe({
       next: (response) => {
         console.log('Registration successful', response);
-        this.successMessage = 'Registration successful! Redirecting to login page...';
+        this.successMessage = 'Registration successful! Please check your email for the verification code.';
         setTimeout(() => {
-          this.router.navigate(['/login']); 
-        }, 2000); 
+          this.router.navigate(['/verify-otp'], { queryParams: { email: this.email } });
+        }, 2000);
       },
       error: (error) => {
         console.error('Registration failed', error.error.errors);
         this.errorMessage = 'Registration failed, please try again!';
       }
     });
+    
     localStorage.clear();
     
   }

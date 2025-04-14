@@ -3,11 +3,12 @@ import { ApiService } from '../api.service';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, FormControl,Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 @Component({
   selector: 'app-add-category',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './add-category.component.html',
   styleUrl: './add-category.component.css'
 })

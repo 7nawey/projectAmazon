@@ -57,12 +57,17 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
   verifyEmail(email: string) {
-    return this.http.post(`${this.apiUrl}/SendEmailForForgetPassword?email=${email}`, {});
+    return this.http.post(`${this.apiUrl}/SendOtpForResetPassword?email=${email}`, {});
 
   }
   
+  verifyOtp(email: string, otp: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/confirm-otp`, { email, otp });
+  }
   
-  resetPassword(data: { email: string, token: string, password: string }) {
-    return this.http.post(`${this.apiUrl}/ResetPassword`, data);
+  
+  resetPasswordWithOtp(data: any) {
+    return this.http.post(`${this.apiUrl}/ResetPasswordWithOtp`, data);
+
   }
 }

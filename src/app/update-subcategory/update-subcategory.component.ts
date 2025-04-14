@@ -3,12 +3,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, FormControl,Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
 import { ToastrService } from 'ngx-toastr';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 
 
 @Component({
   selector: 'app-update-subcategory',
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink,ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './update-subcategory.component.html',
   styleUrl: './update-subcategory.component.css'
 })
