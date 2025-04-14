@@ -1,0 +1,18 @@
+/* تحسين الشكل العام */
+.card-header h4 {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+  
+  .text-muted {
+    font-size: 0.95rem;
+  }
+  
+  .badge {
+    font-weight: 500;
+  }
+  
+  .animate__animated.animate__fadeIn {
+    animation-duration: 0.8s;
+  }
+  

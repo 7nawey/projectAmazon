@@ -1,20 +1,20 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-username: string = '';
+
 password: string = '';
-email: string = '';
+emailOrUserName: string = '';
 errorMessage: string = '';
 successMessage: string = '';
 
@@ -22,9 +22,8 @@ constructor(private authService: AuthService, private router: Router) {}
 
 login(): void {
   const loginData = {
-    userName: this.username,
     password: this.password,
-    email: this.email
+    emailOrUserName: this.emailOrUserName
   };
 
   this.authService.login(loginData).subscribe({
@@ -37,6 +36,15 @@ login(): void {
       this.errorMessage = 'Login failed, please check your credentials and try again!';
     }
   });
+}
+ngOnInit(): void {
+  const userId = localStorage.getItem('application_user_id');
+  
+  if (userId) {
+    // alert("You must log in first.");
+    this.router.navigate(['/']);
+    return;
+  }
 }
 
 }

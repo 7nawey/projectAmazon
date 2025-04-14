@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private apiUrl = 'https://localhost:7105/api/Account';
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
-  isLoggedIn$ = this.isLoggedInSubject.asObservable();  // للمتابعة التفاعلية
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -31,8 +31,12 @@ export class AuthService {
       tap((response) => {
         if (response.token) {
           localStorage.setItem('auth_token', response.token);
-          this.isLoggedInSubject.next(true);  
-          localStorage.setItem('customer_id', response.customerId);
+          if (response.applicationUserId) {
+            localStorage.setItem('application_user_id', response.applicationUserId);
+          }
+
+          // تحديث حالة الدخول
+          this.isLoggedInSubject.next(true);
         }
       }),
       catchError((error) => {
@@ -42,10 +46,23 @@ export class AuthService {
     );
   }
 
+  getApplicationUserId(): string | null {
+    return localStorage.getItem('application_user_id');
+  }
+
   logout(): void {
     localStorage.removeItem('auth_token');
-    this.isLoggedInSubject.next(false);  // تحديث الحالة عند تسجيل الخروج
+    localStorage.removeItem('application_user_id');
+    this.isLoggedInSubject.next(false);
     this.router.navigate(['/login']);
   }
-}
+  verifyEmail(email: string) {
+    return this.http.post(`${this.apiUrl}/SendEmailForForgetPassword?email=${email}`, {});
 
+  }
+  
+  
+  resetPassword(data: { email: string, token: string, password: string }) {
+    return this.http.post(`${this.apiUrl}/ResetPassword`, data);
+  }
+}

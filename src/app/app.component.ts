@@ -12,4 +12,5 @@ import { AdmindashboardComponent } from './admindashboard/admindashboard.compone
 })
 export class AppComponent {
   title = 'amazon';
+  
 }

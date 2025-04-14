@@ -45,7 +45,16 @@ export class RegisterComponent {
       }
     });
     localStorage.clear();
-  }
     
+  }
+  ngOnInit(): void {
+    const userId = localStorage.getItem('application_user_id');
+  
+    if (userId) {
+      // alert("You must log in first.");
+      this.router.navigate(['/']);
+      return;
+    }
+  } 
   
 }
