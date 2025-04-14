@@ -97,7 +97,7 @@ export class ProductDetailsComponent implements OnInit {
           text: 'Your review has been submitted.',
           icon: 'success',
           timer: 2000,
-          showConfirmButton: false
+          showConfirmButton: true
         });
       },
       error: (err: any) => {
@@ -112,7 +112,7 @@ export class ProductDetailsComponent implements OnInit {
             text: 'Failed to submit review.',
             icon: 'error',
             timer: 2000,
-            showConfirmButton: false
+            showConfirmButton: true
           });
         }
       }

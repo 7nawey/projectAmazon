@@ -7,11 +7,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormsModule } from '@angular/forms';
-import { ProductsComponent } from '../products/products.component';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink,ProductsComponent,FormsModule,CommonModule],
+  imports: [RouterLink,FormsModule,CommonModule],
 
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
@@ -27,7 +26,7 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     private cartService: CartService,
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
   ) {
     this.cart$ = this.cartService.cart$;
   }

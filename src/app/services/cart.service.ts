@@ -133,5 +133,8 @@ export class CartService {
       tap(() => this.updateCart())
     );
   }
+  placeOrder(customerId: string) {
+    return this.http.post(`https://localhost:7105/api/Order/place-order/${customerId}`, {});
+  }
 }
 

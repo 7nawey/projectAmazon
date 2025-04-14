@@ -97,4 +97,17 @@ export class CartComponent implements OnInit {
   handleZeroQuantity(item: any): boolean {
     return item.quantity === 0;
   }
+  placeOrder(): void {
+    if (!this.userId) return;
+  
+    this.cartService.placeOrder(this.userId).subscribe({
+      next: () => {
+        alert('✅ Order placed successfully!');
+        this.router.navigate(['/checkout']);  // توجيه المستخدم إلى صفحة checkout
+      },
+      error: () => {
+        alert('❌ Failed to place order.');
+      }
+    });
+  }
 }

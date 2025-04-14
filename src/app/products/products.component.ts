@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { CartService } from '../services/cart.service';
-
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { WishlistService } from '../services/wishlist.service';
 
 
 @Component({
@@ -27,10 +27,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private wishlistService:WishlistService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 
   private getToken(): string | null {
@@ -58,7 +60,7 @@ export class ProductsComponent implements OnInit {
           text: `${product.name} has been added to your cart.`,
           icon: 'success',
 
-          showConfirmButton: false,
+          showConfirmButton: true,
           timer: 1500
         });
       },
@@ -74,5 +76,4 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
-  
 }

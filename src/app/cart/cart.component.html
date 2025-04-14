@@ -45,7 +45,7 @@
           <span>Total:</span>
           <span>{{ getTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
-        <button class="checkout-btn">
+        <button class="checkout-btn" (click)="placeOrder()" [disabled]="isCartEmpty()">
           Checkout
         </button>
       </div>

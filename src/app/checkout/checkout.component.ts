@@ -174,6 +174,19 @@ export class CheckoutComponent implements OnInit {
       }, err => {
         console.error('Error redirecting to PayPal', err);
       });
+      const status = "Success"; 
+    const requestBody = JSON.stringify(status); 
+  
+    console.log("Sending PUT request to update order status...");
+  
+    this.http.put<any>(`https://localhost:7105/api/order/${this.orderId}/status`, requestBody, {
+      headers: { 'Content-Type': 'application/json' }
+    }).subscribe({
+      error: (err) => {
+        console.error("Error while updating order status:", err);
+        alert("حصل خطأ أثناء تأكيد الطلب.");
+      }
+    });
   }
 
   getShippingAddress() {
@@ -195,4 +208,5 @@ export class CheckoutComponent implements OnInit {
         console.warn('No existing shipping address found', err);
       });
   }
+
 }
