@@ -1,0 +1,104 @@
+<form class="row g-3 p-4" [formGroup]="UpdateProductForm" (ngSubmit)="handleUpdateProductForm()">
+  <div class="col-md-3" >
+    <label for="productName" class="form-label">Product Name</label>
+    <input type="text" class="form-control" id="productName" formControlName="productName">
+    @if(formControls['productName'].invalid && formControls['productName'].touched){
+      <div id="CaregoryNameId" class="form-text text-danger">
+        @if(formControls['productName'].hasError('required')){
+            <span>Required Field</span>
+        }
+        @else if(formControls['productName'].hasError('minlength')){
+            <span>length must be greater than 3</span>
+
+        }
+      </div>
+        }
+  </div>
+    <div class="col-md-3">
+      <label for="Price" class="form-label">Price</label>
+      <input type="number" class="form-control" id="Price" formControlName="price">
+      @if(formControls['price'].invalid && formControls['price'].touched){
+        <div id="CaregoryNameId" class="form-text text-danger">
+          @if(formControls['price'].hasError('required')){
+              <span>Required Field</span>
+          }
+          @else if(formControls['price'].hasError('minlength')){
+              <span>Price must be greater than 0</span>
+  
+          }
+        </div>
+          }
+    </div>
+    
+    <div class="col-6">
+      <label for="Descreption" class="form-label">Descreption</label>
+      <input type="text" class="form-control" id="Descreption" formControlName="description">
+      @if(formControls['description'].invalid && formControls['description'].touched){
+        <div id="CaregoryNameId" class="form-text text-danger">
+          @if(formControls['description'].hasError('required')){
+              <span>Required Field</span>
+          }
+          @else if(formControls['description'].hasError('minlength')){
+              <span>length must be greater than 3</span>
+  
+          }
+        </div>
+          }
+    </div>
+    <div class="col-md-3">
+      <label for="stockQuantity" class="form-label">Stock Quantity</label>
+      <input type="number" class="form-control" id="stockQuantity" formControlName="stockQuantity">
+      @if(formControls['stockQuantity'].invalid && formControls['stockQuantity'].touched){
+        <div id="stockQuantity" class="form-text text-danger">
+          @if(formControls['stockQuantity'].hasError('required')){
+              <span>Required Field</span>
+          }
+          @else if(formControls['stockQuantity'].hasError('minlength')){
+              <span>Price must be greater than 0</span>
+  
+          }
+        </div>
+          }
+    </div>
+    <div class="mb-3">
+      <label>Product Image</label>
+      <input type="file" (change)="handleFileInput($event)" class="form-control">
+      <div class="text-danger" *ngIf="fileError">{{ fileError }}</div>
+    </div> 
+    <td><img [src]="ImgCover" class="me-2" width="200" height="200"></td>
+     <div *ngIf="imageBase64">
+      <img [src]="imageBase64" class="img-thumbnail" width="300">
+    </div>
+    <div class="col-md-6">
+      <label for="SubCategoryName" class="form-label">SubCategoryName</label>
+      <select id="inputState" class="form-SubCategoryName">
+        <option selected>kkkkk</option>
+        <option>...</option>
+      </select>
+    </div>
+    <!-- @for (item of Subcategories; track item.name) { -->
+      <div class="col-md-6">
+        <label for="SubCategoryName" class="form-label">SubCategoryName</label>
+        <select id="inputState" class="form-select">
+          @for (item of Subcategories; track item.title) {
+            <option [value]="item.title">{{ item.title }}</option>
+          }
+        </select>        
+      </div>
+      
+    <!-- <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01"></label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01"></label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01"></label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+      </div> -->
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Add Product</button>
+    </div>
+  </form>

@@ -1,0 +1,55 @@
+<div class="container mt-4">
+    <h5><strong>All Subcategories</strong></h5>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="input-group w-25">
+        <input type="text" class="form-control" placeholder="Search here...">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+      </div>
+  
+      <button class="btn btn-primary" [routerLink]="'/AddSubcategory'" routerLinkActive="active-Link">
+        <i class="bi bi-plus-lg"></i> Add new
+      </button>
+    </div>
+  
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Subcategory Name</th>
+          <th>Category Name</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of subcategories">
+          <td>{{ item.title }}</td>
+          <td>{{ item.categoryName }}</td>    
+      <td>
+        <button
+        class="btn btn-outline-primary" 
+        [routerLink]="['/updatesubcategory', item.sub_categoryID]"
+        routerLinkActive="active-Link">
+        <i class="fas fa-edit"></i>
+      </button>
+
+      </td>
+       <!-- <button (click)="deleteSubcategory(selectedSubcategory)">Delete</button> --> 
+         
+         <td>
+              <button
+                class="btn btn-outline-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal"
+                (click)="setCategoryToDelete(item)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td> 
+
+      </tbody>
+    </table>
+     <app-confirm-delete-modal
+    [itemName]="selectedSubcategory?.title"
+    (onConfirm)="deleteSubcategory(selectedSubcategory)">
+  </app-confirm-delete-modal> 
+  </div>
+  

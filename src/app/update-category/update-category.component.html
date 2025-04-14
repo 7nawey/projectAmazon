@@ -1,0 +1,50 @@
+<form class="row g-3 p-4" [formGroup]="UpdateCategoryForm" (ngSubmit)="handleUpdateCategoryForm()">
+  <div class="col-md-3" >
+    <label for="CaregoryName" class="form-label">Caregory Name</label>
+    <!-- <input type="text" class="form-control" id="CaregoryName" formControlName="categoryName" [placeholder]="categoryName"> -->
+    <input type="text" class="form-control" formControlName="categoryName" >
+    @if(formControls['categoryName'].invalid && formControls['categoryName'].touched){
+      <div id="CaregoryNameId" class="form-text text-danger">
+        @if(formControls['categoryName'].hasError('required')){
+            <span>Required Field</span>
+        }
+        @else if(formControls['categoryName'].hasError('minlength')){
+            <span>length must be greater than 3</span>
+
+        }
+      </div>
+        }
+  </div>
+  <div class="col-6">
+    <label for="Descreption" class="form-label">Descreption</label>
+    <!-- <input type="text" class="form-control" id="Descreption"  formControlName="description" [placeholder]="description"> -->
+    <input type="text" class="form-control" id="Descreption"  formControlName="description">
+    @if (formControls['description'].invalid && formControls['description'].touched) {
+      <div class="form-text text-danger">
+        @if (formControls['description'].hasError('required')) {
+          <span>Required Field</span>
+        }
+        @else if (formControls['description'].hasError('minlength')) {
+          <span>Length must be greater than 3</span>
+        }
+      </div>
+    }
+</div>
+  <div class="mb-3">
+      <label>Category Image</label>
+      <input type="file" (change)="handleFileInput($event)" class="form-control">
+      <div class="text-danger" *ngIf="fileError">{{ fileError }}</div>
+    </div> 
+    <td><img [src]="categoryImg" class="me-2" width="200" height="200"></td>
+  
+   
+     <div *ngIf="imageBase64">
+      <img [src]="imageBase64" class="img-thumbnail" width="300">
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="UpdateCategoryForm.invalid">
+      Submit
+    </button>
+</form>
+
+

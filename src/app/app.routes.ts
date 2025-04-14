@@ -34,6 +34,17 @@ import { JewelryComponent } from './jewelry/jewelry.component';
 import { BodycareComponent } from './bodycare/bodycare.component';
 import { SliderHomeComponent } from './slider-home/slider-home.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { UpdateProductComponent } from './update-product/update-product.component';
+import { DeleteProductComponent } from './delete-product/delete-product.component';
+import { CategorydashboardComponent } from './categorydashboard/categorydashboard.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { UpdateCategoryComponent } from './update-category/update-category.component';
+import { ProductDashboardComponent } from './product-dashboard/product-dashboard.component';
+import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
+import { SubcategoryDashboardComponent } from './subcategory-dashboard/subcategory-dashboard.component';
+import { UpdateSubcategoryComponent } from './update-subcategory/update-subcategory.component';
 
 export const routes: Routes = [
     {
@@ -92,4 +103,15 @@ export const routes: Routes = [
     { path: 'bodycare', component: BodycareComponent},
     { path: 'sliderhome', component: SliderHomeComponent},
     { path: 'wishlist', component: WishlistComponent},
+    {path:'admindashboard', component:AdmindashboardComponent},
+    {path:'AddProduct',component:AddProductComponent},
+    {path:'updateproduct/:id',component:UpdateProductComponent},
+    {path:'deleteproduct',component:DeleteProductComponent},
+    {path:'CategoryList', component:CategorydashboardComponent},
+    {path:'AddCategory',component:AddCategoryComponent},
+    { path: 'update-category/:id', component: UpdateCategoryComponent },
+    {path:'ProductList', component:ProductDashboardComponent},
+    {path:'AddSubcategory', component:AddSubcategoryComponent},
+    {path:'SubcategoryList', component:SubcategoryDashboardComponent},
+    {path:'updatesubcategory/:id',component:UpdateSubcategoryComponent}
 ];

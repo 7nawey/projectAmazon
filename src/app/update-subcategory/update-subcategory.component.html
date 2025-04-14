@@ -1,0 +1,35 @@
+<form class="row g-3 p-4" [formGroup]="UpdateSubcategoryForm" (ngSubmit)="handleUpdateSubcategoryForm()">
+    <div class="col-md-3" >
+      <label for="subcategoryName" class="form-label">Subcategory Name</label>
+      <input type="text" class="form-control" id="subcategoryName" formControlName="subcategoryName">
+      @if(formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched){
+        <div id="CaregoryNameId" class="form-text text-danger">
+          @if(formControls['subcategoryName'].hasError('required')){
+              <span>Required Field</span>
+          }
+          @else if(formControls['subcategoryName'].hasError('minlength')){
+              <span>length must be greater than 3</span>
+  
+          }
+        </div>
+          }
+    </div>
+    <div class="col-md-4">
+            <label for="categoryName" class="form-label">Category Name</label>
+            <select id="categoryName" class="form-select" formControlName="category">
+                @for (item of categories; track item.categoryID) {
+                  <option [value]="item.categoryID">{{ item.categoryName }}</option>
+                }
+              </select>
+              
+      </div>
+      
+  
+      <!-- <button type="submit" class="btn btn-primary" [disabled]="AddSubcategoryForm.invalid"> -->
+      <button type="submit" class="btn btn-primary" >
+
+        Submit
+      </button>
+  </form>
+
+

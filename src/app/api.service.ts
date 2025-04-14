@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Category } from './types/category';
+// import { Category } from './types/category';
 
 @Injectable({
   providedIn: 'root'
@@ -99,4 +101,64 @@ export class ApiService {
     return this.http.get<any>(`${this.baseUrl}/Product/${id}`);
   }
 
+  getUsersCount():Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/Roles/UsersCount`)
+  }
+
+  getProductsCount():Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/Product/ProductsCount`)
+  }
+
+  getsubCatagoriesCount():Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/SubCategory/SubcategoriesCount`)
+  }
+  getCategoriesCount():Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/Category/CategoriesCount`)
+  }
+  getAllCategories():Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/Category/GetAllCategories`)
+  }
+  addCategory(category: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Category`, category);
+  }
+  deleteCategory(id: number): Observable<any> {
+    return this.http.delete(`https://localhost:7105/api/Category/${id}`);
+  }
+  getCategoryById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/Category/GetById/${id}`);
+  }  
+  updateCategory(id: number, updatedCategory: Category): Observable<any> {
+    // const url = `https://localhost:7105/api/Category/UpdateCategory/${id}`;
+    return this.http.put(`https://localhost:7105/api/Category/UpdateCategory/${id}`, updatedCategory);
+  }
+  getProducts(page: number, pageSize: number) {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize);
+  
+    return this.http.get<any>('https://localhost:7105/api/Product/GetAllProductsPagination', { params });
+  }
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`https://localhost:7105/api/Product/${id}`);
+  }
+  updateProduct(id: number, updatedProduct: any): Observable<any> {
+    return this.http.put(`https://localhost:7105/api/Product/UpdateProduct/${id}`, updatedProduct);
+  }
+  getAllSubcategories():Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/SubCategory/GetAllSubCategories`)
+  }
+  AddSubcategory(subcategory: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/SubCategory`, subcategory);
+  }
+  getsubcategoryById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/SubCategory/GetById/${id}`);
+  } 
+  updatesubcategory(id: any, updatedsubcategory: any): Observable<any> {
+    return this.http.put(`https://localhost:7105/api/SubCategory/UpdateSubcategory/${id}`, updatedsubcategory);
+    // return this.http.put(`https://localhost:7105/api/UpdateSubcategory/${id}`, updatedsubcategory);
+
+  } 
+  deleteSubategory(id: number): Observable<any> {
+    return this.http.delete(`https://localhost:7105/api/SubCategory/${id}`);
+  }
 }
