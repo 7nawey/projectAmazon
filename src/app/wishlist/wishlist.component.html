@@ -1,4 +1,33 @@
-
+<div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading your wishlist...</p>
+  </div>
+  
+  <div *ngIf="!isLoading">
+    <div *ngIf="wishlist.length === 0" class="empty-wishlist">
+      <i class="fas fa-heart"></i>
+      <h3>Your wishlist is empty</h3>
+      <p>No products in your wishlist</p>
+      <button class="browse-btn" routerLink="/homecategory">Browse Products</button>
+    </div>
+  
+    <div *ngIf="wishlist.length > 0" class="wishlist-content">
+      <div *ngFor="let product of wishlist" class="wishlist-item" [id]="'product-' + product.productID">
+        <div class="wishlist-item-image">
+          <img [src]="product.imgCover" alt="Product image">
+        </div>
+        <div class="wishlist-item-details">
+          <h5>{{ product.name }}</h5>
+          <button class="p-2 details" [routerLink]="['/product-details', product.productID]">View More Details</button>
+          <div class="price-section">
+            <span class="price">{{ product.price | currency:'EGP':'symbol':'1.2-2' }}</span>
+          </div>
+          <button class="remove-btn" (click)="removeFromWishlist(product)">×</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
 
   

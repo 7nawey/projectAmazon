@@ -1,0 +1,177 @@
+
+.wishlist-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+    
+  .wishlist-item {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  
+    .wishlist-item {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    .wishlist-item.removed {
+      opacity: 0;
+      transform: scale(0.8); 
+    }
+    
+    
+    .wishlist-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Product Image */
+    .wishlist-item-image img {
+      width: 100%;
+      height: auto;
+      max-height: 200px; 
+      object-fit: contain;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+  
+  
+    .price-section {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    
+    .price-section .price {
+      font-size: 16px;
+      font-weight: bold;
+      color: #e53935;
+    }
+    
+    .price-section .old-price {
+      font-size: 14px;
+      color: #999;
+      text-decoration: line-through;
+    }
+    
+  
+    .remove-btn {
+      background: #ffebee;
+      color: #e53935;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    
+    .remove-btn:hover {
+      background: #e53935;
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    
+    .empty-wishlist {
+      text-align: center;
+      padding: 30px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      animation: fadeInUp 0.4s ease-out;
+    }
+    
+    
+    .browse-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      transform: scale(1);
+      animation: zoom 3s ease-in-out infinite;
+  }
+  
+   .browse-btn:hover {
+      background: #3e8e41;
+      transform: scale(1.1);
+  }
+    
+    /* Loading Spinner */
+    .loading-spinner {
+      text-align: center;
+      padding: 40px 0;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .loading-spinner .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    .loading-spinner p {
+      font-size: 16px;
+      color: #555;
+    }
+    
+    /* Animation for Fade-in Effect */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+      from { 
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .details {
+      background-color: #FFCE12;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(60, 61, 2, 0.2);
+      margin-top: 20px;
+    }
+    
+    .details:hover {
+      background-color: white;
+      color:black;
+      box-shadow: 0 6px 14px rgba(60, 61, 2, 0.2);;
+      transform: translateY(-2px);
+      cursor: pointer;
+    }
+    .browse-btn.ng-animating {
+      animation: zoom 3s ease-in-out infinite;
+  }
+  

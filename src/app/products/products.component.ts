@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
   isLoading: boolean = true;
   successMessage: string = '';
   errorMessage: string = '';
-
+  wishlistIds: number[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -32,6 +32,10 @@ export class ProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.wishlistService.getWishlist().subscribe(items => {
+      this.wishlistIds = items.map((i: { productID: number }) => i.productID);
+
+    }); 
   }
 
 
@@ -39,6 +43,68 @@ export class ProductsComponent implements OnInit {
     return localStorage.getItem('auth_token');
   }
 
+
+
+  toggleWishlist(product: any): void {
+    const token = this.getToken(); // Assuming you have this method
+  
+    if (!token) {
+      Swal.fire({
+        title: 'Hold up!',
+        text: 'Please log in to manage your wishlist.',
+        icon: 'warning',
+        confirmButtonText: 'Login'
+      }).then(() => {
+        this.router.navigate(['/login']);
+      });
+      return;
+    }
+  
+    const isAlreadyInWishlist = this.isInWishlist(product.productID);
+  
+    const request$ = isAlreadyInWishlist 
+      ? this.wishlistService.removeFromWishlist(product.productID)
+      : this.wishlistService.addToWishlist(product.productID);
+  
+    request$.subscribe({
+      next: () => {
+        this.updateLocalWishlist(product.productID, !isAlreadyInWishlist);
+        Swal.fire({
+          title: isAlreadyInWishlist ? 'Removed' : 'Added',
+          text: `${product.name} has been ${isAlreadyInWishlist ? 'removed from' : 'added to'} your wishlist.`,
+          icon: 'success',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      },
+      error: () => {
+        Swal.fire({
+          title: 'Oops!',
+          text: 'Something went wrong while updating your wishlist.',
+          icon: 'error',
+          confirmButtonText: 'Try Again'
+        });
+      }
+    });
+  }
+  
+  
+  updateLocalWishlist(productId: number, add: boolean): void {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    if (add) {
+      wishlist.push({ productID: productId });
+    } else {
+      wishlist = wishlist.filter((item: any) => item.productID !== productId);
+    }
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }
+  
+  isInWishlist(productId: number): boolean {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    return wishlist.some((item: any) => item.productID === productId);
+  }
+
+  
   addToCart(product: any): void {
     if (product.stockQuantity <= 0) {
       Swal.fire({

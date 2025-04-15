@@ -102,4 +102,31 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+  .wishlist-wrapper {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+  }
+  .wishlist-icon {
+    font-size: 32px; 
+    cursor: pointer; 
+    transition: color 0.3s ease, transform 0.3s ease; 
+  }
   
+  
+  .wishlist-icon.outlined {
+    color: black; 
+  }
+  
+  
+  
+  .wishlist-icon.filled {
+    color: #e63946;
+    transform: scale(1.1);
+  }
+  
+  .wishlist-icon:hover {
+    transform: scale(1.25) rotate(-5deg);
+    opacity: 0.85;
+  }

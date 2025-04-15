@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { WishlistService } from '../services/wishlist.service';
 @Component({
   selector: 'app-navbar',
   imports: [RouterLink,FormsModule,CommonModule],
@@ -23,10 +24,11 @@ export class NavbarComponent implements OnInit {
 
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private cartService: CartService,
     private router: Router,
     private apiService: ApiService,
+    private wishlistService:WishlistService
   ) {
     this.cart$ = this.cartService.cart$;
   }

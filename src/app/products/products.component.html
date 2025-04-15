@@ -4,12 +4,14 @@
       <div class="col-md-3 product-border position-relative" *ngFor="let product of products">
         <div class="position-relative fashoin-sec">
           <img [src]="product.imgCover" class="rounded-3 " alt="{{ product.name }}" />
-          <div class="icon-team d-flex justify-content-end">
-            <div class="icon-teamgro">
-              <div class="icon rounded-circle d-flex align-items-center justify-content-center">
-                <i class="fa-regular fa-heart fa-lg"></i>
-              </div>
-            </div>
+          <div class="wishlist-wrapper">
+            <i 
+              class="wishlist-icon" 
+              [ngClass]="isInWishlist(product.productID) 
+                ? ['fas', 'fa-heart', 'filled'] 
+                : ['far', 'fa-heart', 'outlined']"
+              (click)="toggleWishlist(product)">
+            </i>
           </div>
         </div>
 
