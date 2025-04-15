@@ -103,6 +103,7 @@ export class CartComponent implements OnInit {
     this.cartService.placeOrder(this.userId).subscribe({
       next: () => {
         alert('✅ Order placed successfully!');
+        localStorage.removeItem('shippingId');
         this.router.navigate(['/checkout']);  // توجيه المستخدم إلى صفحة checkout
       },
       error: () => {

@@ -56,6 +56,8 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { SearchComponent } from './search/search.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ShippingComponent } from './shipping/shipping.component';
 
 export const routes: Routes = [
     {
@@ -135,5 +137,13 @@ export const routes: Routes = [
     {path:'search', component:SearchComponent},
     {path:'forgetpassword', component:ForgetpasswordComponent},
     {path:'resetpassword', component:ResetpasswordComponent},
+    {path:'orders', component:OrdersComponent},
+    {path:'shipping/:orderId', component:ShippingComponent},
+
+
+
+
+
     {path:'**', component:NotfoundComponent},
+    
 ];
