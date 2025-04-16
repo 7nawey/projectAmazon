@@ -1,0 +1,81 @@
+<div class="ccc1 container my-4">
+    <h2 class="text-center mb-4">
+      <i class="fa-solid fa-box-open me-2 text-primary"></i> Your Orders
+    </h2>
+  
+    <div *ngIf="successMessage" class="alert alert-info alert-dismissible fade show" role="alert">
+      <i class="fa-solid fa-circle-info me-2"></i> {{ successMessage }}
+      <button type="button" class="btn-close" (click)="successMessage = null"></button>
+    </div>
+  
+    <div *ngIf="orders.length > 0; else noOrders">
+      <div
+        class="order-card mb-4 p-4 border rounded shadow-sm bg-white position-relative"
+        *ngFor="let order of orders"
+        [ngClass]="getStatusClass(order.orderStatus)"
+      >
+        <div class="d-flex justify-content-between flex-wrap align-items-center mb-3 border-bottom pb-2">
+          <div>
+            <strong><i class="fa-regular fa-calendar me-1 text-secondary"></i> Date:</strong>
+            {{ order.orderDate | date: 'mediumDate' }}
+          </div>
+          <div>
+            <strong><i class="fa-solid fa-circle-info me-1 text-secondary"></i> Status:</strong>
+            <span class="badge bg-light text-dark border">{{ order.orderStatus }}</span>
+          </div>
+        </div>
+  
+        <div *ngFor="let item of order.items" class="d-flex align-items-center mb-3 p-2 border rounded bg-light">
+          <img [src]="item.productImageUrl" alt="{{ item.productName }}" width="60" height="60" class="me-3 rounded shadow-sm">
+          <div class="flex-grow-1">
+            <!-- <strong>{{ item.productName }}</strong><br> -->
+            Quantity: {{ item.quantity }} <span class="text-muted">—</span>
+            Subtotal: <span class="text-primary fw-semibold">${{ item.subTotal }}</span>
+          </div>
+        </div>
+  
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <div>
+            <strong>Total:</strong>
+            <span class="text-success fs-5">${{ order.totalAmount }}</span>
+          </div>
+  
+          <div class="d-flex flex-wrap align-items-center">
+            <ng-container *ngIf="order.orderStatus === 'Pending'">
+              <button
+                class="btn btn-outline-danger btn-sm me-2 mb-2"
+                *ngIf="confirmCancelOrderId !== order.orderID"
+                (click)="onRequestCancel(order.orderID)">
+                <i class="fa-solid fa-ban me-1"></i> Cancel
+              </button>
+  
+              <div *ngIf="confirmCancelOrderId === order.orderID" class="border rounded p-2 bg-light mb-2">
+                <p class="mb-2 text-muted small">
+                  <i class="fa-solid fa-triangle-exclamation text-warning me-2"></i>
+                  Are you sure you want to cancel this order?
+                </p>
+                <button class="btn btn-danger btn-sm me-2" (click)="confirmCancel(order.orderID)">Yes, Cancel</button>
+                <button class="btn btn-secondary btn-sm" (click)="cancelConfirmation()">No</button>
+              </div>
+  
+              <button class="btn btn-outline-primary btn-sm me-2 mb-2" (click)="goToCheckout(order.orderID)">
+                <i class="fa-solid fa-credit-card me-1"></i> Checkout
+              </button>
+            </ng-container>
+  
+            <button class="btn btn-outline-success btn-sm mb-2" (click)="goToShipping(order.orderID)">
+              <i class="fa-solid fa-truck-fast me-1"></i> Track
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noOrders>
+      <div class="text-center text-muted mt-5">
+        <i class="fa-regular fa-face-sad-tear fa-3x mb-3"></i>
+        <p>No orders found.</p>
+      </div>
+    </ng-template>
+  </div>
+  

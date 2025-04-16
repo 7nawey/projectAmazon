@@ -1,0 +1,70 @@
+
+.order-card {
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .order-card:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-status-pending {
+    color: orange;
+  }
+  
+  .order-status-completed {
+    color: green;
+  }
+  
+  .order-status-canceled {
+    color: red;
+  }
+  .btn-outline-success-custom {
+    border: 1px solid #198754;
+    color: #198754;
+    background-color: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-success-custom .icon-track {
+    color: inherit; /* تخلي الأيقونة ترث لون النص من الزر */
+    transition: color 0.3s ease;
+  }
+  
+  .btn-outline-success-custom:hover {
+    background-color: #198754;
+    color: white;
+  }
+  
+  .btn-outline-success-custom:hover .icon-track {
+    color: white;
+  }
+  .order-card {
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  
+  .order-card:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .btn-outline-success-custom {
+    border-color: #28a745;
+    color: #28a745;
+  }
+  
+  .btn-outline-success-custom:hover {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .text-success-custom {
+    color: #28a745;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+    padding: 0.4em 0.7em;
+    border-radius: 0.5rem;
+  }
+  

@@ -1,49 +1,117 @@
+/* الأساسيات */
 nav {
-    background-color: #485769;
-    padding: 10px 0px;
-  }
-  
-  .log {
-    background-color: #FFCE12;
-    border: none;
-    border-radius: 8px;
-    color: #232f3e;
-    font-weight: bold;
-  }
-  
-  li a,
-  .navbar-nav .nav-link.active,
-  .navbar-nav .nav-link.show {
-    color: white;
-  }
-  
-  input {
-    width: 50rem;
-  align-self: center;
-    height: 50px;
+  background-color: #232f3e;
+  padding: 10px 0;
 }
 
+.nav2 {
+  background-color: #3c4858;
+  padding: 10px 0;
   
-  .list-items {
-    background-color: #232F3E;
+  
+}
+
+
+.log {
+  background-color: #FFCE12;
+  border: none;
+  border-radius: 8px;
+  color: #232f3e;
+  font-weight: bold;
+  height: 45px;
+}
+
+/* صندوق البحث */
+.search-box {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  min-width: 300px;
+}
+
+.search-box input {
+  flex: 1;
+  height: 45px;
+  min-width: 200px;
+}
+
+.search-box button {
+  height: 45px;
+  white-space: nowrap;
+}
+
+/* تصميم الـ dropdown */
+.dropdown-menu {
+  background-color: #fff;
+  color: #000;
+  border-radius: 5px;
+}
+
+.dropdown-item {
+  color: #000;
+  transition: 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: #eaeaea;
+}
+
+/* تصميم عناصر النافبار */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* تصميم عدد المنتجات في الكارت */
+.cart-item-count {
+  background-color: #f08804;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-size: 12px;
+  top: -3px;
+  right: 35px;
+}
+
+.nav-item .nav-link {
+  position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .search-box {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
   }
-  
-  .list-items ul li {
-    list-style-type: none;
+
+  .search-box input,
+  .search-box button {
+    width: 100%;
   }
-  
-  .list-items ul a {
-    text-decoration: none;
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
-  
-  .cart-item-count {
-    background-color: #f08804;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 7px;
-    font-size: 12px;
-    position: absolute;
-    top: 0;
-    right: -10px;
+
+  .log {
+    width: 100%;
   }
-  
+
+  .nav-item {
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    width: 100%;
+  }
+}
+
+.navitem2 a {
+  color: #ffffff ;
+}

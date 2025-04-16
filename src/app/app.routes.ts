@@ -38,7 +38,6 @@ import { SportsComponent } from './sports/sports.component';
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { UpdateProductComponent } from './update-product/update-product.component';
-import { DeleteProductComponent } from './delete-product/delete-product.component';
 import { CategorydashboardComponent } from './categorydashboard/categorydashboard.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { UpdateCategoryComponent } from './update-category/update-category.component';
@@ -56,6 +55,8 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { SearchComponent } from './search/search.component';
 import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component';
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ShippingComponent } from './shipping/shipping.component';
 
 export const routes: Routes = [
     {
@@ -118,7 +119,6 @@ export const routes: Routes = [
     {path:'admindashboard', component:AdmindashboardComponent},
     {path:'AddProduct',component:AddProductComponent},
     {path:'updateproduct/:id',component:UpdateProductComponent},
-    {path:'deleteproduct',component:DeleteProductComponent},
     {path:'CategoryList', component:CategorydashboardComponent},
     {path:'AddCategory',component:AddCategoryComponent},
     { path: 'update-category/:id', component: UpdateCategoryComponent },
@@ -135,5 +135,7 @@ export const routes: Routes = [
     {path:'search', component:SearchComponent},
     {path:'forgetpassword', component:ForgetpasswordComponent},
     {path:'resetpassword', component:ResetpasswordComponent},
+    {path:'orders', component: OrdersComponent},
+    {path:'shipping/:orderId', component: ShippingComponent},
     {path:'**', component:NotfoundComponent},
 ];

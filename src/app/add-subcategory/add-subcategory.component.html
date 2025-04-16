@@ -1,5 +1,6 @@
 <app-nav-dashbord></app-nav-dashbord>
-<form class="row g-3 p-4" [formGroup]="AddSubcategoryForm" (ngSubmit)="handleAddAddSubcategoryForm()">
+<div class="container">
+  <form class="row g-3 p-4" [formGroup]="AddSubcategoryForm" (ngSubmit)="handleAddAddSubcategoryForm()">
     <div class="col-md-3" >
       <label for="subcategoryName" class="form-label">Subcategory Name</label>
       <input type="text" class="form-control" id="subcategoryName" formControlName="subcategoryName" placeholder="Enter Subcategory Name">
@@ -31,5 +32,7 @@
         Submit
       </button>
   </form>
+</div>
+
 
 

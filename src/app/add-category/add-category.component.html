@@ -1,5 +1,6 @@
 <app-nav-dashbord></app-nav-dashbord>
-<form class="row g-3 p-4" [formGroup]="AddCategoryForm" (ngSubmit)="handleAddCategoryForm()">
+<div class="container">
+  <form class="row g-3 p-4" [formGroup]="AddCategoryForm" (ngSubmit)="handleAddCategoryForm()">
     <div class="col-md-3" >
       <label for="CaregoryName" class="form-label">Caregory Name</label>
       <input type="text" class="form-control" id="CaregoryName" formControlName="categoryName" placeholder="Enter Category Name">
@@ -17,8 +18,7 @@
     </div>
     <div class="col-6">
       <label for="Descreption" class="form-label">Descreption</label>
-      <input type="text" class="form-c
-      ontrol" id="Descreption"  formControlName="description" placeholder="Enter Category Description">
+      <input type="text" class="form-control" id="Descreption"  formControlName="description" placeholder="Enter Category Description">
       @if (formControls['description'].invalid && formControls['description'].touched) {
         <div class="form-text text-danger">
           @if (formControls['description'].hasError('required')) {
@@ -45,5 +45,7 @@
         Submit
       </button>
   </form>
+</div>
+
 
 

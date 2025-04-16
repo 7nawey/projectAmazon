@@ -1,52 +1,104 @@
+<!-- nvbar 1 -->
+
 <nav class="navbar navbar-expand-lg position-relative">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#"><i class="fa-brands fa-amazon fa-lg me-2"></i>Amazon</a>
+    <a class="navbar-brand text-white" href="#">
+      <i class="fa-brands fa-amazon fa-lg me-2"></i>Amazon
+    </a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation">
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center w-100">
+      <ul class="navbar-nav align-items-center flex-wrap w-100">
+
+        <!-- Location -->
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa-solid fa-location-dot me-2"></i>Deliver to Egypt</a>
+          <a class="nav-link text-white" href="#">
+            <i class="fa-solid fa-location-dot me-2"></i>Deliver to Egypt
+          </a>
         </li>
 
-
-        <li class="nav-item d-flex">
-        <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search">
-        <button (click)="onSearch()" class="log px-3 ms-2">Search</button>
+        <!-- Search -->
+        <li class="nav-item search-box ms-3 me-3">
+          <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search">
+          <button (click)="onSearch()" class="log px-3 ms-2">Search</button>
         </li>
 
+        <!-- Wishlist -->
         <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
-          <a class="nav-link" routerLink="/wishlist">
-            <i class="fa-regular fa-heart fa-sm me-2"></i>Wishlist
-            <span *ngIf="cartItemCount > 0" class="cart-item-count">{{ cartItemCount }}</span>
+          <a class="nav-link text-white position-relative" routerLink="/wishlist">
+            <i class="fa-regular fa-heart me-2"></i>Wishlist
+            <!-- <span *ngIf="cartItemCount > 0" class="cart-item-count">{{ cartItemCount }}</span> -->
           </a>
         </li>
 
-        <li class="nav-item position-relative" *ngIf="isLoggedIn">
-          <a class="nav-link" routerLink="/cart">
-            <i class="fa-solid fa-cart-shopping me-2"></i>Cart
+        <!-- Cart -->
+        <!-- Cart -->
+<li class="nav-item position-relative" *ngIf="isLoggedIn">
+  <a class="nav-link text-white position-relative" routerLink="/cart">
+    <i class="fa-solid fa-cart-shopping me-2 fs-5"></i>Cart
+    <span *ngIf="cartItemCount > 0" class="cart-item-count position-absolute">{{ cartItemCount }}</span>
+  </a>
+</li>
+
+
+        <!-- Settings Dropdown -->
+        <li class="nav-item dropdown ms-3" *ngIf="isLoggedIn">
+          <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-1" href="#" id="settingsDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-gear fa-lg"></i>
+            <span>Settings</span>
           </a>
+
+          <ul class="dropdown-menu shadow-lg rounded-3 p-2" aria-labelledby="settingsDropdown">
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/orders">
+                <i class="fa-solid fa-box-open text-primary"></i> Orders
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/shipping">
+                <i class="fa-solid fa-truck-fast text-success"></i> Shipping
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/chatbot">
+                <i class="fa-solid fa-robot text-warning"></i> Chat Bot
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/settings">
+                <i class="fa-solid fa-sliders text-danger"></i> Settings
+              </a>
+            </li>
+          </ul>
         </li>
-        <li class="nav-item ms-3 ">
+
+        <!-- Login / Logout -->
+        <li class="nav-item ms-3">
           <button class="log nav-link" (click)="logout()">
             {{ isLoggedIn ? 'Log out' : 'Login' }}
           </button>
         </li>
-        <li>
-          <a class="nav-link" routerLink="/admindashboard" routerLinkActive="active-Link">Admin</a>
 
+        <!-- Admin -->
+        <li class="nav-item ms-3">
+          <a class="nav-link text-white" routerLink="/admindashboard" routerLinkActive="active-Link">Admin</a>
         </li>
+
       </ul>
     </div>
   </div>
 </nav>
 
-<!-- Navbar 2 -->
-<nav class="navbar navbar-expand-lg list-items">
+
+
+<!-- nvbar 2 -->
+<nav class="nav2 navbar navbar-expand-lg list-items">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1"
       aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,14 +108,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
       <ul class="navbar-nav me-auto mb-1 mb-lg-0">
 
-        <li class="nav-item"><a class="nav-link" routerLink="/electronic">Electronics</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/fashoin">Fashion</a></li>
-        <li class="nav-item"><a class="nav-link"  routerLink="/book">Books</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/homecategory">Home</a></li>
-        <li class="nav-item"><a class="nav-link"  routerLink="/toys">Toys & Games</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/sport">Sports & Outdoors</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/beauty">Beauty & Personal Care</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="/grocery">Grocery</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/electronic">Electronics</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/fashoin">Fashion</a></li>
+        <li class="nav-item navitem2"><a class="nav-link"  routerLink="/book">Books</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/homecategory">Home</a></li>
+        <li class="nav-item navitem2"><a class="nav-link"  routerLink="/toys">Toys & Games</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/sport">Sports & Outdoors</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/beauty">Beauty & Personal Care</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/grocery">Grocery</a></li>
       </ul>
     </div>
   </div>

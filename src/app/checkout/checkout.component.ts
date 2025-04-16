@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-checkout',
@@ -22,7 +24,7 @@ export class CheckoutComponent implements OnInit {
   unsupportedMethodSelected: boolean = false;
   shippingId: number | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(  private route: ActivatedRoute ,private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.addressForm = this.fb.group({
       street: ['', Validators.required],
       building: ['', Validators.required],
@@ -34,54 +36,93 @@ export class CheckoutComponent implements OnInit {
   toggleStep(targetStep: number) {
     this.step = targetStep;
   }
-  ngOnInit() {
+  // ngOnInit() {
 
-    const userId = localStorage.getItem('application_user_id'); // خزنته أثناء تسجيل الدخول
-    // userId="14b1a20f-b5c7-4dbd-8b3f-311e2200b609";
+  //   const userId = localStorage.getItem('application_user_id'); // خزنته أثناء تسجيل الدخول
+  //   // userId="14b1a20f-b5c7-4dbd-8b3f-311e2200b609";
+  //   if (!userId) {
+  //     // alert("You must log in first.");
+  //     this.router.navigate(['/login']);
+  //     return;
+  //   }
+  //   this.http.get<any>(`https://localhost:7105/api/order/${userId}`)
+  //   .subscribe(res => {
+  //     if (!res || !res.orderID) {
+  //       // alert("No current order. Please add products to the cart first.");
+  //       this.router.navigate(['/cart']);
+  //       return;
+  //     }
+
+  //     this.orderId = res.orderID;
+  //     this.getOrderTotal();
+  //     this.getExistingPayment();
+  //     this.getShippingAddress();
+  //   }, err => {
+  //     console.error('Failed to get current order', err);
+  //     this.router.navigate(['/cart']);
+  //   });
+  //   // const token = localStorage.getItem('token');
+  //   // if (!token) {
+  //   //   alert("You must log in first.");
+  //   //   this.router.navigate(['/login']);
+  //   //   return;
+  //   // }
+  
+  //   // const orderIdFromStorage = localStorage.getItem('orderId');
+  //   // if (!orderIdFromStorage || +orderIdFromStorage === 0) {
+  //   //   alert("No current order. Please add products to the cart first.");
+  //   //   this.router.navigate(['/cart']);
+  //   //   return;
+  //   // }
+  
+  //   // this.orderId = +orderIdFromStorage;
+  //   // this.getOrderTotal();
+  //   // this.getExistingPayment();
+  //   // this.getShippingAddress();
+    
+
+  // }
+  
+  ngOnInit() {
+    const userId = localStorage.getItem('application_user_id');
     if (!userId) {
-      // alert("You must log in first.");
       this.router.navigate(['/login']);
       return;
     }
-    this.http.get<any>(`https://localhost:7105/api/order/current/${userId}`)
-    .subscribe(res => {
-      if (!res || !res.orderID) {
-        // alert("No current order. Please add products to the cart first.");
-        this.router.navigate(['/cart']);
-        return;
+  
+    // هنا بنشوف لو في orderId في الرابط
+    this.route.queryParams.subscribe(params => {
+      const passedOrderId = params['orderId'];
+  
+      if (passedOrderId) {
+        // ✅ لو فيه orderId في الرابط، استخدمه
+        this.orderId = +passedOrderId;
+        this.loadOrderDetails();
+      } else {
+        // 🛒 لو ما فيش orderId، اعتبره جاي من cart
+        this.http.get<any>(`https://localhost:7105/api/order/current/${userId}`)
+          .subscribe(res => {
+            if (!res || !res.orderID) {
+              this.router.navigate(['/cart']);
+              return;
+            }
+            this.orderId = res.orderID;
+            this.loadOrderDetails();
+          }, err => {
+            console.error('Failed to get current order', err);
+            this.router.navigate(['/cart']);
+          });
       }
-
-      this.orderId = res.orderID;
-      this.getOrderTotal();
-      this.getExistingPayment();
-      this.getShippingAddress();
-    }, err => {
-      console.error('Failed to get current order', err);
-      this.router.navigate(['/cart']);
     });
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   alert("You must log in first.");
-    //   this.router.navigate(['/login']);
-    //   return;
-    // }
   
-    // const orderIdFromStorage = localStorage.getItem('orderId');
-    // if (!orderIdFromStorage || +orderIdFromStorage === 0) {
-    //   alert("No current order. Please add products to the cart first.");
-    //   this.router.navigate(['/cart']);
-    //   return;
-    // }
   
-    // this.orderId = +orderIdFromStorage;
-    // this.getOrderTotal();
-    // this.getExistingPayment();
-    // this.getShippingAddress();
-    
-
+  }
+  loadOrderDetails() {
+    this.getOrderTotal();
+    this.getExistingPayment();
+    this.getShippingAddress();
   }
   
- 
 
   getOrderTotal() {
     this.http.get<any>(`https://localhost:7105/api/order/${this.orderId}`)

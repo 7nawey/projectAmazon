@@ -1,5 +1,6 @@
 <app-nav-dashbord></app-nav-dashbord>
-<form class="row g-3 p-4" [formGroup]="AddProductForm" (ngSubmit)="handleAddProductForm()">
+<div class="container">
+  <form class="row g-3 p-4" [formGroup]="AddProductForm" (ngSubmit)="handleAddProductForm()">
     <div class="col-md-3">
       <label for="productName" class="form-label">Product Name</label>
       <input type="text" class="form-control" id="productName" placeholder="Enter Product Description">
@@ -26,7 +27,7 @@
     </div>
     <div class="col-md-6">
       <label for="SubCategoryName" class="form-label">SubCategoryName</label>
-      <select id="inputState" class="form-SubCategoryName">
+      <select id="inputState" class="form-SubCategoryName form-control">
         <option selected>Choose...</option>
         <option>...</option>
       </select>
@@ -51,6 +52,8 @@
       <button type="submit" class="btn btn-primary">Add Product</button>
     </div>
   </form>
+</div>
+
 
 <!-- <app-products [products]="products"></app-products> -->
 
