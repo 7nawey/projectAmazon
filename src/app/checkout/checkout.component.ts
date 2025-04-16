@@ -156,7 +156,7 @@ export class CheckoutComponent implements OnInit {
     if (!this.paymentId) return;
 
     if (this.paymentMethod === 'CashOnDelivery') {
-      this.router.navigate(['/thank-you']);
+      this.router.navigate(['/thankyou']);
     } else if (this.paymentMethod === 'PayPal') {
       this.http.post<any>(`https://localhost:7105/api/payments/process/${this.paymentId}`, {})
         .subscribe(res => {
