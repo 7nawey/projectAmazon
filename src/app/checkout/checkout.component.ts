@@ -23,7 +23,7 @@ export class CheckoutComponent implements OnInit {
   unsupportedMethodSelected: boolean = false;
   shippingId: number | null = null;
 
-  constructor(  private route: ActivatedRoute ,private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.addressForm = this.fb.group({
       street: ['', Validators.required],
@@ -72,34 +72,6 @@ export class CheckoutComponent implements OnInit {
   
   
   }
-  loadOrderDetails() {
-    this.getOrderTotal();
-    this.getExistingPayment();
-    this.getShippingAddress();
-  
-    this.route.queryParams.subscribe(params => {
-      const passedOrderId = params['orderId'];
-  
-      if (passedOrderId) {
-        this.orderId = +passedOrderId;
-        this.loadOrderDetails();
-      } else {
-        this.http.get<any>(`https://localhost:7105/api/order/current/${userId}`)
-          .subscribe(res => {
-            if (!res || !res.orderID) {
-              this.router.navigate(['/cart']);
-              return;
-            }
-            this.orderId = res.orderID;
-            this.loadOrderDetails();
-          }, err => {
-            console.error('Failed to get current order', err);
-            this.router.navigate(['/cart']);
-          });
-      }
-    });
-  }
-
   loadOrderDetails() {
     this.getOrderTotal();
     this.getExistingPayment();

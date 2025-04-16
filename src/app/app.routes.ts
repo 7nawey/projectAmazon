@@ -135,6 +135,11 @@ export const routes: Routes = [
     {path:'search', component:SearchComponent},
     {path:'forgetpassword', component:ForgetpasswordComponent},
     {path:'resetpassword', component:ResetpasswordComponent},
+    {path:'orders', component: OrdersComponent},
+    {path:'shipping/:orderId', component: ShippingComponent},
+
+
+
     {path:'**', component:NotfoundComponent},
     
 ];
