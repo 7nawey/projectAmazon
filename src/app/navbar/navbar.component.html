@@ -22,10 +22,32 @@
           </a>
         </li>
 
-        <!-- Search -->
-        <li class="nav-item search-box ms-3 me-3">
-          <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search">
-          <button (click)="onSearch()" class="log px-3 ms-2">Search</button>
+        <li class="nav-item flex-grow-1 d-flex align-items-center position-relative">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search" (keyup.enter)="onSearch()" *ngIf="!selectedImagePreview">
+        
+            <div *ngIf="selectedImagePreview" class="d-flex align-items-center w-100 px-2 py-1 bg-white border rounded">
+              <img [src]="selectedImagePreview" alt="Preview" height="40" class="me-2">
+              <span class="text-muted small">Image selected</span>
+            </div>
+        
+            <label for="imageUpload" class="input-group-text" style="cursor: pointer;">
+              <i class="fa-solid fa-camera text-dark"></i>
+            </label>
+            <input type="file" id="imageUpload" (change)="onImageSelected($event)" accept="image/*" hidden>
+        
+            <!-- زر الميكروفون مع التعديل على الـ background-color -->
+            <button class="btn input-group-text"
+              (mousedown)="startVoiceInput()"
+              (mouseup)="stopVoiceInput()"
+              (mouseleave)="stopVoiceInput()"
+              [ngClass]="{ 'listening': isListening }"
+              style="transition: 0.3s; background-color: #fff;">
+              <i class="fa-solid fa-microphone text-dark"></i>
+            </button>
+        
+            <button (click)="onSearch()" class="btn btn-warning">Search</button>
+          </div>
         </li>
 
         <!-- Wishlist -->
@@ -51,7 +73,7 @@
           <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-1" href="#" id="settingsDropdown"
             role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-gear fa-lg"></i>
-            <span>Settings</span>
+            <span>settings</span>
           </a>
 
           <ul class="dropdown-menu shadow-lg rounded-3 p-2" aria-labelledby="settingsDropdown">
@@ -69,7 +91,7 @@
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/chatbot">
                 <i class="fa-solid fa-robot text-warning"></i> Chat Bot
               </a>
-            </li>
+            </li>            
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/settings">
                 <i class="fa-solid fa-sliders text-danger"></i> Settings

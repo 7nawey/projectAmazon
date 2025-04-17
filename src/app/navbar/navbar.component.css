@@ -115,3 +115,77 @@ nav {
 .navitem2 a {
   color: #ffffff ;
 }
+.listening {
+  animation: pulse 1s infinite;
+  background-color: #fce4ec !important;
+}
+.nav-item .dropdown-menu {
+  background-color: #232f3e; 
+  border: 1px solid #232f3e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item .dropdown-item {
+  color: #f9f9f9; 
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item .dropdown-item:hover {
+  background-color: #ff9900; 
+  color: #232f3e; 
+}
+
+.nav-item .dropdown-item i {
+  font-size: 1.2rem;
+}
+
+.nav-link.dropdown-toggle {
+  color: #ff9900; 
+  font-size: 1rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav-link.dropdown-toggle:hover {
+  color: #ffffff; 
+}
+button.log {
+  background: linear-gradient(90deg, #ff9900, #ff7300); 
+  color: #fff; 
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px; 
+  padding: 12px 20px; 
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button.log:hover {
+  background: linear-gradient(90deg, #ff7300, #ff9900); 
+  transform: scale(1.05); 
+}
+
+button.log:active {
+  background: linear-gradient(90deg, #cc6000, #994400); 
+  transform: scale(0.95); 
+}
+
+button.log:disabled {
+  background: #ccc; 
+  color: #666; 
+  cursor: not-allowed; 
+}
+
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}

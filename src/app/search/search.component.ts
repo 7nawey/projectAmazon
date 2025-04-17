@@ -21,10 +21,18 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const state = history.state;
+  
+    if (state.products) {
+      this.products = state.products;
+      this.notFound = this.products.length === 0;
+      return;
+    }
+  
     this.route.queryParams.subscribe(params => {
       const term = params['query'];
       if (term) {
-        this.apiService.getProductByName(term).subscribe({
+        this.apiService.searchProducts(term).subscribe({
           next: res => {
             this.products = Array.isArray(res) ? res : [res];
             this.notFound = this.products.length === 0;
@@ -34,8 +42,10 @@ export class SearchComponent implements OnInit {
             this.notFound = true;
           }
         });
+        
       }
     });
   }
+  
   
 }

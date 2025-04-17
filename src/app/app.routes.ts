@@ -60,6 +60,13 @@ import { ShippingComponent } from './shipping/shipping.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { adminGuard } from './guards/admin.guard';
+import { ChatbotComponent } from './chatbot/chatbot.component';
+import { SettingsComponent } from './settings/settings.component';
+import { GymComponent } from './gym/gym.component';
+import { FootballComponent } from './football/football.component';
+import { BasketballComponent } from './basketball/basketball.component';
+import { ScreenComponent } from './screen/screen.component';
+import { AccesoriesComponent } from './accesories/accesories.component';
 
 export const routes: Routes = [
     {
@@ -146,9 +153,13 @@ export const routes: Routes = [
     {path:'updateUser/:id',component:UpdateUserComponent},
     {path:'UserList',component:UserListComponent},
     {path:'shipping/:orderId', component: ShippingComponent},
-
-
-
+    { path: 'chatbot', component: ChatbotComponent },
+    {path:'settings',component : SettingsComponent},
+    { path: 'gym', component: GymComponent },
+    { path: 'football', component: FootballComponent },
+    { path: 'basketball', component: BasketballComponent },
+    { path: 'screen', component: ScreenComponent },
+    { path: 'accesories', component: AccesoriesComponent },
     {path:'**', component:NotfoundComponent},
     
 ];

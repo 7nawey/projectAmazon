@@ -1,0 +1,110 @@
+.chatbot-container {
+    margin: 20px auto;
+    width: 95%; /* Increased width */
+    max-width: 800px; /* Wider max width */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9; /* Amazon light gray */
+    padding: 25px; /* Increased padding for breathing room */
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+  
+  .chat-display {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #ffffff; /* White background for chat area */
+    max-height: 400px; /* Increased height */
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+  
+  
+  h3 {
+    font-size: 1.5rem;
+    color: #232f3e; /* Amazon dark gray */
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  
+  
+  .chat-display p {
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .user {
+    text-align: right;
+    background-color: #ff9900; /* Amazon orange */
+    color: #fff;
+    display: inline-block;
+    margin: 5px;
+    max-width: 75%;
+  }
+  
+  .bot {
+    text-align: left;
+    background-color: #232f3e; /* Amazon dark gray */
+    color: #fff;
+    display: inline-block;
+    margin: 5px;
+    max-width: 75%;
+  }
+  
+  input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 12px 15px;
+    border: 2px solid #232f3e; /* Amazon dark gray */
+    border-radius: 30px;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input[type="text"]:focus {
+    border-color: #ff9900; /* Amazon orange focus effect */
+    box-shadow: 0 0 10px rgba(255, 153, 0, 0.5);
+  }
+  
+  button {
+    padding: 12px 20px;
+    background: linear-gradient(90deg, #ff9900, #ff7300); /* Amazon orange gradient */
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button:hover {
+    background: linear-gradient(90deg, #ff7300, #ff9900); /* Reverse gradient on hover */
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    background: linear-gradient(90deg, #cc6000, #994400); /* Deeper orange on active */
+    transform: scale(0.95);
+  }
+  
+  @media (max-width: 768px) {
+    .chatbot-container {
+      width: 95%;
+    }
+  
+    input[type="text"] {
+      width: calc(100% - 70px);
+      margin-bottom: 10px;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  

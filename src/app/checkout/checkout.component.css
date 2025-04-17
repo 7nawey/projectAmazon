@@ -1,4 +1,165 @@
-.collapse {
-    transition: height 0.5s ease, opacity 0.3s ease;
-  }
-  
+/* General Container Styling */
+.container {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+/* General Styles for Cards */
+.card {
+  border-radius: 10px; /* Rounded corners for modern look */
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.card-header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 15px 20px;
+}
+
+.card-body {
+  padding: 20px;
+  background-color: #f9f9f9; /* Light gray for contrast */
+}
+
+/* Title Styling */
+h2 {
+  color: #ff9900; /* Amazon orange for title */
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 i {
+  margin-right: 10px;
+}
+
+/* Step 1: Delivery Address */
+.border-primary {
+  border-color: #232f3e !important; /* Amazon dark gray */
+}
+
+.bg-primary {
+  background-color: #232f3e !important; /* Amazon dark gray */
+}
+
+.card-header.bg-primary {
+  background: linear-gradient(90deg, #232f3e, #1c252d); /* Dark gray gradient */
+}
+
+.btn-outline-light {
+  border-color: #ffffff;
+  color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background-color: #ffffff;
+  color: #232f3e; /* Dark gray on hover */
+}
+
+/* Step 2: Payment Method */
+.border-success {
+  border-color: #ff9900 !important; /* Amazon orange */
+}
+
+.bg-success {
+  background-color: #ff9900 !important; /* Amazon orange */
+}
+
+.card-header.bg-success {
+  background: linear-gradient(90deg, #ff9900, #cc7a00); /* Orange gradient for header */
+}
+
+.btn-success {
+  background: linear-gradient(90deg, #ff9900, #cc7a00); /* Amazon orange gradient */
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success:hover {
+  background: linear-gradient(90deg, #cc7a00, #ff9900);
+  transform: scale(1.02); /* Slight hover enlargement */
+}
+
+/* Step 3: Order Summary */
+.border-dark {
+  border-color: #232f3e !important; /* Amazon dark gray */
+}
+
+.bg-dark {
+  background-color: #232f3e !important; /* Amazon dark gray */
+}
+
+.card-header.bg-dark {
+  background: linear-gradient(90deg, #232f3e, #1c252d); /* Dark gray gradient */
+}
+
+.btn-warning {
+  background: linear-gradient(90deg, #ff9900, #cc7a00); /* Amazon orange gradient */
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-warning:hover {
+  background: linear-gradient(90deg, #cc7a00, #ff9900);
+  transform: scale(1.05); /* Hover enlargement */
+}
+
+/* 'Deliver to this address' Button */
+button.btn-primary {
+  background: linear-gradient(90deg, #ff9900, #cc7a00); /* Amazon orange gradient */
+  color: #fff; /* White text */
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px; /* Slightly rounded corners */
+  padding: 12px 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for polished look */
+  transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+  background: linear-gradient(90deg, #cc7a00, #ff9900); /* Reverse gradient on hover */
+  transform: scale(1.05); /* Slight hover enlargement */
+}
+
+button.btn-primary:active {
+  background: linear-gradient(90deg, #cc7a00, #994400); /* Deep orange for active state */
+}
+
+/* Alerts and Badges */
+.badge {
+  font-size: 1rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.badge.bg-primary {
+  background-color: #ff9900 !important; /* Amazon orange for badges */
+}
+
+.badge.bg-success {
+  background-color: #ff9900 !important; /* Unified badge color */
+}
+
+.alert {
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.alert-info {
+  background-color: #e8f6ff; /* Light blue for informational alerts */
+  color: #232f3e; /* Dark gray text */
+}
+
+.alert-warning {
+  background-color: #fff4e5; /* Light orange for warnings */
+  color: #cc7a00; /* Deep orange text */
+}

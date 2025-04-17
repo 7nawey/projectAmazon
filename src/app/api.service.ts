@@ -190,4 +190,7 @@ export class ApiService {
   deleteSubategory(id: number): Observable<any> {
     return this.http.delete(`https://localhost:7105/api/SubCategory/${id}`);
   }
+  searchProducts(term: string) {
+    return this.http.get<any[]>(`https://localhost:7105/api/Product/Search/${term}`);
+  }
 }

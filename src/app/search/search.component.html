@@ -1,8 +1,16 @@
-<div *ngIf="notFound" class="alert alert-warning text-center">
-    <div class="d-flex justify-content-center align-items-center">
-        <img src="https://static.vecteezy.com/system/resources/previews/006/584/814/original/illustration-graphic-cartoon-character-of-not-connected-free-vector.jpg" class="w-50" alt="">
-    </div>
+<div *ngIf="notFound" class="alert alert-warning text-center mt-4">
+  <div class="d-flex flex-column align-items-center">
+    <img 
+      src="https://static.vecteezy.com/system/resources/previews/006/584/814/original/illustration-graphic-cartoon-character-of-not-connected-free-vector.jpg" 
+      class="img-fluid mb-3" 
+      style="max-width: 300px;" 
+      alt="Not Found"
+    />
+    <h4>No products found</h4>
+    <p class="text-muted">We couldn't find anything matching your search.</p>
+    <button class="btn btn-outline-primary mt-2" routerLink="/">Go to Home</button>
   </div>
-<app-products [products]="products"></app-products>
+</div>
 
-
+<!-- لو في منتجات -->
+<app-products *ngIf="!notFound" [products]="products"></app-products>
