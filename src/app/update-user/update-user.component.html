@@ -1,0 +1,20 @@
+<form [formGroup]="UpdateUserForm" (ngSubmit)="handleUpdateUserForm()" class="row g-3 p-4">
+    <div class="col-md-6">
+      <label for="UserName" class="form-label">User Name</label>
+      <input class="form-control" id="UserName" formControlName="UserName" [disabled]="true" />
+    </div>
+  
+    <div class="col-md-6">
+      <label for="Role" class="form-label">Role</label>
+      <select id="Role" class="form-select" formControlName="Role" (change)="onRoleChange($event)">
+        <option *ngFor="let item of roles" [value]="item.name">{{ item.name }}</option>
+      </select>
+      <div *ngIf="formControls['Role'].invalid && formControls['Role'].touched" class="text-danger">
+        <small>Role is required.</small>
+      </div>
+    </div>
+  
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="UpdateUserForm.invalid">Submit</button>
+    </div>
+  </form>

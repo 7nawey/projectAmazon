@@ -18,7 +18,8 @@
     </div>
     <div class="col-6">
       <label for="Descreption" class="form-label">Descreption</label>
-      <input type="text" class="form-control" id="Descreption"  formControlName="description" placeholder="Enter Category Description">
+      <input type="text" class="form-c
+      ontrol" id="Descreption"  formControlName="description" placeholder="Enter Category Description">
       @if (formControls['description'].invalid && formControls['description'].touched) {
         <div class="form-text text-danger">
           @if (formControls['description'].hasError('required')) {
@@ -46,6 +47,7 @@
       </button>
   </form>
 </div>
+
 
 
 

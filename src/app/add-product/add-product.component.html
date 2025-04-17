@@ -1,63 +1,57 @@
 <app-nav-dashbord></app-nav-dashbord>
-
 <div class="container">
   <form class="row g-3 p-4" [formGroup]="AddProductForm" (ngSubmit)="handleAddProductForm()">
-
     <div class="col-md-3">
       <label for="productName" class="form-label">Product Name</label>
-      <input type="text" class="form-control" id="productName" formControlName="categoryName" placeholder="Enter Product Name">
+      <input type="text" class="form-control" id="productName" placeholder="Enter Product Description">
     </div>
-
     <div class="col-md-3">
       <label for="Price" class="form-label">Price</label>
-      <input type="number" class="form-control" id="Price" formControlName="price">
+      <input type="number" class="form-control" id="Price">
     </div>
-
-    <div class="col-md-3">
-      <label for="SellerName" class="form-label">Seller Name</label>
-      <input type="text" class="form-control" id="SellerName" formControlName="sellerName">
-    </div>
-
     <div class="col-6">
-      <label for="Description" class="form-label">Description</label>
-      <input type="text" class="form-control" id="Description" formControlName="description" placeholder="Enter Product Description">
+      <label for="Descreption" class="form-label">Descreption</label>
+      <input type="text" class="form-control" id="Descreption" placeholder="Enter Product Description">
     </div>
-
     <div class="col-6">
-      <label for="StockQuantity" class="form-label">Stock Quantity</label>
-      <input type="number" class="form-control" id="StockQuantity" formControlName="stockQuantity">
+      <label for="StockQuantity" class="form-label">StockQuantity</label>
+      <input type="number" class="form-control" id="StockQuantity">
     </div>
-
     <div class="col-md-6">
-      <label for="ImgCover" class="form-label">Image Cover (URL)</label>
-      <input type="text" class="form-control" id="ImgCover" formControlName="imgCover">
+      <label for="ImgCover" class="form-label">ImgCover</label>
+      <input type="text" class="form-control" id="ImgCover">
     </div>
-
     <div class="col-md-6">
-      <label for="SubCategoryName" class="form-label">Subcategory Name</label>
-      <select class="form-control" id="SubCategoryName" formControlName="subCategoryName">
-        <option value="" disabled selected>Choose...</option>
-        <option *ngFor="let option of ['Sushi', 'Desserts', 'Beverages']" [value]="option">{{ option }}</option>
+      <label for="SubCategoryName" class="form-label">SubCategory Name</label>
+      <select class="form-control" formControlName="subCategoryName">
+        <option value="">Choose...</option>
+        <option *ngFor="let sub of subcategories" [value]="sub.subCategoryName">
+          {{ sub.subCategoryName }}
+        </option>
       </select>
     </div>
-
+    
     <div class="col-md-2">
-      <label for="Zip" class="form-label">Zip</label>
-      <input type="text" class="form-control" id="Zip" formControlName="zip">
+      <label for="inputZip" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
     </div>
-
     <div class="input-group mb-3">
-      <label class="input-group-text" for="inputImage">Upload Image</label>
-      <input type="file" class="form-control" id="inputImage" (change)="onImageChange($event)">
-    </div>
-    <span class="text-danger" *ngIf="fileError">{{ fileError }}</span>
-
+        <label class="input-group-text" for="inputGroupFile01"></label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01"></label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+      </div>
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupFile01"></label>
+        <input type="file" class="form-control" id="inputGroupFile01">
+      </div>
     <div class="col-12">
       <button type="submit" class="btn btn-primary">Add Product</button>
     </div>
   </form>
 </div>
-
 
 
 

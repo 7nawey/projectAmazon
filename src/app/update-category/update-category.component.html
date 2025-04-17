@@ -2,7 +2,6 @@
 <form class="row g-3 p-4" [formGroup]="UpdateCategoryForm" (ngSubmit)="handleUpdateCategoryForm()">
   <div class="col-md-3" >
     <label for="CaregoryName" class="form-label">Caregory Name</label>
-    <!-- <input type="text" class="form-control" id="CaregoryName" formControlName="categoryName" [placeholder]="categoryName"> -->
     <input type="text" class="form-control" formControlName="categoryName" >
     @if(formControls['categoryName'].invalid && formControls['categoryName'].touched){
       <div id="CaregoryNameId" class="form-text text-danger">
@@ -18,7 +17,6 @@
   </div>
   <div class="col-6">
     <label for="Descreption" class="form-label">Descreption</label>
-    <!-- <input type="text" class="form-control" id="Descreption"  formControlName="description" [placeholder]="description"> -->
     <input type="text" class="form-control" id="Descreption"  formControlName="description">
     @if (formControls['description'].invalid && formControls['description'].touched) {
       <div class="form-text text-danger">

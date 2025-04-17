@@ -1,60 +1,89 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Category } from '../types/category';
 import { ApiService } from '../api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
-
 
 @Component({
   selector: 'app-add-subcategory',
-  imports: [ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './add-subcategory.component.html',
-  styleUrl: './add-subcategory.component.css'
+  styleUrls: ['./add-subcategory.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule,NavDashbordComponent]
 })
-export class AddSubcategoryComponent {
-  AddSubcategoryForm:FormGroup
+export class AddSubcategoryComponent implements OnInit {
+  AddSubcategoryForm: FormGroup;
   categories: Category[] = [];
- 
-  
-  
-      constructor(private formbuilder : FormBuilder, private subcategoryService: ApiService,private toastr: ToastrService ){
-    
-        this.AddSubcategoryForm = this.formbuilder.group({
-          subcategoryName: ['',[Validators.required, Validators.minLength(3)]],
-          category: [''],
-          categoryId: ['', Validators.required]
 
-          },)
-    }
-    get formControls() {
-      return this.AddSubcategoryForm.controls;
-    }
-    ngOnInit() {
-      this.getCategories();
-    }
+  constructor(
+    private formBuilder: FormBuilder,
+    private subcategoryService: ApiService,
+    private router: Router
+  ) {
+    this.AddSubcategoryForm = this.formBuilder.group({
+      subcategoryName: ['', [Validators.required, Validators.minLength(3)]],
+      categoryId: ['', Validators.required]
+    });
+  }
+
+  get formControls() {
+    return this.AddSubcategoryForm.controls;
+  }
+
+  ngOnInit() {
+    this.getCategories();
+  }
 
   getCategories() {
-    this.subcategoryService.getAllCategories().subscribe(
-      (data) => {
+    this.subcategoryService.getAllCategories().subscribe({
+      next: (data) => {
         this.categories = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching categories:', error);
       }
-    );
+    });
   }
-  handleAddAddSubcategoryForm(){
+  trackByCategoryId(index: number, item: Category): number {
+    return item.categoryID;
+  }
+  
+  handleAddAddSubcategoryForm() {
     if (this.AddSubcategoryForm.invalid) return;
 
-    this.subcategoryService.AddSubcategory(this.AddSubcategoryForm.value).subscribe({
-      next: () => {
-        this.toastr.success('Subcategory added successfully!');
+    const selectedCategory = this.categories.find(
+      (cat) => cat.categoryID === +this.AddSubcategoryForm.value.categoryId
+    );
+
+    if (!selectedCategory) {
+      Swal.fire('Error', 'Invalid category selected', 'error');
+      return;
+    }
+
+    const formData = {
+      title: this.AddSubcategoryForm.value.subcategoryName,
+      categoryId: selectedCategory.categoryID,
+      categoryName: selectedCategory.categoryName
+    };
+
+    this.subcategoryService.AddSubcategory(formData).subscribe({
+      next: (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: `Subcategory "${response.title}" added sussessfully`,
+          confirmButtonText: 'Go to list'
+        }).then(() => {
+          this.router.navigate(['/SubcategoryList']);
+        });
+
         this.AddSubcategoryForm.reset();
-       
       },
       error: () => {
-        this.toastr.error('Failed to add subcategory.');
+        Swal.fire('Error', 'Failed to add subcategory', 'error');
       }
     });
   }

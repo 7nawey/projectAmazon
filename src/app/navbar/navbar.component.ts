@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   cartItemCount: number = 0;
   cart$: Observable<any>;
-
+  isAdmin: boolean = false;
 
   constructor(
     public authService: AuthService,
@@ -44,7 +44,12 @@ export class NavbarComponent implements OnInit {
       } else {
         this.cartItemCount = 0;
       }
-    });
+    })
+    
+    
+    const role = localStorage.getItem('role');
+    console.log('Role from localStorage:', role); // تأكد من القراءة الصحيحة
+    this.isAdmin = role === 'Admin'; 
 
     this.cart$.subscribe(cart => {
       this.cartItemCount = cart ? cart.items.length : 0;
@@ -55,6 +60,7 @@ export class NavbarComponent implements OnInit {
 
     this.authService.logout();
     this.cartItemCount = 0;
+    this.isAdmin = false;
   }
   
   searchTerm = '';
@@ -66,5 +72,8 @@ onSearch() {
     });
   }
 }
+
+
+
 
 }

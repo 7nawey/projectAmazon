@@ -57,6 +57,9 @@ import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.compone
 import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ShippingComponent } from './shipping/shipping.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
     {
@@ -116,7 +119,11 @@ export const routes: Routes = [
     { path: 'sliderhome', component: SliderHomeComponent},
     { path: 'wishlist', component: WishlistComponent},
     { path: 'sport', component: SportsComponent},
-    {path:'admindashboard', component:AdmindashboardComponent},
+    {
+        path: 'admindashboard',
+        component: AdmindashboardComponent,
+        canActivate: [adminGuard]
+      },
     {path:'AddProduct',component:AddProductComponent},
     {path:'updateproduct/:id',component:UpdateProductComponent},
     {path:'CategoryList', component:CategorydashboardComponent},
@@ -136,6 +143,8 @@ export const routes: Routes = [
     {path:'forgetpassword', component:ForgetpasswordComponent},
     {path:'resetpassword', component:ResetpasswordComponent},
     {path:'orders', component: OrdersComponent},
+    {path:'updateUser/:id',component:UpdateUserComponent},
+    {path:'UserList',component:UserListComponent},
     {path:'shipping/:orderId', component: ShippingComponent},
 
 

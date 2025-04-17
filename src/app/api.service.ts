@@ -171,6 +171,10 @@ export class ApiService {
   updateProduct(id: number, updatedProduct: any): Observable<any> {
     return this.http.put(`https://localhost:7105/api/Product/UpdateProduct/${id}`, updatedProduct);
   }
+  
+  addProduct(productData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Product`, productData);
+  }
   getAllSubcategories():Observable<any>{
     return this.http.get<any>(`${this.baseUrl}/SubCategory/GetAllSubCategories`)
   }
@@ -182,8 +186,6 @@ export class ApiService {
   } 
   updatesubcategory(id: any, updatedsubcategory: any): Observable<any> {
     return this.http.put(`https://localhost:7105/api/SubCategory/UpdateSubcategory/${id}`, updatedsubcategory);
-    // return this.http.put(`https://localhost:7105/api/UpdateSubcategory/${id}`, updatedsubcategory);
-
   } 
   deleteSubategory(id: number): Observable<any> {
     return this.http.delete(`https://localhost:7105/api/SubCategory/${id}`);

@@ -61,8 +61,6 @@ export class ProductDashboardComponent  implements OnInit {
     this.productService.deleteCategory(product.ProductID).subscribe(
       () => {
         this.products = this.products.filter(c => c.ProductID !== product.ProductID);
-        // this.showSuccessMessage = true;
-        // setTimeout(() => this.showSuccessMessage = false, 3000);
       },
       (error) => {
         console.error('Error deleting category:', error);

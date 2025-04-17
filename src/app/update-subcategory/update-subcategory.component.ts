@@ -1,102 +1,103 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import {  FormBuilder, FormGroup, ReactiveFormsModule, FormControl,Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+import { Category } from '../types/category';
+import { Subcategory } from '../types/subcategory';
+import { CommonModule } from '@angular/common';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
-
-
 
 @Component({
   selector: 'app-update-subcategory',
-  imports: [RouterLink,ReactiveFormsModule,NavDashbordComponent],
   templateUrl: './update-subcategory.component.html',
-  styleUrl: './update-subcategory.component.css'
+  styleUrls: ['./update-subcategory.component.css'],
+  imports:[ReactiveFormsModule,CommonModule,NavDashbordComponent]
 })
-export class UpdateSubcategoryComponent {
-  UpdateSubcategoryForm:FormGroup
-    categories: any[] = [];
-    sub_categoryID:any;
-   
-    
-    
-        constructor(private formbuilder : FormBuilder, private subcategoryService: ApiService,private route: ActivatedRoute ){
-      
-          this.UpdateSubcategoryForm = this.formbuilder.group({
-            subcategoryName: ['',[Validators.required, Validators.minLength(3)]],
-            category: [''],
-            categoryId: ['', Validators.required]
-  
-            },)
-      }
-      get formControls() {
-        return this.UpdateSubcategoryForm.controls;
-      }
-      ngOnInit() {
-        this.route.params.subscribe(params => {
-          console.log('Params:', params);
-          const idParam = params['id'];
-          console.log('ID Param:', idParam);
-          
-          if (!idParam) {
-            console.error('ID parameter is missing!');
-            return;
-          }
-        
-          const id = Number(idParam);
-        
-          if (isNaN(id)) {
-            console.error(`ID is not a valid number: ${idParam}`);
-            return;
-          }
-        
-          this.sub_categoryID = id;
-      
-          // ✅ بعد ما الـ id يتحدد، هنا أعمل call للـ API
-          this.subcategoryService.getsubcategoryById(this.sub_categoryID).subscribe(data => {
-            this.UpdateSubcategoryForm.patchValue({
-              subcategoryName: data.title,  // تأكد الأحرف
-              categoryId: data.categoryId  // تأكد الأحرف كمان
-            });
-          });
-        });
-      
-        // كمان هنا لو تحب تجيب كل الكاتيجوريز
-        this.getCategories();
-      }
-      
-      
+export class UpdateSubcategoryComponent implements OnInit {
+  UpdateSubcategoryForm!: FormGroup;
+  categories: Category[] = [];
+  sub_CategoryId!: number;
 
-  
-    getCategories() {
-      this.subcategoryService.getAllCategories().subscribe(
-        (data) => {
-          this.categories = data;
-        },
-        (error) => {
-          console.error('Error fetching categories:', error);
-        }
-      );
-    }
-
-    handleUpdateSubcategoryForm() {
-      if (this.UpdateSubcategoryForm.invalid) return;
-    
-      const updatedSubcategory = {
-        sub_categoryID: this.sub_categoryID, 
-        title: this.UpdateSubcategoryForm.value.subcategoryName,
-        categoryId: this.UpdateSubcategoryForm.value.categoryId
-      };
-    
-      this.subcategoryService.updatesubcategory(this.sub_categoryID, updatedSubcategory).subscribe({
-        next: () => {
-          // this.toastr.success('Subcategory updated successfully!');
-          this.UpdateSubcategoryForm.reset();
-        },
-        // error: () => {
-        //   this.toastr.error('Failed to update subcategory.');
-        // }
-      });
-    }
-    
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private subcategoryService: ApiService
+  ) {
+    this.UpdateSubcategoryForm = this.fb.group({
+      subcategoryName: ['', [Validators.required, Validators.minLength(3)]],
+      categoryId: ['', Validators.required]
+    });
   }
+
+  get formControls() {
+    return this.UpdateSubcategoryForm.controls;
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      const id = idParam ? +idParam : NaN;
+
+      if (isNaN(id) || id <= 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Invalid subcategory ID!',
+        });
+        return;
+      }
+
+      this.sub_CategoryId = id;
+
+      this.getCategories();
+
+      this.subcategoryService.getsubcategoryById(this.sub_CategoryId).subscribe(data => {
+        this.UpdateSubcategoryForm.patchValue({
+          subcategoryName: data.title,
+          categoryId: data.categoryId
+        });
+      });
+    });
+  }
+
+  getCategories(): void {
+    this.subcategoryService.getAllCategories().subscribe(data => {
+      this.categories = data;
+    });
+  }
+
+  handleUpdateSubcategoryForm(): void {
+    if (this.UpdateSubcategoryForm.invalid) return;
+
+    const selectedCategory = this.categories.find(cat => cat.categoryID === +this.UpdateSubcategoryForm.value.categoryId);
+    const categoryName = selectedCategory ? selectedCategory.categoryName : '';
+
+    const updatedData = {
+      sub_CategoryId: this.sub_CategoryId,
+      title: this.UpdateSubcategoryForm.value.subcategoryName,
+      categoryId: +this.UpdateSubcategoryForm.value.categoryId,
+      categoryName: categoryName
+    };
+
+    this.subcategoryService.updatesubcategory(this.sub_CategoryId, updatedData).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Subcategory Updated',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.router.navigate(['/SubcategoryList']);
+        });
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update subcategory!',
+        });
+      }
+    });
+  }
+}

@@ -29,8 +29,11 @@ login(): void {
   this.authService.login(loginData).subscribe({
     next: (response) => {
       localStorage.setItem('token', response.token); 
-      localStorage.setItem('application_user_id', response.applicationUserId); 
+      localStorage.setItem('application_user_id', response.applicationUserId);
+      localStorage.setItem('role', response.role); 
+ 
       this.router.navigate(['']); 
+      window.location.reload();
     },
     error: (error) => {
       this.errorMessage = 'Login failed, please check your credentials and try again!';

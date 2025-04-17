@@ -86,9 +86,10 @@
         </li>
 
         <!-- Admin -->
-        <li class="nav-item ms-3">
+        <li class="nav-item ms-3" *ngIf="isAdmin">
           <a class="nav-link text-white" routerLink="/admindashboard" routerLinkActive="active-Link">Admin</a>
         </li>
+        
 
       </ul>
     </div>

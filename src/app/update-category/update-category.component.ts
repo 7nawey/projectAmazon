@@ -1,8 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import {  FormBuilder, FormGroup, ReactiveFormsModule, FormControl,Validators } from '@angular/forms';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
+
 
 @Component({
   selector: 'app-update-category',
@@ -19,7 +21,7 @@ export class UpdateCategoryComponent implements OnInit {
   fileError: string = '';
   imageBase64 = '';
 
-  constructor(private catrgoryService: ApiService, private formbuilder : FormBuilder,private route: ActivatedRoute) {
+  constructor(private catrgoryService: ApiService, private formbuilder : FormBuilder,private route: ActivatedRoute,  private router: Router,) {
     this.UpdateCategoryForm = this.formbuilder.group({
       categoryName: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(3)]],
@@ -56,15 +58,13 @@ export class UpdateCategoryComponent implements OnInit {
           this.UpdateCategoryForm.patchValue({
             categoryName: data.categoryName,
             description: data.description,
-            // this.categoryImg= data.categoryImg;
+           
           });
           this.categoryImg= data.categoryImg;
           this.imageBase64 = data.categoryImg;
         });
       
-    // } else {
-    //   console.error('ID parameter is missing!');
-    // }
+   
     }
 
   handleFileInput(event: any) {
@@ -90,9 +90,23 @@ export class UpdateCategoryComponent implements OnInit {
       categoryImg: this.imageBase64 || ''
     };
   
-    this.catrgoryService.updateCategory(this.categoryId, updatedCategory).subscribe(() => {
-  console.log('Category updated!');
-});
-  
-
-}}
+    this.catrgoryService.updateCategory(this.categoryId, updatedCategory).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Category Updated',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          this.router.navigate(['/CategoryList']);
+        });
+      },
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to update category!',
+        });
+      }
+    });
+  }
+}

@@ -1,36 +1,32 @@
 <app-nav-dashbord></app-nav-dashbord>
-<form class="row g-3 p-4" [formGroup]="UpdateSubcategoryForm" (ngSubmit)="handleUpdateSubcategoryForm()">
-    <div class="col-md-3" >
-      <label for="subcategoryName" class="form-label">Subcategory Name</label>
-      <input type="text" class="form-control" id="subcategoryName" formControlName="subcategoryName">
-      @if(formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched){
-        <div id="CaregoryNameId" class="form-text text-danger">
-          @if(formControls['subcategoryName'].hasError('required')){
-              <span>Required Field</span>
-          }
-          @else if(formControls['subcategoryName'].hasError('minlength')){
-              <span>length must be greater than 3</span>
-  
-          }
-        </div>
-          }
-    </div>
-    <div class="col-md-4">
-            <label for="categoryName" class="form-label">Category Name</label>
-            <select id="categoryName" class="form-select" formControlName="category">
-                @for (item of categories; track item.categoryID) {
-                  <option [value]="item.categoryID">{{ item.categoryName }}</option>
-                }
-              </select>
-              
-      </div>
-      
-  
-      <!-- <button type="submit" class="btn btn-primary" [disabled]="AddSubcategoryForm.invalid"> -->
-      <button type="submit" class="btn btn-primary" >
+<div class="container mt-5">
+  <h3 class="mb-4">Update Subcategory</h3>
 
-        Submit
-      </button>
+  <form [formGroup]="UpdateSubcategoryForm" (ngSubmit)="handleUpdateSubcategoryForm()">
+    <div class="form-group mb-3">
+      <label for="subcategoryName">ٍSubcategory Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="subcategoryName"
+        formControlName="subcategoryName"
+        [class.is-invalid]="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched"
+      />
+      <div *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched" class="invalid-feedback">
+        <span *ngIf="formControls['subcategoryName'].hasError('required')"> Required Field</span>
+        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Length must be greater than 3</span>
+      </div>
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="categoryId">Category Name</label>
+      <select class="form-select" formControlName="categoryId" id="categoryId">
+        <option *ngFor="let cat of categories" [value]="cat.categoryID">{{ cat.categoryName }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="UpdateSubcategoryForm.invalid">Save Changes</button>
   </form>
+</div>
 
 

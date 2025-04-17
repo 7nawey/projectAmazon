@@ -3,42 +3,36 @@
 
 <!-- Dashboard -->
 <div class="container my-5">
-  <div class="row g-4">
-    <div class="col-md-6 col-lg-3">
-      <div class="card shadow-sm border-0 bg-primary text-white text-center">
-        <div class="card-body">
-          <i class="bi bi-people-fill fs-1 mb-2"></i>
-          <h5 class="card-title">Total Users</h5>
-          <p class="card-text">Users Registered: {{usersCount}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="card shadow-sm border-0 bg-success text-white text-center">
-        <div class="card-body">
-          <i class="bi bi-box-seam fs-1 mb-2"></i>
-          <h5 class="card-title">Total Products</h5>
-          <p class="card-text">Products in site: {{productsCount}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="card shadow-sm border-0 bg-warning text-dark text-center">
-        <div class="card-body">
-          <i class="bi bi-tags-fill fs-1 mb-2"></i>
-          <h5 class="card-title">Subcategories</h5>
-          <p class="card-text">Total: {{subcategoriesCount}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-      <div class="card shadow-sm border-0 bg-danger text-white text-center">
-        <div class="card-body">
-          <i class="bi bi-collection-fill fs-1 mb-2"></i>
-          <h5 class="card-title">Categories</h5>
-          <p class="card-text">Total: {{categoriesCount}}</p>
-        </div>
-      </div>
+<div class="d-flex m-3">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total Users</h5>
+   
+      <p class="card-text">Total Users Registered in site {{usersCount}}</p>
+     
     </div>
   </div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total Product</h5>
+   
+      <p class="card-text">Total products in site {{productsCount}}</p>
+     
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total Subcategories</h5>
+   
+      <p class="card-text">Total Subcategories in site {{subcategoriesCount}}</p>
+    </div>
+  </div>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Total categories</h5>
+   
+      <p class="card-text">Total categories in site {{categoriesCount}}</p>
+    </div>
+  </div>
+</div>
 </div>
