@@ -4,50 +4,42 @@ import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-login',
-  imports: [FormsModule,CommonModule,RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  password: string = '';
+  emailOrUserName: string = '';
+  errorMessage: string = '';
+  successMessage: string = '';
 
-password: string = '';
-emailOrUserName: string = '';
-errorMessage: string = '';
-successMessage: string = '';
+  constructor(private authService: AuthService, private router: Router) {}
 
-constructor(private authService: AuthService, private router: Router) {}
-
-login(): void {
-  const loginData = {
-    password: this.password,
-    emailOrUserName: this.emailOrUserName
-  };
-
-  this.authService.login(loginData).subscribe({
-    next: (response) => {
-      localStorage.setItem('token', response.token); 
-      localStorage.setItem('application_user_id', response.applicationUserId);
-      localStorage.setItem('role', response.role); 
- 
-      this.router.navigate(['']); 
-      window.location.reload();
-    },
-    error: (error) => {
-      this.errorMessage = 'Login failed, please check your credentials and try again!';
-    }
-  });
-}
-ngOnInit(): void {
-  const userId = localStorage.getItem('application_user_id');
+  login(): void {
+    const loginData = {
+      password: this.password,
+      emailOrUserName: this.emailOrUserName
+    };
   
-  if (userId) {
-    // alert("You must log in first.");
-    this.router.navigate(['/']);
-    return;
+    this.authService.login(loginData).subscribe({
+      next: (response) => {
+        // فقط عند الدخول نقوم بحفظ التوكن
+        localStorage.setItem('token', response.token);
+        this.router.navigate(['']); 
+        window.location.reload();
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'Login failed, please check your credentials and try again!';
+      }
+    });
   }
-}
 
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/']);
+    }
+  }
 }

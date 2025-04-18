@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service'; // تأكد إن المسار مناسب حسب مشروعك
 
 @Component({
   selector: 'app-shipping',
@@ -18,13 +19,16 @@ export class ShippingComponent implements OnInit {
   isOrderSuccess: boolean = false;
   orders: any[] = [];
 
-
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('application_user_id');
-
-    if (!userId) {
+    // ✅ استخدم التوكن بدلاً من application_user_id
+    if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
       return;
     }
@@ -36,30 +40,27 @@ export class ShippingComponent implements OnInit {
         this.loadShipping();
         this.checkPaymentStatus();
         this.checkOrderState();
-
       } else {
-        // لو مفيش orderId في الرابط نرجعه للصفحة الرئيسية أو السلة
         this.router.navigate(['/orders']);
       }
     });
   }
-  checkOrderState(): void {
-  this.http.get<any>(`https://localhost:7105/api/order/${this.orderId}`)
-    .subscribe(
-      data => {
-        console.log('Order Data:', data); // ✅ اطبع البيانات وشوف شكلها
-        if (data && data.orderStatus && data.orderStatus.toLowerCase() === 'success') {
-          this.isOrderSuccess = true;
-        }
-        
-      },
-      error => {
-        console.error("Error fetching order state:", error);
-      }
-    );
-}
 
-  
+  checkOrderState(): void {
+    this.http.get<any>(`https://localhost:7105/api/order/${this.orderId}`)
+      .subscribe(
+        data => {
+          console.log('Order Data:', data);
+          if (data && data.orderStatus?.toLowerCase() === 'success') {
+            this.isOrderSuccess = true;
+          }
+        },
+        error => {
+          console.error("Error fetching order state:", error);
+        }
+      );
+  }
+
   loadShipping(): void {
     this.http.get<any>(`https://localhost:7105/api/shipping/order/${this.orderId}`)
       .subscribe(
@@ -76,7 +77,7 @@ export class ShippingComponent implements OnInit {
     this.http.get<any>(`https://localhost:7105/api/payments/order/${this.orderId}`)
       .subscribe(
         data => {
-          if (data && data.paymentStatus === 'Completed') {
+          if (data?.paymentStatus === 'Completed') {
             this.isPaymentConfirmed = true;
           }
         },
@@ -89,10 +90,9 @@ export class ShippingComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/orders']);
   }
-  
 
   editShipping(): void {
-    if (this.shipping && this.shipping.shippingID) {
+    if (this.shipping?.shippingID) {
       localStorage.setItem('shippingId', this.shipping.shippingID.toString());
     }
     this.router.navigate(['/checkout'], { queryParams: { edit: 'true' } });
@@ -100,5 +100,5 @@ export class ShippingComponent implements OnInit {
 
   goToCheckout(orderId: number): void {
     this.router.navigate(['/checkout'], { queryParams: { orderId } });
-  } 
+  }
 }

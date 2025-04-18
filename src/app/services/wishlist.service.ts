@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -27,7 +26,6 @@ export class WishlistService {
   getProductDetails(productID: number): Observable<any> {
     return this.http.get<any>(`https://localhost:7105/api/products/${productID}`);
   }
-  
 
   private getHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
@@ -36,13 +34,13 @@ export class WishlistService {
     });
   }
 
-  private getApplicationUserId(): string {
-    return localStorage.getItem('application_user_id') || '';
+  private getApplicationUserId(): string | null {
+    return this.authService.getApplicationUserId();
   }
 
   private checkUserLogin(): boolean {
-    const userId = this.getApplicationUserId();
-    if (!userId) {
+    const token = localStorage.getItem('auth_token');
+    if (!token || this.authService.isAuthenticated() === false) {
       this.router.navigate(['/login']);
       return false;
     }
@@ -51,8 +49,7 @@ export class WishlistService {
 
   getWishlist(): Observable<WishlistItem[]> {
     const userId = this.getApplicationUserId();
-    const token = localStorage.getItem('auth_token');
-    if (!userId || !token) return of([]);
+    if (!userId) return of([]);
 
     return this.http.get<any>(`${this.baseUrl}/${userId}`, {
       headers: this.getHeaders()
@@ -80,4 +77,3 @@ export class WishlistService {
     });
   }
 }
-

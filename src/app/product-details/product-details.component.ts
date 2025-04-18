@@ -6,6 +6,7 @@ import { ReviewService } from '../services/review.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from '../auth.service'; // ✅ إضافة AuthService
 
 @Component({
   selector: 'app-product-details',
@@ -13,9 +14,7 @@ import Swal from 'sweetalert2';
   imports: [CommonModule, FormsModule],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
-  animations: [
-   
-  ]
+  animations: []
 })
 export class ProductDetailsComponent implements OnInit {
   product: any;
@@ -30,7 +29,8 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private cartService: CartService,
     private reviewService: ReviewService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService // ✅ استخدمناه هنا
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +66,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   submitReview(): void {
-    const userId = localStorage.getItem('application_user_id');
+    const userId = this.authService.getApplicationUserId(); // ✅ بدل localStorage
     if (!userId || !this.product) {
       Swal.fire({
         title: 'Error',

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service'; // استيراد AuthService
 
 @Component({
   selector: 'app-orders',
@@ -15,11 +16,20 @@ export class OrdersComponent implements OnInit {
   successMessage: string | null = null;
   orders: any[] = [];
   confirmCancelOrderId: number | null = null;
-  customerId = localStorage.getItem('application_user_id') || '';
+  customerId: string | null = null; // تم تعديل هذا ليكون null بدلاً من سلسلة فارغة
 
-  constructor(private router: Router,private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService // حقن AuthService
+  ) {}
 
   ngOnInit(): void {
+    // التحقق من تسجيل الدخول واستخراج الـ customerId من التوكن
+    if (this.authService.isAuthenticated()) {
+      this.customerId = this.authService.getApplicationUserId();
+    }
+
     if (!this.customerId) {
       this.successMessage = 'You must be logged in.';
       return;
@@ -86,9 +96,11 @@ export class OrdersComponent implements OnInit {
       default: return '';
     }
   }
+
   goToShipping(orderId: number) {
     this.router.navigate(['/shipping', orderId]);
   }
+
   goToCheckout(orderId: number): void {
     this.router.navigate(['/checkout'], { queryParams: { orderId } });
   }  

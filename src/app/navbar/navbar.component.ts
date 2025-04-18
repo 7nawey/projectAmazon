@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
-
 import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -9,32 +8,28 @@ import { ApiService } from '../api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../services/wishlist.service';
-import { jwtDecode } from 'jwt-decode';
 import * as tf from '@tensorflow/tfjs';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import '@tensorflow/tfjs-backend-webgl';
+
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink,FormsModule,CommonModule],
-
+  standalone: true,
+  imports: [RouterLink, FormsModule, CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css'],
-  standalone: true
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn: boolean = false;
-  cartItemCount: number = 0;
+  isLoggedIn = false;
+  cartItemCount = 0;
   cart$: Observable<any>;
-  isAdmin: boolean = false;
+  isAdmin = false;
   searchTerm = '';
   userRole: string | null = null;
-
   selectedImage: File | null = null;
   selectedImagePreview: string | null = null;
-
   private model: mobilenet.MobileNet | null = null;
-
-  isListening: boolean = false;
+  isListening = false;
   recognition: any;
 
   constructor(
@@ -42,7 +37,7 @@ export class NavbarComponent implements OnInit {
     private cartService: CartService,
     private router: Router,
     private apiService: ApiService,
-    private wishlistService:WishlistService
+    private wishlistService: WishlistService
   ) {
     this.cart$ = this.cartService.cart$;
   }
@@ -56,30 +51,25 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = status;
       if (this.isLoggedIn) {
         this.cartService.updateCart();
-        this.decodeUserRole();
+        this.setUserRole();
       } else {
         this.cartItemCount = 0;
         this.userRole = null;
+        this.isAdmin = false;
       }
     });
-    
-    
-    const role = localStorage.getItem('role');
-    console.log('Role from localStorage:', role); // تأكد من القراءة الصحيحة
-    this.isAdmin = role === 'Admin'; 
 
     this.cart$.subscribe(cart => {
-      this.cartItemCount = cart ? cart.items.length : 0;
+      this.cartItemCount = cart?.items?.length || 0;
     });
   }
 
   logout(): void {
-
     this.authService.logout();
     this.cartItemCount = 0;
     this.isAdmin = false;
   }
-  
+
   async onSearch() {
     if (this.selectedImage && this.model) {
       const img = new Image();
@@ -92,10 +82,7 @@ export class NavbarComponent implements OnInit {
         const predictions = await this.model!.classify(tensor3D as tf.Tensor3D);
         if (predictions.length > 0) {
           const label = predictions[0].className;
-          console.log('🔍 Image label:', label);
           this.router.navigate(['/search'], { queryParams: { query: label } });
-        } else {
-          console.warn('❌ No predictions found.');
         }
         this.clearSearch();
       };
@@ -113,12 +100,10 @@ export class NavbarComponent implements OnInit {
     this.selectedImagePreview = null;
   }
 
-  decodeUserRole(): void {
-    const token = localStorage.getItem('auth_token');
-    if (token) {
-      const decoded: any = jwtDecode(token);
-      this.userRole = decoded['role'] || null;
-    }
+  setUserRole(): void {
+    const roles = this.authService.getUserRoles();
+    this.userRole = roles.length > 0 ? roles[0] : null;
+    this.isAdmin = roles.includes('Admin');
   }
 
   onImageSelected(event: any) {
@@ -140,7 +125,6 @@ export class NavbarComponent implements OnInit {
 
   startVoiceInput() {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-
     if (!SpeechRecognition) {
       alert('Voice recognition not supported on this browser');
       return;
@@ -158,12 +142,10 @@ export class NavbarComponent implements OnInit {
         .map((result: any) => result[0])
         .map((result: any) => result.transcript)
         .join('');
-
       this.searchTerm = transcript;
     };
 
     this.recognition.onerror = (event: any) => {
-      console.error('Speech recognition error:', event.error);
       this.stopVoiceInput();
     };
 
@@ -178,6 +160,3 @@ export class NavbarComponent implements OnInit {
     this.isListening = false;
   }
 }
-
-
-

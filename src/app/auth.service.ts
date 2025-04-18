@@ -1,27 +1,35 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7105/api/Account';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
-  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  private jwtHelper: JwtHelperService;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  private isLoggedInSubject: BehaviorSubject<boolean>;
+  isLoggedIn$: Observable<boolean>;
+
+  constructor(private http: HttpClient, private router: Router) {
+    this.jwtHelper = new JwtHelperService();
+    this.isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+    this.isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  }
 
   private hasToken(): boolean {
-    return !!localStorage.getItem('auth_token');
+    const token = localStorage.getItem('auth_token');
+    return !!token && !this.jwtHelper.isTokenExpired(token);
   }
 
   register(registerData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/register`, registerData).pipe(
       catchError((error) => {
         console.error('Registration error:', error);
-        return throwError(() => new Error('Registration failed!'));
+        return throwError(() => error.error || new Error('Registration failed!'));
       })
     );
   }
@@ -31,11 +39,6 @@ export class AuthService {
       tap((response) => {
         if (response.token) {
           localStorage.setItem('auth_token', response.token);
-          if (response.applicationUserId) {
-            localStorage.setItem('application_user_id', response.applicationUserId);
-          }
-
-          // تحديث حالة الدخول
           this.isLoggedInSubject.next(true);
         }
       }),
@@ -47,27 +50,50 @@ export class AuthService {
   }
 
   getApplicationUserId(): string | null {
-    return localStorage.getItem('application_user_id');
+    const token = localStorage.getItem('auth_token');
+    if (!token) return null;
+
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    return decodedToken?.ApplicationUserId || decodedToken?.nameid || null;
+  }
+
+  getUserRoles(): string[] {
+    const token = localStorage.getItem('auth_token');
+    if (!token) return [];
+  
+    const decodedToken = this.jwtHelper.decodeToken(token);
+    
+    // استخدم المسار الصحيح لاستخراج الدور من التوكن
+    const roles = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    
+    if (Array.isArray(roles)) {
+      return roles;
+    } else if (roles) {
+      return [roles];
+    }
+    return [];
+  }
+  
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('auth_token');
+    return token ? !this.jwtHelper.isTokenExpired(token) : false;
   }
 
   logout(): void {
-    localStorage.removeItem('auth_token');
-    localStorage.removeItem('application_user_id');
+    localStorage.clear();
     this.isLoggedInSubject.next(false);
     this.router.navigate(['/login']);
   }
-  verifyEmail(email: string) {
-    return this.http.post(`${this.apiUrl}/SendOtpForResetPassword?email=${email}`, {});
 
+  verifyEmail(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/SendOtpForResetPassword?email=${email}`, {});
   }
-  
+
   verifyOtp(email: string, otp: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/confirm-otp`, { email, otp });
   }
-  
-  
-  resetPasswordWithOtp(data: any) {
-    return this.http.post(`${this.apiUrl}/ResetPasswordWithOtp`, data);
 
+  resetPasswordWithOtp(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/ResetPasswordWithOtp`, data);
   }
 }

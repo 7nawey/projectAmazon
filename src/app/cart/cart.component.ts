@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';  // استيراد Router لتوجيه المستخدم
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -13,28 +12,16 @@ import { RouterLink } from '@angular/router';
   imports: [CommonModule, RouterLink]
 })
 export class CartComponent implements OnInit {
-  userId: string | null = '';
   items: any[] = [];
   isLoading = true;
 
-  constructor(private cartService: CartService, private authService: AuthService, private router: Router) {}  // إضافة الـ Router
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
-    // تحديد الـ userId باستخدام AuthService
-    this.userId = this.authService.getApplicationUserId();
-    console.log('User ID:', this.userId);  // تحقق من userId هنا
-
-    if (!this.userId) {
-      // إذا لم يكن المستخدم مسجل دخول، قم بتوجيهه إلى صفحة تسجيل الدخول
-      this.router.navigate(['/login']);
-      return;
-    }
-
     this.loadCart();
   }
 
   loadCart() {
-    // استدعاء الـ cart من الـ service
     this.cartService.getCart().subscribe({
       next: (res) => {
         this.items = res.items;
@@ -43,6 +30,7 @@ export class CartComponent implements OnInit {
       error: () => {
         alert('❌ Failed to load cart.');
         this.isLoading = false;
+        this.router.navigate(['/login']);
       }
     });
   }
@@ -60,14 +48,12 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(productId: number): void {
-    // إزالة المنتج من السلة
     this.cartService.removeFromCart(productId).subscribe(() => {
       this.items = this.items.filter(item => item.productID !== productId);
     });
   }
 
   increaseQuantity(item: any): void {
-    // زيادة الكمية
     item.quantity++;
     this.cartService.increaseQuantity(item.productID).subscribe({
       error: () => {
@@ -78,7 +64,6 @@ export class CartComponent implements OnInit {
   }
 
   decreaseQuantity(item: any): void {
-    // تقليل الكمية
     if (item.quantity > 1) {
       item.quantity--;
       this.cartService.decreaseQuantity(item.productID).subscribe({
@@ -97,14 +82,13 @@ export class CartComponent implements OnInit {
   handleZeroQuantity(item: any): boolean {
     return item.quantity === 0;
   }
+
   placeOrder(): void {
-    if (!this.userId) return;
-  
-    this.cartService.placeOrder(this.userId).subscribe({
+    this.cartService.placeOrder().subscribe({
       next: () => {
         alert('✅ Order placed successfully!');
         localStorage.removeItem('shippingId');
-        this.router.navigate(['/checkout']);  // توجيه المستخدم إلى صفحة checkout
+        this.router.navigate(['/checkout']);
       },
       error: () => {
         alert('❌ Failed to place order.');

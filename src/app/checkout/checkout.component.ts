@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth.service'; // تأكد إن المسار مناسب حسب مشروعك
 
 @Component({
   selector: 'app-checkout',
@@ -13,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-  
+
   step = 1;
   addressForm: FormGroup;
   paymentMethod: string = '';
@@ -22,9 +23,15 @@ export class CheckoutComponent implements OnInit {
   totalAmount: number = 0;
   unsupportedMethodSelected: boolean = false;
   shippingId: number | null = null;
+  userId: string | null = null;
 
-  
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.addressForm = this.fb.group({
       street: ['', Validators.required],
       building: ['', Validators.required],
@@ -39,23 +46,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    const userId = localStorage.getItem('application_user_id');
-    if (!userId) {
+    this.userId = this.authService.getApplicationUserId();
+
+    if (!this.userId) {
       this.router.navigate(['/login']);
       return;
     }
-  
-    // هنا بنشوف لو في orderId في الرابط
+
     this.route.queryParams.subscribe(params => {
       const passedOrderId = params['orderId'];
-  
+
       if (passedOrderId) {
-        // ✅ لو فيه orderId في الرابط، استخدمه
         this.orderId = +passedOrderId;
         this.loadOrderDetails();
       } else {
-        // 🛒 لو ما فيش orderId، اعتبره جاي من cart
-        this.http.get<any>(`https://localhost:7105/api/order/current/${userId}`)
+        this.http.get<any>(`https://localhost:7105/api/order/current/${this.userId}`)
           .subscribe(res => {
             if (!res || !res.orderID) {
               this.router.navigate(['/cart']);
@@ -69,9 +74,8 @@ export class CheckoutComponent implements OnInit {
           });
       }
     });
-  
-  
   }
+
   loadOrderDetails() {
     this.getOrderTotal();
     this.getExistingPayment();
@@ -128,15 +132,16 @@ export class CheckoutComponent implements OnInit {
       this.addressForm.markAllAsTouched();
       return;
     }
+
     const formValue = this.addressForm.value;
     const address = `${formValue.street}, ${formValue.building}, ${formValue.city}, ${formValue.district}, ${formValue.governorate}`;
-  
+
     const payload = {
       shippingAddress: address,
       shippingStatus: 'Pending',
       orderId: this.orderId
     };
-  
+
     this.http.post<any>('https://localhost:7105/api/shipping', payload)
       .subscribe(res => {
         this.shippingId = res.shippingId;
@@ -171,9 +176,9 @@ export class CheckoutComponent implements OnInit {
         });
     }
 
-    const status = "Success"; 
-    const requestBody = JSON.stringify(status); 
-  
+    const status = "Success";
+    const requestBody = JSON.stringify(status);
+
     this.http.put<any>(`https://localhost:7105/api/order/${this.orderId}/status`, requestBody, {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe({
