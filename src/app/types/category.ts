@@ -4,3 +4,11 @@ export interface Category {
   categoryImg: string;
   description: string;
 }
+export interface Product {
+  productID: number;
+  name: string;
+  price: number;
+  descreption: string;
+  stockQuantity: number;
+  // باقي الخصائص حسب اللي بيرجعه الـ API
+}
