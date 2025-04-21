@@ -29,7 +29,7 @@ export class LoginComponent {
         // فقط عند الدخول نقوم بحفظ التوكن
         localStorage.setItem('token', response.token);
         this.router.navigate(['']); 
-        window.location.reload();
+      
       },
       error: (error) => {
         this.errorMessage = error.error?.message || 'Login failed, please check your credentials and try again!';

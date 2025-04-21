@@ -9,8 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { WishlistService } from '../services/wishlist.service';
 import * as tf from '@tensorflow/tfjs';
+import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import * as tmImage from '@teachablemachine/image';
 import * as mobilenet from '@tensorflow-models/mobilenet';
-import '@tensorflow/tfjs-backend-webgl';
+import nlp from 'compromise';
+import '@tensorflow/tfjs';
 
 @Component({
   selector: 'app-navbar',
@@ -28,9 +31,13 @@ export class NavbarComponent implements OnInit {
   userRole: string | null = null;
   selectedImage: File | null = null;
   selectedImagePreview: string | null = null;
-  private model: mobilenet.MobileNet | null = null;
   isListening = false;
   recognition: any;
+
+  private tmModel: tmImage.CustomMobileNet | null = null;
+  private maxPredictions = 0;
+  private cocoModel: cocoSsd.ObjectDetection | null = null;
+  private mobileNetModel: mobilenet.MobileNet | null = null;
 
   constructor(
     public authService: AuthService,
@@ -43,9 +50,15 @@ export class NavbarComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await tf.setBackend('webgl');
     await tf.ready();
-    this.model = await mobilenet.load();
+
+    const modelURL = 'assets/model.json';
+    const metadataURL = 'assets/metadata.json';
+    this.tmModel = await tmImage.load(modelURL, metadataURL);
+    this.maxPredictions = this.tmModel.getTotalClasses();
+
+    this.cocoModel = await cocoSsd.load();
+    this.mobileNetModel = await mobilenet.load();
 
     this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
@@ -71,27 +84,73 @@ export class NavbarComponent implements OnInit {
   }
 
   async onSearch() {
-    if (this.selectedImage && this.model) {
-      const img = new Image();
-      img.src = this.selectedImagePreview!;
-      img.crossOrigin = 'anonymous';
+    if (this.selectedImage && this.selectedImagePreview) {
+      const image = await this.loadImage(this.selectedImagePreview);
+      const predictions: { label: string; probability: number }[] = [];
 
-      img.onload = async () => {
-        const imageTensor = tf.browser.fromPixels(img).resizeNearestNeighbor([224, 224]);
-        const tensor3D = imageTensor.expandDims(0);
-        const predictions = await this.model!.classify(tensor3D as tf.Tensor3D);
-        if (predictions.length > 0) {
-          const label = predictions[0].className;
-          this.router.navigate(['/search'], { queryParams: { query: label } });
-        }
-        this.clearSearch();
-      };
+      const predictionPromises = [];
+
+      if (this.cocoModel) {
+        predictionPromises.push(
+          this.cocoModel.detect(image).then(res => {
+            if (res.length > 0) {
+              predictions.push({ label: res[0].class, probability: res[0].score });
+            }
+          })
+        );
+      }
+
+      if (this.tmModel) {
+        predictionPromises.push(
+          this.tmModel.predict(image).then(res => {
+            const top = res.reduce((prev, curr) =>
+              curr.probability > prev.probability ? curr : prev
+            );
+            predictions.push({ label: top.className, probability: top.probability });
+          })
+        );
+      }
+
+      if (this.mobileNetModel) {
+        predictionPromises.push(
+          this.mobileNetModel.classify(image).then(res => {
+            if (res.length > 0) {
+              predictions.push({ label: res[0].className, probability: res[0].probability });
+            }
+          })
+        );
+      }
+
+      await Promise.all(predictionPromises);
+
+      if (predictions.length > 0) {
+        const best = predictions.reduce((prev, curr) =>
+          curr.probability > prev.probability ? curr : prev
+        );
+
+        const doc = nlp(best.label);
+        const cleanedLabel = doc.nouns().toSingular().out('text') || best.label;
+
+        this.router.navigate(['/search'], { queryParams: { query: cleanedLabel } });
+      }
+
+      this.clearSearch();
     } else if (this.searchTerm.trim()) {
       this.router.navigate(['/search'], {
         queryParams: { query: this.searchTerm.trim() }
       });
       this.clearSearch();
     }
+  }
+
+  loadImage(src: string): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = src;
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(err);
+    });
   }
 
   clearSearch() {
@@ -145,7 +204,7 @@ export class NavbarComponent implements OnInit {
       this.searchTerm = transcript;
     };
 
-    this.recognition.onerror = (event: any) => {
+    this.recognition.onerror = () => {
       this.stopVoiceInput();
     };
 
