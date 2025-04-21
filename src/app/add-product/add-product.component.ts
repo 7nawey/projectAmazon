@@ -1,74 +1,107 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ApiService } from '../api.service';
-import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
-import { ProductsComponent } from '../products/products.component';
 
 @Component({
   selector: 'app-add-product',
-  standalone: true,
-  imports: [ReactiveFormsModule, NavDashbordComponent, ProductsComponent],
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  styleUrls: ['./add-product.component.css'],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, NavDashbordComponent]
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnInit {
   AddProductForm: FormGroup;
-  fileError: string = '';
-  imageBase64: string = '';
-  subcategories: any[] = [];
+  subCategories: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private ProductService: ApiService,
-    private toastr: ToastrService
+    private apiService: ApiService,
+    private router: Router
   ) {
     this.AddProductForm = this.formBuilder.group({
-      categoryName: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(3)]],
-      price: [null, [Validators.required, Validators.min(0)]],
-      sellerName: ['', Validators.required],
-      stockQuantity: [null, [Validators.required, Validators.min(1)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      price: [0, [Validators.required, Validators.min(0)]],
+      priceAfterDiscount: [0, [Validators.required, Validators.min(0)]],
+      descreption: ['', Validators.required],
+      stockQuantity: [0, [Validators.required, Validators.min(0)]],
+      rating: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
       imgCover: ['', Validators.required],
-      subCategoryName: ['', Validators.required],
-      zip: [''],
-      categoryImg: [null, Validators.required]
+      sellerName: ['', Validators.required],
+      subCategoryName: ['', Validators.required], // ممكن تبقى ID لو بتحبي
+      productImages: this.formBuilder.array([
+        this.createImageFormGroup()
+      ])
     });
   }
 
   ngOnInit(): void {
-    this.getAllSubCategories();
+    this.getSubCategories();
   }
 
-  getAllSubCategories() {
-    this.ProductService.getAllSubcategories().subscribe({
-      next: (res) => {
-        this.subcategories = res;
+  get formControls() {
+    return this.AddProductForm.controls;
+  }
+
+  get productImages(): FormArray {
+    return this.AddProductForm.get('productImages') as FormArray;
+  }
+
+  createImageFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      imageURL: ['', Validators.required],
+      isPrimary: [false]
+    });
+  }
+
+  addImageField(): void {
+    this.productImages.push(this.createImageFormGroup());
+  }
+
+  removeImageField(index: number): void {
+    if (this.productImages.length > 1) {
+      this.productImages.removeAt(index);
+    }
+  }
+
+  getSubCategories(): void {
+    this.apiService.getAllSubcategories().subscribe({
+      next: (data) => {
+        this.subCategories = data;
       },
-      error: (err) => {
-        this.toastr.error('Failed to load subcategories');
+      error: (error) => {
+        console.error('Error fetching subcategories:', error);
       }
     });
   }
 
-  handleAddProductForm() {
-    if (this.AddProductForm.invalid) {
-      this.toastr.error('Please fill the form correctly');
-      return;
-    }
-  
-    const formData = { ...this.AddProductForm.value, categoryImg: this.imageBase64 };
-  
-    this.ProductService.addProduct(formData).subscribe({
-      next: () => {
-        this.toastr.success('Product added successfully!');
+  handleAddProductForm(): void {
+    if (this.AddProductForm.invalid) return;
+
+    const formData = this.AddProductForm.value;
+
+    this.apiService.AddProduct(formData).subscribe({
+      next: (response) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: `Product "${response.name}" added successfully`,
+          confirmButtonText: 'Go to Product List'
+        }).then(() => {
+          this.router.navigate(['/ProductList']);
+        });
+
         this.AddProductForm.reset();
-        this.imageBase64 = '';
+        while (this.productImages.length > 1) {
+          this.productImages.removeAt(1);
+        }
       },
       error: () => {
-        this.toastr.error('Failed to add product');
+        Swal.fire('Error', 'Failed to add product', 'error');
       }
     });
   }
-  
 }

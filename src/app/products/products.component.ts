@@ -142,4 +142,12 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+  calculateDiscountedPrice(product: any): number | null {
+    if (product.deal && product.deal.discountPercentage) {
+      const discount = product.price * product.deal.discountPercentage;
+      return product.price - discount;
+    }
+    return null;
+  }
+  
 }

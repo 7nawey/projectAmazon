@@ -9,6 +9,11 @@
       </div>
       <div class="main-image">
         <img [src]="product.imgCover" alt="{{ product.title }}" class="w-100" id="mainImage">
+        <span 
+    *ngIf="discountPercentage > 0" 
+    class="badge bg-danger text-white position-absolute rounded-pill px-3 py-1 discount-badge">
+    -{{ discountPercentage }}%
+  </span>
       </div>
     </div>
 
@@ -56,8 +61,15 @@
       {{ expandedDescriptions.has(product.productID) ? 'See Less' : 'See More' }}
     </a>
 
-    <h2 class="price">$ {{ product.price }}</h2>
+    <h2 class="price" *ngIf="product.priceAfterDiscount < product.price">
+      <span class="text-muted text-decoration-line-through">$ {{ product.price }}</span>
+    </h2>
     <h2>{{ product.priceAfterDiscount }}</h2>
+     
+    <div *ngIf="getRemainingDays() !== null" class="text-danger fw-bold">
+      Offer ends in {{ getRemainingDays() }} day{{ getRemainingDays() === 1 ? '' : 's' }}!
+    </div>
+    
 
     <p class="rounded-5 ms-1 stock d-flex justify-content-center text-white" 
        [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
