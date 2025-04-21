@@ -4,6 +4,11 @@
       <div class="col-md-3 product-border position-relative" *ngFor="let product of products">
         <div class="position-relative fashoin-sec">
           <img [src]="product.imgCover" class="rounded-3 " alt="{{ product.name }}" />
+          <span *ngIf="product.deal?.discountPercentage" 
+                class="badge bg-danger position-absolute bottom-0 end-0 m-2">
+                   -{{ product.deal.discountPercentage * 100 }}%
+          </span>
+        
           <div class="wishlist-wrapper">
             <i 
               class="wishlist-icon" 
@@ -29,7 +34,12 @@
           {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
         </p>
 
-        <p class="fs-4 price">{{ product.price }} EGP</p>
+        <div *ngIf="calculateDiscountedPrice(product) as discounted">
+          <p class="fs-5 text-muted text-decoration-line-through">{{ product.price }} EGP</p>
+          <p class="fs-4 text-danger fw-bold">{{ discounted | number:'1.2-2' }} EGP</p>
+        </div>
+        <p *ngIf="!calculateDiscountedPrice(product)" class="fs-4 price">{{ product.price }} EGP</p>
+        
 
         <div class="btn-group d-flex">
           <button 

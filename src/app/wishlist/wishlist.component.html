@@ -19,9 +19,7 @@
         <div class="wishlist-item-details">
           <h5>{{ product.name }}</h5>
           <button class="p-2 details" [routerLink]="['/product-details', product.productID]">View More Details</button>
-          <div class="price-section">
-            <span class="price">{{ product.price | currency:'EGP':'symbol':'1.2-2' }}</span>
-          </div>
+          
           <button class="remove-btn" (click)="removeFromWishlist(product)">×</button>
         </div>
       </div>
