@@ -1,0 +1,23 @@
+<!-- Language selection options -->
+<div class="language-switcher d-flex justify-content-center gap-3 mt-3">
+  <div class="form-check">
+    <input type="radio" class="form-check-input" id="english" name="language" value="en" [(ngModel)]="selectedLang" (change)="selectLang('en')">
+    <label class="form-check-label" for="english">
+      <i class="fa-solid fa-flag-usa me-2"></i> English
+    </label>
+  </div>
+  
+  <div class="form-check">
+    <input type="radio" class="form-check-input" id="arabic" name="language" value="ar" [(ngModel)]="selectedLang" (change)="selectLang('ar')">
+    <label class="form-check-label" for="arabic">
+      <i class="fa-solid fa-flag me-2"></i> العربية
+    </label>
+  </div>
+</div>
+
+<!-- Save button -->
+<div class="text-center mt-3">
+  <button class="btn btn-outline-primary" (click)="saveLang()">
+    <i class="fa-solid fa-check"></i> {{ 'LANGUAGE_SETTINGS.SAVE' | translate }}
+  </button>
+</div>

@@ -45,11 +45,11 @@
           <button 
             class="p-2 add me-2"
             (click)="addToCart(product)">
-            Add to cart
+            {{ 'BUTTONS.ADD_TO_CART' | translate }}
           </button>
           
           <button class="p-2 details" [routerLink]="['/product-details', product.productID]">
-            View Details
+            {{ 'BUTTONS.VIEW_MORE' | translate }}
           </button>
         </div>
       </div>

@@ -6,8 +6,8 @@
   <!-- Step 1: Address -->
   <div class="card shadow-sm mb-4 border-primary">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-      <span><strong>1. Delivery Address</strong></span>
-      <button class="btn btn-outline-light btn-sm" (click)="toggleStep(1)">Change</button>
+      <span><strong>{{ 'address.title' | translate }}</strong></span>
+      <button class="btn btn-outline-light btn-sm" (click)="toggleStep(1)">{{ 'BUTTONS.CHANGE' | translate }}</button>
     </div>
 
     <div class="collapse" [ngClass]="{ 'show': step === 1 }">
@@ -15,49 +15,49 @@
         <form [formGroup]="addressForm" class="row g-3">
           <div class="row">
             <div class="col-md-6">
-              <label class="form-label">Street Name</label>
-              <input type="text" class="form-control" formControlName="street" placeholder="e.g. Talaat Harb Street">
+              <label class="form-label">{{ 'address.street_label' | translate }}</label>
+              <input type="text" class="form-control" formControlName="street" placeholder="{{ 'address.street_place' | translate }}">
               <div *ngIf="addressForm.get('street')?.touched && addressForm.get('street')?.invalid" class="text-danger small mt-1">
-                Street name is required.
+                {{ 'address.street_required' | translate }}
               </div>
             </div>
           
             <div class="col-md-6">
-              <label class="form-label">Building Number</label>
-              <input type="text" class="form-control" formControlName="building" placeholder="e.g. Building 15">
+              <label class="form-label">{{ 'address.building_label' | translate }}</label>
+              <input type="text" class="form-control" formControlName="building" [placeholder]="'address.building_placeholder' | translate">
               <div *ngIf="addressForm.get('building')?.touched && addressForm.get('building')?.invalid" class="text-danger small mt-1">
-                Building number is required.
+                {{ 'address.building_required' | translate }}
               </div>
             </div>
           
             <div class="col-md-6 mt-3">
-              <label class="form-label">City</label>
-              <input type="text" class="form-control" formControlName="city" placeholder="e.g. Cairo">
+              <label class="form-label">{{ 'address.city_label' | translate }}</label>
+              <input type="text" class="form-control" formControlName="city" [placeholder]="'address.city_placeholder' | translate">
               <div *ngIf="addressForm.get('city')?.touched && addressForm.get('city')?.invalid" class="text-danger small mt-1">
-                City is required.
+                {{ 'address.city_required' | translate }}
               </div>
             </div>
           
             <div class="col-md-6 mt-3">
-              <label class="form-label">District</label>
-              <input type="text" class="form-control" formControlName="district" placeholder="e.g. Nasr City">
+              <label class="form-label">{{ 'address.district_label' | translate }}</label>
+              <input type="text" class="form-control" formControlName="district" [placeholder]="'address.district_placeholder' | translate">
               <div *ngIf="addressForm.get('district')?.touched && addressForm.get('district')?.invalid" class="text-danger small mt-1">
-                District is required.
+                {{ 'address.district_required' | translate }}
               </div>
             </div>
           
             <div class="col-md-6 mt-3">
-              <label class="form-label">Governorate</label>
-              <input type="text" class="form-control" formControlName="governorate" placeholder="e.g. Cairo Governorate">
+              <label class="form-label">{{ 'address.governorate_label' | translate }}</label>
+              <input type="text" class="form-control" formControlName="governorate" [placeholder]="'address.governorate_placeholder' | translate">
               <div *ngIf="addressForm.get('governorate')?.touched && addressForm.get('governorate')?.invalid" class="text-danger small mt-1">
-                Governorate is required.
+                {{ 'address.governorate_required' | translate }}
               </div>
             </div>
           </div>
           
           <div class="col-12 mt-3">
             <button type="button" class="btn btn-primary w-100" (click)="deliverToThisAddress()">
-              <i class="fas fa-truck me-2"></i> Deliver to this address
+              <i class="fas fa-truck me-2"></i> {{ 'BUTTONS.DELIVER_TO_THIS_ADDRESS' | translate }}
             </button>
           </div>
         </form>
@@ -68,8 +68,8 @@
   <!-- Step 2: Payment Method -->
   <div class="card shadow-sm mb-4 border-success">
     <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-      <span><strong>2. Payment Method</strong></span>
-      <button class="btn btn-outline-light btn-sm" [disabled]="step < 2" (click)="toggleStep(2)">Change</button>
+      <span><strong>2.{{ 'address.payment' | translate }}</strong></span>
+      <button class="btn btn-outline-light btn-sm" [disabled]="step < 2" (click)="toggleStep(2)">{{ 'BUTTONS.CHANGE' | translate }}</button>
     </div>
 
     <div class="collapse" [ngClass]="{ 'show': step === 2 }">
@@ -103,7 +103,7 @@
         </div>
 
         <button class="btn btn-success w-100" (click)="useThisPaymentMethod()">
-          <i class="fas fa-credit-card me-2"></i> Use this payment method
+          <i class="fas fa-credit-card me-2"></i> {{ 'BUTTONS.USE_THIS_PAYMENT_METHOD' | translate }}
         </button>
       </div>
     </div>
@@ -112,13 +112,13 @@
   <!-- Step 3: Order Summary -->
   <div class="card shadow-sm border-dark">
     <div class="card-header bg-dark text-white">
-      <strong>3. Order Summary</strong>
+      <strong>{{ 'checkout.order_summary' | translate }}</strong>
     </div>
   
     <div class="collapse" [ngClass]="{ 'show': step === 3 }">
       <div class="card-body">
         <div class="mb-3">
-          <strong><i class="fas fa-map-marker-alt me-2 text-danger"></i>Shipping Address:</strong>
+          <strong><i class="fas fa-map-marker-alt me-2 text-danger"></i>{{ 'checkout.shipping_address' | translate }}</strong>
           <div class="card mt-2">
             <div class="card-body p-2">
               <p class="mb-1"><i class="fas fa-road me-2 text-muted"></i>{{ addressForm.value.street }}</p>
@@ -131,7 +131,7 @@
         </div>
   
         <div class="mb-3">
-          <strong><i class="fas fa-credit-card me-2 text-success"></i>Payment Method:</strong>
+          <strong><i class="fas fa-credit-card me-2 text-success"></i>{{ 'address.payment' | translate }}:</strong>
           <span class="badge" [ngClass]="{
             'bg-primary': paymentMethod === 'PayPal',
             'bg-success': paymentMethod === 'CashOnDelivery'
@@ -141,17 +141,17 @@
             {{ paymentMethod === 'CashOnDelivery' ? 'Cash on Delivery' : 'PayPal' }}
           </span>
           <div *ngIf="paymentMethod === 'CashOnDelivery'" class="alert alert-info mt-2">
-            <i class="fas fa-info-circle me-2"></i> You will pay cash when you receive your order.
+            <i class="fas fa-info-circle me-2"></i> {{ 'checkout.cash_on_delivery' | translate }}
           </div>
         </div>
   
         <div class="mb-4">
-          <strong><i class="fas fa-money-bill-wave me-2 text-warning"></i>Total Amount:</strong>
+          <strong><i class="fas fa-money-bill-wave me-2 text-warning"></i>{{ 'cart.total' | translate }}</strong>
           <span class="fs-5 fw-bold text-danger">EGP {{ totalAmount | number:'1.2-2' }}</span>
         </div>
   
         <button class="btn btn-lg btn-warning w-100 fw-bold" (click)="verifyAndPlaceOrder()">
-          <i class="fas fa-check-circle me-2"></i> Verify and Place Your Order
+          <i class="fas fa-check-circle me-2"></i> {{ 'BUTTONS.VERIFY_AND_PLACE_ORDER' | translate }}
         </button>
       </div>
     </div>

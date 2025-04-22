@@ -1,0 +1,306 @@
+{
+  "NAV": {
+    "HOME": "الرئيسية",
+    "PRODUCTS": "المنتجات",
+    "CONTACT": "تواصل معنا",
+    "CART": "السلة",
+    "WISHLIST": "قائمة الرغبات",
+    "SETTINGS": "الإعدادات",
+    "DROPDOWN": {
+      "ORDERS": "الطلبات",
+      "SHIPPING": "الشحن",
+      "CHATBOT": "روبوت الدردشة",
+      "SETTINGS": "الإعدادات"
+    },
+    "DELIVER_TO": "التوصيل في مصر",
+    "SEARCH": "بحث",
+    "LOGIN": "تسجيل الدخول",
+    "LOGOUT": "تسجيل الخروج"
+  },
+  "BUTTONS": {
+    "ADD_TO_CART": "أضف إلى السلة",
+    "VIEW_MORE": "عرض المزيد",
+    "VIEW_DETAILS": "عرض مزيد من  التفاصيل",
+    "BACK_TO_TOP": "العودة للأعلى",
+    "BROWSE_PRODUCTS": "تصفح المنتجات",
+    "SUBMIT_REVIEW": "إرسال التقييم",
+    "SHOP_NOW": "تسوق الآن",
+    "PLACE_ORDER": "تنفيذ الطلب والدفع",
+    "DELIVER_TO_THIS_ADDRESS": "التوصيل إلى هذا العنوان",
+    "CHANGE": "تغيير",
+    "USE_THIS_PAYMENT_METHOD": "استخدم طريقة الدفع هذه",
+    "VERIFY_AND_PLACE_ORDER": "تأكيد وتنفيذ الطلب",
+    "RETURN_TO_HOME": "العودة إلى الصفحة الرئيسية",
+    "SUPPORT": "الدعم",
+    "CHECK": "تحقق",
+    "VIEW": "عرض",
+    "WOMEN": "نساء",
+    "MEN": "رجال",
+    "CHILDREN": "أطفال"
+  },
+  
+    "CATEGORIES": {
+      "LAPTOP": "لابتوب",
+      "PHONE": "هاتف",
+      "PRINTERS_SCREENS": "طابعات وشاشات",
+      "ACCESSORIES_OTHER": "اكسسوارات وأخرى",
+      "COOKWARE": "أدوات الطبخ",
+      "BEDROOM": "غرفة النوم",
+      "LIVINGROOM": "غرفة المعيشة",
+      "GYM": "جيم",
+      "FOOTBALL": "كرة القدم",
+      "BASKETBALL": "كرة السلة",
+      "PERFUME": "عطور",
+      "MAKEUP": "مكياج",
+      "SKINCARE": "العناية بالبشرة",
+      "BODYCARE": "العناية بالجسم",
+      "JEWELLERY": "مجوهرات",
+      "DRINKS": "مشروبات",
+      "CANNED": "معلبات",
+      "MEATS": "لحوم",
+      "VEGES_FRUITS": "خضروات وفواكه"
+    }
+  ,  
+    "FOOTER": {
+      "BACK_TO_TOP": "العودة إلى الأعلى",
+      "GET_TO_KNOW_US": "تعرف علينا",
+      "CAREERS": "الوظائف",
+      "BLOG": "المدونة",
+      "ABOUT": "حول أمازون",
+      "INVESTOR_RELATIONS": "علاقات المستثمرين",
+      "DEVICES": "أجهزة أمازون",
+      "SCIENCE": "علوم أمازون",
+  
+      "MAKE_MONEY": "اكسب المال معنا",
+      "SELL_PRODUCTS": "بيع المنتجات على أمازون",
+      "SELL_BUSINESS": "البيع على أمازون بيزنس",
+      "SELL_APPS": "بيع التطبيقات على أمازون",
+      "AFFILIATE": "كن شريكًا",
+      "ADVERTISE": "اعلن عن منتجاتك",
+      "SELF_PUBLISH": "النشر الذاتي معنا",
+      "HOST_HUB": "استضف مركز أمازون",
+      "SEE_MORE": "› عرض المزيد من طرق الربح",
+  
+      "PAYMENT_PRODUCTS": "منتجات الدفع من أمازون",
+      "BUSINESS_CARD": "بطاقة أعمال أمازون",
+      "SHOP_POINTS": "التسوق بالنقاط",
+      "RELOAD": "إعادة شحن الرصيد",
+      "CURRENCY_CONVERTER": "محول العملات من أمازون",
+  
+      "HELP_YOU": "دعنا نساعدك",
+      "COVID": "أمازون وكوفيد-19",
+      "ACCOUNT": "حسابك",
+      "ORDERS": "طلباتك",
+      "SHIPPING": "أسعار وسياسات الشحن",
+      "RETURNS": "الإرجاع والاستبدال",
+      "CONTENT_DEVICES": "إدارة المحتوى والأجهزة",
+      "HELP": "المساعدة",
+  
+      "MUSIC": "أمازون ميوزيك",
+      "MUSIC_DESC": "استمع لملايين الأغاني",
+      "BUSINESS": "أمازون بيزنس",
+      "BUSINESS_DESC": "كل شيء لأعمالك",
+      "IMDBPRO": "IMDbPro",
+      "IMDBPRO_DESC": "معلومات للمحترفين في مجال الترفيه",
+      "EERO": "eero WiFi",
+      "EERO_DESC": "بث 4K في كل غرفة",
+  
+      "ADS": "إعلانات أمازون",
+      "ADS_DESC": "الوصول للعملاء أينما كانوا",
+      "GLOBAL": "أمازون جلوبال",
+      "GLOBAL_DESC": "الشحن الدولي للطلبات",
+      "KINDLE": "نشر كيندل المباشر",
+      "KINDLE_DESC": "نشر رقمي ومطبوع بسهولة",
+      "EBLINK": "eBlink",
+      "EBLINK_DESC": "أمان ذكي لكل منزل",
+  
+      "SIXPM": "6pm",
+      "SIXPM_DESC": "عروض على ماركات الموضة",
+      "AWS": "خدمات أمازون ويب",
+      "AWS_DESC": "خدمات سحابية قابلة للتوسع",
+      "PVD": "برايم فيديو دايركت",
+      "PVD_DESC": "توزيع الفيديو بسهولة",
+      "NEIGHBORS": "تطبيق Neighbors",
+      "NEIGHBORS_DESC": "تنبيهات الجريمة والسلامة مباشرة",
+  
+      "ABEBOOKS": "AbeBooks",
+      "ABEBOOKS_DESC": "كتب وفنون ومقتنيات",
+      "AUDIBLE": "أوديبل",
+      "AUDIBLE_DESC": "استمع للكتب والأداء الصوتي",
+      "SHOPBOP": "Shopbop",
+      "SHOPBOP_DESC": "ماركات أزياء فاخرة",
+      "BOXES": "صناديق اشتراك أمازون",
+      "BOXES_DESC": "صناديق اشتراك تصل إلى بابك",
+  
+      "ACX": "ACX",
+      "ACX_DESC": "نشر الكتب الصوتية بسهولة",
+      "BOX_MOJO": "Box Office Mojo",
+      "BOX_MOJO_DESC": "بيانات إيرادات الأفلام",
+      "WOOT": "Woot!",
+      "WOOT_DESC": "عروض ومرح",
+      "PILLPACK": "PillPack",
+      "PILLPACK_DESC": "صيدلية مبسطة",
+  
+      "SELL": "البيع على أمازون",
+      "SELL_DESC": "ابدأ حساب بيع",
+      "GOODREADS": "جودريدز",
+      "GOODREADS_DESC": "مراجعات وتوصيات الكتب",
+      "ZAPPOS": "Zappos",
+      "ZAPPOS_DESC": "أحذية وملابس",
+      "LUNA": "أمازون لونا",
+      "LUNA_DESC": "ألعاب فيديو من السحابة بدون جهاز",
+  
+      "VEEQO": "Veeqo",
+      "VEEQO_DESC": "إدارة المخزون وبرمجيات الشحن",
+      "IMDB": "IMDb",
+      "IMDB_DESC": "أفلام، تلفزيون ومشاهير",
+      "RING": "Ring",
+      "RING_DESC": "أنظمة أمن المنزل الذكي",
+      "english":"عربي",
+      "LEGAL": "شروط الاستخدام سياسة الخصوصية الكشف عن خصوصية بيانات الصحة للمستهلك اختيارات خصوصية الإعلانات © 1996-2025، Amazon.com، Inc أو الشركات التابعة لها"
+    }
+  
+  ,
+  "LANGUAGE_SETTINGS": {
+    "TITLE": "إعدادات اللغة",
+    "DESCRIPTION": "اختر اللغة المفضلة للتطبيق.",
+    "SAVE": "حفظ التغييرات",
+  "SAVED": "تم حفظ اللغة بنجاح!"
+  },
+  "CAT": {
+  "ELECTRONICS": "الإلكترونيات",
+  "FASHION": "الموضة",
+  "BOOKS": "الكتب",
+  "HOME": "المنزل",
+  "TOYS": "الألعاب",
+  "SPORTS": "الرياضة والأنشطة الخارجية",
+  "BEAUTY": "الجمال والعناية الشخصية",
+  "GROCERY": "البقالة"
+},
+"section": {
+    "essentials": "تسوق لأساسيات منزلك",
+    "categories": "الفئات للاستكشاف",
+    "game": "ابدأ لعبتك",
+    "kitchen": "أفضل الفئات في أجهزة المطبخ",
+    "new_year": "عام جديد، لوازم جديدة",
+    "refresh_space": "جدد مساحتك",
+    "fashion": "تسوق العروض في الموضة",
+    "basket_joy": "املأ سلتك بالفرح"
+  },
+
+  "category": {
+    "cleaning_tools": "أدوات التنظيف",
+    "home_storage": "تخزين المنزل",
+    "home_decor": "ديكور المنزل",
+    "bedding": "أغطية الأسرة",
+    "nintendo_switch": "نينتندو سويتش",
+    "dining": "طعام",
+    "home": "منزل",
+    "kitchen": "مطبخ",
+    "health_and_beauty": "الصحة والجمال",
+    "jeans": "جينز",
+    "shirts": "قمصان",
+    "dresses": "فستان",
+    "shoes": "أحذية",
+    "children": "أطفال"
+  },
+  "home_banner": {
+    "spring_sale": "تخفيضات الربيع 30%",
+    "denim_title": "أناقة الدنيم بلا مجهود",
+    "denim_description": "اكتشف تنوع الدنيم مع مجموعتنا من الجينز والسترات",
+    "accessories_title": "إكسسوارات متنوعة",
+    "accessories_subtitle": "تسوق من أحدث تشكيلات الموضة لدينا"
+  },
+  
+    "product": {
+      "about_this_item": "حول هذا المنتج",
+      "reviews": "المراجعات",
+      "leave_review": "اترك مراجعة",
+      "rate_product_label": "قيّم هذا المنتج:",
+      "offer_ends_in": "ينتهي العرض خلال",
+      "day": "يوم",
+      "days": "أيام",
+      "in_stock": "متوفر في المخزون",
+      "out_of_stock": "غير متوفر في المخزون"
+    },
+    
+      "cart": {
+        "empty_title": "سلة التسوق فارغة",
+        "empty_description": "لا توجد منتجات في سلة التسوق",
+        "subtotal": "المجموع الفرعي:",
+        "total": "الإجمالي:",
+        "items_count": "عدد العناصر:"
+      },
+      "wishlist": {
+        "empty_title": "قائمة الرغبات فارغة",
+        "empty_description": "لا توجد منتجات في قائمة الرغبات"
+      }
+    ,
+      "address": {
+        "title": "1. عنوان التوصيل",
+        "street_label": "اسم الشارع",
+        "street_place": "مثال : شارع طلعت حرب ",
+        
+        "street_required": "اسم الشارع مطلوب.",
+        "building_label": "رقم المبنى",
+        "building_placeholder": "مثال: مبنى 15",
+        "building_required": "رقم المبنى مطلوب.",
+        "city_label": "المدينة",
+        "city_placeholder": "مثال: القاهرة",
+        "city_required": "اسم المدينة مطلوب.",
+        "district_label": "الحي",
+        "district_placeholder": "مثال: مدينة نصر",
+        "district_required": "اسم الحي مطلوب.",
+        "governorate_label": "المحافظة",
+        "governorate_placeholder": "مثال: محافظة القاهرة",
+        "governorate_required": "اسم المحافظة مطلوب.",
+      "payment": " طريقة الدفع"
+
+      },
+      
+        "checkout": {
+          "cash_on_delivery": "سوف تدفع نقدًا عند استلام طلبك.",
+          "shipping_address": "عنوان الشحن:",
+          "order_summary": "٣. ملخص الطلب"
+        },
+        
+          "settings": {
+            "prime_membership_title": "العضوية المميزة (Prime)",
+            "prime_membership_desc": "عرض مزايا عضويتك وتفاصيل الاشتراك.",
+            
+            "gift_cards_title": "بطاقات الهدايا",
+            "gift_cards_desc": "استبدل أو إدارة بطاقات الهدايا والأرصدة.",
+            
+            "customer_service_title": "خدمة العملاء",
+            "customer_service_desc": "اتصل بدعم العملاء أو تصفح مواضيع المساعدة."
+          },
+          
+            "shipping": {
+              "info": "معلومات الشحن",
+              "address": "العنوان",
+              "date": "تاريخ الشحن",
+              "tracking_number": "رقم التتبع",
+              "status": "الحالة",
+              "edit": "تعديل الشحن",
+              "back": "رجوع",
+              "no_info": "لا توجد معلومات شحن متوفرة"
+            },
+            "orders": {
+    "title": "طلباتك",
+    "date": "التاريخ",
+    "status": "الحالة",
+    "quantity": "الكمية",
+    "subtotal": "الإجمالي الفرعي",
+    "cancel": "إلغاء",
+    "confirm_cancel": "هل أنت متأكد أنك تريد إلغاء هذا الطلب؟",
+    "checkout": "الدفع",
+    "track": "تتبع",
+    "no_orders": "لم يتم العثور على طلبات",
+    "yes_cancel": "نعم، إلغاء",
+    "no": "لا"
+  }
+          
+          
+        
+           
+}

@@ -18,13 +18,13 @@
         <!-- Location -->
         <li class="nav-item">
           <a class="nav-link text-white" href="#">
-            <i class="fa-solid fa-location-dot me-2"></i>Deliver to Egypt
+            <i class="fa-solid fa-location-dot me-2"></i>{{ 'NAV.DELIVER_TO' | translate }}
           </a>
         </li>
 
         <li class="nav-item flex-grow-1 d-flex align-items-center position-relative">
-          <div class="input-group">
-            <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Search" (keyup.enter)="onSearch()" *ngIf="!selectedImagePreview">
+          <div dir="ltr" class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="{{ 'NAV.SEARCH' | translate }}" (keyup.enter)="onSearch()" *ngIf="!selectedImagePreview">
         
             <div *ngIf="selectedImagePreview" class="d-flex align-items-center w-100 px-2 py-1 bg-white border rounded">
               <img [src]="selectedImagePreview" alt="Preview" height="40" class="me-2">
@@ -46,14 +46,14 @@
               <i class="fa-solid fa-microphone text-dark"></i>
             </button>
         
-            <button (click)="onSearch()" class="btn btn-warning">Search</button>
+            <button (click)="onSearch()" class="btn btn-warning">{{ 'NAV.SEARCH' | translate }}</button>
           </div>
         </li>
 
         <!-- Wishlist -->
         <li class="nav-item" *ngIf="authService.isLoggedIn$ | async">
           <a class="nav-link text-white position-relative" routerLink="/wishlist">
-            <i class="fa-regular fa-heart me-2"></i>Wishlist
+            <i class="fa-regular fa-heart me-2"></i>{{ 'NAV.WISHLIST' | translate }}
             <!-- <span *ngIf="cartItemCount > 0" class="cart-item-count">{{ cartItemCount }}</span> -->
           </a>
         </li>
@@ -62,7 +62,7 @@
         <!-- Cart -->
 <li class="nav-item position-relative" *ngIf="isLoggedIn">
   <a class="nav-link text-white position-relative" routerLink="/cart">
-    <i class="fa-solid fa-cart-shopping me-2 fs-5"></i>Cart
+    <i class="fa-solid fa-cart-shopping me-2 fs-5"></i>{{ 'NAV.CART' | translate }}
     <span *ngIf="cartItemCount > 0" class="cart-item-count position-absolute">{{ cartItemCount }}</span>
   </a>
 </li>
@@ -73,28 +73,28 @@
           <a class="nav-link dropdown-toggle text-white d-flex align-items-center gap-1" href="#" id="settingsDropdown"
             role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-gear fa-lg"></i>
-            <span>settings</span>
+            <span>{{ 'NAV.SETTINGS' | translate }}</span>
           </a>
 
           <ul class="dropdown-menu shadow-lg rounded-3 p-2" aria-labelledby="settingsDropdown">
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/orders">
-                <i class="fa-solid fa-box-open text-primary"></i> Orders
+                <i class="fa-solid fa-box-open text-primary"></i> {{ 'NAV.DROPDOWN.ORDERS' | translate }}
               </a>
             </li>
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/shipping">
-                <i class="fa-solid fa-truck-fast text-success"></i> Shipping
+                <i class="fa-solid fa-truck-fast text-success"></i> {{ 'NAV.DROPDOWN.SHIPPING' | translate }}
               </a>
             </li>
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/chatbot">
-                <i class="fa-solid fa-robot text-warning"></i> Chat Bot
+                <i class="fa-solid fa-robot text-warning"></i> {{ 'NAV.DROPDOWN.CHATBOT' | translate }}
               </a>
             </li>            
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/settings">
-                <i class="fa-solid fa-sliders text-danger"></i> Settings
+                <i class="fa-solid fa-sliders text-danger"></i> {{ 'NAV.DROPDOWN.SETTINGS' | translate }}
               </a>
             </li>
           </ul>
@@ -103,7 +103,7 @@
         <!-- Login / Logout -->
         <li class="nav-item ms-3">
           <button class="log nav-link" (click)="logout()">
-            {{ isLoggedIn ? 'Log out' : 'Login' }}
+            {{ (isLoggedIn ? 'NAV.LOGOUT' : 'NAV.LOGIN') | translate }}
           </button>
         </li>
 
@@ -122,7 +122,7 @@
 
 <!-- nvbar 2 -->
 <nav class="nav2 navbar navbar-expand-lg list-items">
-  <div class="container-fluid">
+  <div class="class=w-100">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent1"
       aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -131,14 +131,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent1">
       <ul class="navbar-nav me-auto mb-1 mb-lg-0">
 
-        <li class="nav-item navitem2"><a class="nav-link" routerLink="/electronic">Electronics</a></li>
-        <li class="nav-item navitem2"><a class="nav-link" routerLink="/fashoin">Fashion</a></li>
-        <li class="nav-item navitem2"><a class="nav-link"  routerLink="/book">Books</a></li>
-        <li class="nav-item navitem2"><a class="nav-link" routerLink="/homecategory">Home</a></li>
-        <li class="nav-item navitem2"><a class="nav-link"  routerLink="/toys">Toys & Games</a></li>
-        <li class="nav-item navitem2"><a class="nav-link" routerLink="/sport">Sports & Outdoors</a></li>
-        <li class="nav-item navitem2"><a class="nav-link" routerLink="/beauty">Beauty & Personal Care</a></li>
-        <li class="nav-item navitem2"><a class="nav-link" routerLink="/grocery">Grocery</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/electronic">{{ 'CAT.ELECTRONICS' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/fashoin">{{ 'CAT.FASHION' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link"  routerLink="/book">{{ 'CAT.BOOKS' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/homecategory">{{ 'CAT.HOME' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link"  routerLink="/toys">{{ 'CAT.TOYS' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/sport">{{ 'CAT.SPORTS' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/beauty">{{ 'CAT.BEAUTY' | translate }}</a></li>
+        <li class="nav-item navitem2"><a class="nav-link" routerLink="/grocery">{{ 'CAT.GROCERY' | translate }}</a></li>
       </ul>
     </div>
   </div>

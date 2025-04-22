@@ -7,9 +7,9 @@
   <div *ngIf="!isLoading">
     <div *ngIf="isCartEmpty()" class="empty-cart">
       <i class="fas fa-shopping-basket"></i>
-      <h3>Your cart is empty</h3>
-      <p>No products in your shopping cart</p>
-      <button class="browse-btn" routerLink="/homecategory">Browse Products</button>
+      <h3>{{ 'cart.empty_title' | translate }}</h3>
+      <p>{{ 'cart.empty_description' | translate }}</p>
+      <button class="browse-btn" routerLink="/homecategory">{{ 'BUTTONS.BROWSE_PRODUCTS' | translate }}</button>
     </div>
 
     <div *ngIf="!isCartEmpty()" class="cart-content">
@@ -34,19 +34,19 @@
 
       <div class="cart-summary">
         <div class="summary-row">
-          <span>Items Count:</span>
+          <span>{{ 'cart.items_count' | translate }}</span>
           <span>{{ getTotalItems() }}</span>
         </div>
         <div class="summary-row">
-          <span>Subtotal:</span>
+          <span>{{ 'cart.subtotal' | translate }}</span>
           <span>{{ getSubTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
         <div class="summary-row total">
-          <span>Total:</span>
+          <span>{{ 'cart.total' | translate }}</span>
           <span>{{ getTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
         <button class="checkout-btn" (click)="placeOrder()" [disabled]="isCartEmpty()">
-          🛒 Place Order & Checkout
+          {{ 'BUTTONS.PLACE_ORDER' | translate }}
         </button>
       </div>
     </div>

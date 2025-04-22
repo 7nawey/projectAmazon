@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../services/wishlist.service';
 import { HttpClient } from '@angular/common/http';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [CommonModule, RouterLink],  
+  imports: [CommonModule, RouterLink,LanguageSwitcherComponent,TranslateModule],  
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.css']
 })

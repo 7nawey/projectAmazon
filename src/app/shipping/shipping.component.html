@@ -5,21 +5,21 @@
           <div class="card shadow-lg border-0 animate__animated animate__fadeIn">
             <div class="card-header bg-primary text-white text-center">
               <h4 class="mb-0">
-                📦 Shipping Information
+                📦 {{ 'shipping.info' | translate }}
               </h4>
             </div>
   
             <div class="card-body" *ngIf="shipping; else noData">
               <div class="mb-4">
                 <h6 class="text-dark mb-1">
-                  📍 Address
+                  📍 {{ 'shipping.address' | translate }}
                 </h6>
                 <p class="ms-3 text-muted">{{ shipping.shippingAddress }}</p>
               </div>
   
               <div class="mb-4">
                 <h6 class="text-dark mb-1">
-                  🚚 Shipping Date
+                  🚚 {{ 'shipping.date' | translate }}
                 </h6>
                 <p class="ms-3 text-muted">
                   {{ shipping.shippingDate ? (shipping.shippingDate | date:'fullDate') : 'Not shipped yet' }}
@@ -28,7 +28,7 @@
   
               <div class="mb-4">
                 <h6 class="text-dark mb-1">
-                  🔢 Tracking Number
+                  🔢 {{ 'shipping.tracking_number' | translate }}
                 </h6>
                 <p class="ms-3 text-muted">
                   {{ shipping.trackingNumber || 'N/A' }}
@@ -37,7 +37,7 @@
   
               <div class="mb-4">
                 <h6 class="text-dark mb-1">
-                  📦 Status
+                  📦 {{ 'shipping.status' | translate }}
                 </h6>
                 <span class="badge fs-6 px-3 py-2"
                   [ngClass]="{
@@ -52,13 +52,13 @@
               
               <div class="d-flex justify-content-between mt-4">
                 <button class="btn btn-outline-secondary" (click)="goBack()">
-                  <i class="fas fa-arrow-left me-1"></i> Back
+                  <i class="fas fa-arrow-left me-1"></i> {{ 'shipping.back' | translate }}
                 </button>
   
                 <button class="btn btn-outline-primary" 
                 (click)="goToCheckout(orderId)"
                 [disabled]="isOrderSuccess">
-  <i class="fas fa-edit me-1"></i> Edit Shipping
+  <i class="fas fa-edit me-1"></i> {{ 'shipping.edit' | translate }}
 </button>
 
               </div>
@@ -66,7 +66,7 @@
   
             <ng-template #noData>
               <div class="alert alert-info text-center m-0 p-4">
-                <i class="fas fa-info-circle me-2"></i> No shipping info available.
+                <i class="fas fa-info-circle me-2"></i> {{ 'shipping.no_info' | translate }}
               </div>
             </ng-template>
           </div>

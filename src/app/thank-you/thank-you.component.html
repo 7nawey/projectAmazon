@@ -4,7 +4,7 @@
       <h1>Thank you for your order!</h1>
       <p *ngIf="orderId">Your Order ID is: <strong>#{{ orderId }}</strong></p>
       <p>You will receive a notification once your order is processed and shipped.</p>
-      <button (click)="goHome()">Return to Homepage</button>
+      <button (click)="goHome()">{{ 'BUTTONS.RETURN_TO_HOME' | translate }}</button>
     </div>
   </div>
   
