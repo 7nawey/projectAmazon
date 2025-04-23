@@ -5,11 +5,14 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service'; // تأكد إن المسار مناسب حسب مشروعك
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,LanguageSwitcherComponent,TranslateModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })

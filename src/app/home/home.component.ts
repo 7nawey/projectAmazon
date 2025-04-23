@@ -5,10 +5,13 @@ import { SliderComponent } from '../slider/slider.component';
 import { FashoinComponent } from '../fashoin/fashoin.component';
 import { ApiService } from '../api.service';
 import { SliderHomeComponent } from '../slider-home/slider-home.component';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
-  imports: [ProductsComponent,SliderHomeComponent,RouterModule],
+  imports: [ProductsComponent,SliderHomeComponent,RouterModule,LanguageSwitcherComponent,TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

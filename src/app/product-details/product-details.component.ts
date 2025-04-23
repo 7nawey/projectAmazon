@@ -8,11 +8,14 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service'; // ✅ إضافة AuthService
 import { ProductsComponent } from '../products/products.component';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,LanguageSwitcherComponent,TranslateModule],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
   animations: []

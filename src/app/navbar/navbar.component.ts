@@ -14,11 +14,14 @@ import * as tmImage from '@teachablemachine/image';
 import * as mobilenet from '@tensorflow-models/mobilenet';
 import nlp from 'compromise';
 import '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule],
+  imports: [RouterLink, FormsModule, CommonModule,TranslateModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })

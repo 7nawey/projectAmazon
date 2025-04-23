@@ -1,0 +1,48 @@
+/* Style for the language radio buttons */
+.language-switcher .form-check {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.language-switcher .form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.language-switcher .form-check-label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.language-switcher .form-check-input:checked + .form-check-label {
+  color: #007bff; /* Highlight color when selected */
+  font-weight: 600;
+}
+
+.language-switcher .form-check-input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.language-switcher .form-check-label i {
+  font-size: 1.3rem; /* Icon size */
+  margin-right: 10px;
+}
+
+.language-switcher .text-center .btn {
+  font-size: 16px;
+  padding: 8px 20px;
+  border-radius: 25px;
+  margin-top: 15px;
+  transition: 0.3s;
+}
+
+.language-switcher .text-center .btn:hover {
+  background-color: #007bff;
+  color: white;
+}

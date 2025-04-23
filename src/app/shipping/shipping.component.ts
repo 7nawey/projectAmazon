@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service'; // تأكد إن المسار مناسب حسب مشروعك
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shipping',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,TranslateModule],
   templateUrl: './shipping.component.html',
   styleUrls: ['./shipping.component.css']
 })
