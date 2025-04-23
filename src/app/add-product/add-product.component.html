@@ -1,58 +1,84 @@
 <app-nav-dashbord></app-nav-dashbord>
-<div class="container">
-  <form class="row g-3 p-4" [formGroup]="AddProductForm" (ngSubmit)="handleAddProductForm()">
-    <div class="col-md-3">
-      <label for="productName" class="form-label">Product Name</label>
-      <input type="text" class="form-control" id="productName" placeholder="Enter Product Description">
+<div class="container my-5">
+  <form [formGroup]="AddProductForm" (ngSubmit)="handleAddProductForm()" class="p-4 border rounded shadow">
+    <!-- Name -->
+    <div class="mb-3">
+      <label class="form-label">Product Name</label>
+      <input type="text" formControlName="name" class="form-control" placeholder="Enter product name">
     </div>
-    <div class="col-md-3">
-      <label for="Price" class="form-label">Price</label>
-      <input type="number" class="form-control" id="Price">
+  
+    <!-- Price -->
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input type="number" formControlName="price" class="form-control" placeholder="Enter price">
     </div>
-    <div class="col-6">
-      <label for="Descreption" class="form-label">Descreption</label>
-      <input type="text" class="form-control" id="Descreption" placeholder="Enter Product Description">
+  
+    <!-- Price After Discount -->
+    <div class="mb-3">
+      <label class="form-label">Price After Discount</label>
+      <input type="number" formControlName="priceAfterDiscount" class="form-control" placeholder="Enter discounted price">
     </div>
-    <div class="col-6">
-      <label for="StockQuantity" class="form-label">StockQuantity</label>
-      <input type="number" class="form-control" id="StockQuantity">
+  
+    <!-- Description -->
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea formControlName="descreption" class="form-control" rows="3" placeholder="Enter description"></textarea>
     </div>
-    <div class="col-md-6">
-      <label for="ImgCover" class="form-label">ImgCover</label>
-      <input type="text" class="form-control" id="ImgCover">
+  
+    <!-- Stock Quantity -->
+    <div class="mb-3">
+      <label class="form-label">Stock Quantity</label>
+      <input type="number" formControlName="stockQuantity" class="form-control" placeholder="Enter stock">
     </div>
-    <div class="col-md-6">
-      <label for="SubCategoryName" class="form-label">SubCategory Name</label>
-      <select class="form-control" formControlName="subCategoryName">
-        <option value="">Choose...</option>
-        <option *ngFor="let sub of subcategories" [value]="sub.subCategoryName">
-          {{ sub.subCategoryName }}
+  
+    <!-- Rating -->
+    <div class="mb-3">
+      <label class="form-label">Rating</label>
+      <input type="number" formControlName="rating" class="form-control" placeholder="Enter rating (0 to 5)">
+    </div>
+  
+    <!-- Image Cover -->
+    <div class="mb-3">
+      <label class="form-label">Image Cover URL</label>
+      <input type="text" formControlName="imgCover" class="form-control" placeholder="Enter image URL">
+    </div>
+  
+    <!-- Seller Name -->
+    <div class="mb-3">
+      <label class="form-label">Seller Name</label>
+      <input type="text" formControlName="sellerName" class="form-control" placeholder="Enter seller name">
+    </div>
+  
+    <!-- Subcategory Dropdown -->
+    <div class="mb-3">
+      <label class="form-label">Subcategory</label>
+      <select formControlName="subCategoryName" class="form-select">
+        <option value="" disabled selected>Select subcategory</option>
+        <option *ngFor="let sub of subCategories" [value]="sub.title">
+          {{ sub.title }} ({{ sub.categoryName }})
         </option>
       </select>
     </div>
-    
-    <div class="col-md-2">
-      <label for="inputZip" class="form-label">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
+  
+    <!-- Product Images -->
+    <div formArrayName="productImages" class="mb-3">
+      <label class="form-label">Product Images</label>
+      <div *ngFor="let image of productImages.controls; let i = index" [formGroupName]="i" class="border p-3 rounded mb-2">
+        <div class="mb-2">
+          <input formControlName="imageURL" type="text" class="form-control" placeholder="Image URL">
+        </div>
+        <div class="form-check">
+          <input formControlName="isPrimary" type="checkbox" class="form-check-input" id="primaryImage{{i}}">
+          <label class="form-check-label" for="primaryImage{{i}}">Primary Image</label>
+        </div>
+        <button class="btn btn-danger btn-sm mt-2" type="button" (click)="removeImageField(i)" *ngIf="productImages.length > 1">Remove</button>
+      </div>
+      <button class="btn btn-secondary btn-sm" type="button" (click)="addImageField()">Add Another Image</button>
     </div>
-    <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupFile01"></label>
-        <input type="file" class="form-control" id="inputGroupFile01">
-      </div>
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupFile01"></label>
-        <input type="file" class="form-control" id="inputGroupFile01">
-      </div>
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="inputGroupFile01"></label>
-        <input type="file" class="form-control" id="inputGroupFile01">
-      </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary">Add Product</button>
-    </div>
+  
+    <button class="btn btn-primary mt-3" type="submit" [disabled]="AddProductForm.invalid">Add Product</button>
   </form>
-</div>
-
-
+  
+</div>  
 
 

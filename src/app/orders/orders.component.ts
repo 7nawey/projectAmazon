@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service'; // استيراد AuthService
-
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule,TranslateModule]
 })
 export class OrdersComponent implements OnInit {
 

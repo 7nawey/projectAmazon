@@ -178,3 +178,12 @@
 .valid-purchaser-icon {
   font-size: 1.2rem;
 }
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
+  color: #888;
+}

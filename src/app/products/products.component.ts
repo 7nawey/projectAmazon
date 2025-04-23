@@ -6,7 +6,9 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { WishlistService } from '../services/wishlist.service';
-
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-products',
@@ -14,7 +16,7 @@ import { WishlistService } from '../services/wishlist.service';
   styleUrls: ['./products.component.css'],
 
   standalone: true,
-  imports: [CommonModule, RouterLink]
+  imports: [CommonModule, RouterLink,LanguageSwitcherComponent,TranslateModule]
 
 })
 export class ProductsComponent implements OnInit {
@@ -142,4 +144,12 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+  calculateDiscountedPrice(product: any): number | null {
+    if (product.deal && product.deal.discountPercentage) {
+      const discount = product.price * product.deal.discountPercentage;
+      return product.price - discount;
+    }
+    return null;
+  }
+  
 }

@@ -1,6 +1,35 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
-import { AppComponent } from './app/app.component';
+/// <reference types="@angular/localize" />
 
-bootstrapApplication(AppComponent, appConfig )
-  .catch((err) => console.error(err));
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { provideHttpClient } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { HttpClient, provideHttpClient as provideHttp } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { provideRouter } from '@angular/router';
+import { routes } from './app/app.routes'; // Adjust this based on your project structure
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+const savedLang = localStorage.getItem('appLang') || 'en';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttp(),
+    provideRouter(routes),
+    importProvidersFrom(
+      TranslateModule.forRoot({
+        defaultLanguage: localStorage.getItem('appLang') || 'en',
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        }
+      })
+    )
+  ]
+}).catch(err => console.error(err));

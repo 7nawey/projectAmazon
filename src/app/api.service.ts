@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Category } from './types/category';
 // import { Category } from './types/category';
 
@@ -165,14 +165,24 @@ export class ApiService {
   
     return this.http.get<any>('https://localhost:7105/api/Product/GetAllProductsPagination', { params });
   }
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`https://localhost:7105/api/Product/${id}`);
-  }
-  updateProduct(id: number, updatedProduct: any): Observable<any> {
-    return this.http.put(`https://localhost:7105/api/Product/UpdateProduct/${id}`, updatedProduct);
+  deleteProduct(id: number) {
+    return this.http.delete(`${this.baseUrl}/Product`, {
+      params: { id: id.toString() }
+    });
   }
   
-  addProduct(productData: any): Observable<any> {
+  updateProduct(formData: any, productID: number): Observable<any> {
+    // نرسل الـ productID في الـ URL وأيضًا في body
+    return this.http.put(`${this.baseUrl}/Product/UpdateProduct/${productID}`, formData);
+  }
+  
+  
+  
+
+
+  
+  
+  AddProduct(productData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/Product`, productData);
   }
   getAllSubcategories():Observable<any>{
