@@ -259,6 +259,7 @@
       },
       
         "checkout": {
+        "proceed":" متابعه الشراء ",
           "cash_on_delivery": "سوف تدفع نقدًا عند استلام طلبك.",
           "shipping_address": "عنوان الشحن:",
           "order_summary": "٣. ملخص الطلب"
@@ -298,7 +299,30 @@
     "no_orders": "لم يتم العثور على طلبات",
     "yes_cancel": "نعم، إلغاء",
     "no": "لا"
+  },
+    "login": {
+      "login_title": "تسجيل الدخول",
+      "username_or_email": "اسم المستخدم / البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "login_button": "تسجيل الدخول",
+      "sign_up": "إنشاء حساب",
+      "forgot_password": "نسيت كلمة المرور؟",
+      "register_title": "إنشاء حساب جديد",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "confirm_password": "تأكيد كلمة المرور"
+    },
+    "verification": {
+    "title": "تحقق من بريدك الإلكتروني",
+    "message": "لقد أرسلنا رمز تحقق إلى",
+    "enter_otp": "أدخل رمز التحقق",
+    "verify_button": "تحقق"
+  },
+  "order_confirmation": {
+    "thank_you": "شكرًا لطلبك!",
+    "notification": "ستتلقى إشعارًا بمجرد معالجة طلبك وشحنه."
   }
+  
           
           
         

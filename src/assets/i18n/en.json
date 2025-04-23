@@ -254,6 +254,7 @@
       "payment": " Payment Method"
     },
       "checkout": {
+        "proceed":"proceed to buy",
         "cash_on_delivery": "You will pay cash when you receive your order.",
         "shipping_address": "Shipping Address:",
         "order_summary": "3. Order Summary"
@@ -292,7 +293,33 @@
     "no_orders": "No orders found",
     "yes_cancel": "Yes, Cancel",
     "no": "No"
+  },
+    "login": {
+      "login_title": "Login",
+      "username_or_email": "Username / Email",
+      "password": "Password",
+      "login_button": "Login",
+      "sign_up": "Sign Up",
+      "forgot_password": "Forgot Password?",
+      "register_title": "Register",
+      "username": "Username",
+      "email": "Email",
+      "confirm_password": "Confirm Password"
+    },
+      "verification": {
+        "title": "Verify Your Email",
+        "message": "We've sent a verification code to",
+        "enter_otp": "Enter OTP",
+        "verify_button": "Verify"
+      },
+      "order_confirmation": {
+    "thank_you": "Thank you for your order!",
+    "notification": "You will receive a notification once your order is processed and shipped."
   }
+    
+    
+  
+  
   
   
     
