@@ -39,8 +39,9 @@
       <div class="cart-summary">
         <div class="summary-row">
           <span>{{ 'cart.items_count' | translate }}</span>
-          <span>{{ getTotal() }}</span>
+          <span>{{ getItemsCount() }}</span>
         </div>
+        
         <div class="summary-row">
           <span>{{ 'cart.subtotal' | translate }}(Before Discount)</span>
           <span>{{ getSubTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>

@@ -54,6 +54,11 @@ export class CartComponent implements OnInit {
     return this.getSubTotal() - this.getTotal();
   }
 
+  getItemsCount(): number {
+    return this.items.reduce((count, item) => count + item.quantity, 0);
+  }
+  
+
   removeItem(productId: number): void {
     this.cartService.removeFromCart(productId).subscribe(() => {
       this.items = this.items.filter(item => item.productID !== productId);
