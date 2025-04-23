@@ -35,16 +35,21 @@ export class CartComponent implements OnInit {
     });
   }
 
-  getTotalItems(): number {
-    return this.items.reduce((total, item) => total + item.quantity, 0);
-  }
-
   getSubTotal(): number {
-    return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return this.items.reduce((total, item) => {
+      return total + (item.price * item.quantity);
+    }, 0);
   }
 
   getTotal(): number {
-    return this.getSubTotal();
+    return this.items.reduce((total, item) => {
+      const discountedPrice = item.price * (1 - item.discountPercentage);
+      return total + (discountedPrice * item.quantity);
+    }, 0);
+  }
+
+  getTotalDiscount(): number {
+    return this.getSubTotal() - this.getTotal();
   }
 
   removeItem(productId: number): void {

@@ -19,8 +19,12 @@
           <div class="cart-item-details">
             <h5>{{ item.productName }}</h5>
             <div class="price-section">
-              <span class="price">{{ item.price | currency:'EGP':'symbol':'1.2-2' }}</span>
-              <span *ngIf="item.oldPrice" class="old-price">{{ item.oldPrice | currency:'EGP':'symbol':'1.2-2' }}</span>
+              <span class="price">
+                {{ (item.price * (1 - item.discountPercentage)) | currency:'EGP':'symbol':'1.2-2' }}
+              </span>
+              <span *ngIf="item.discountPercentage > 0" class="old-price">
+                {{ item.price | currency:'EGP':'symbol':'1.2-2' }}
+              </span>
             </div>
             <div class="quantity-controls">
               <button (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1" class="qty-btn">-</button>
@@ -35,14 +39,18 @@
       <div class="cart-summary">
         <div class="summary-row">
           <span>Items Count:</span>
-          <span>{{ getTotalItems() }}</span>
+          <span>{{ getTotal() }}</span>
         </div>
         <div class="summary-row">
-          <span>Subtotal:</span>
+          <span>Subtotal (Before Discount):</span>
           <span>{{ getSubTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
+        <div class="summary-row" *ngIf="getTotalDiscount() > 0">
+          <span>Total Discount:</span>
+          <span class="text-success">-{{ getTotalDiscount() | currency:'EGP':'symbol':'1.2-2' }}</span>
+        </div>
         <div class="summary-row total">
-          <span>Total:</span>
+          <span>Total (After Discount):</span>
           <span>{{ getTotal() | currency:'EGP':'symbol':'1.2-2' }}</span>
         </div>
         <button class="checkout-btn" (click)="placeOrder()" [disabled]="isCartEmpty()">
