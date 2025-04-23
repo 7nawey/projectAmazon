@@ -227,7 +227,10 @@
     "empty_description": "No products in your shopping cart",
     "subtotal": "Subtotal:",
     "total": "Total:",
-    "items_count": "Items Count:"
+    "items_count": "Items Count:",
+    "before":"(Before Discount)",
+    "after":"(after Discount)",
+    "Discount":"total Discount"
   },
   "wishlist": {
     "empty_title": "Your wishlist is empty",
@@ -315,7 +318,17 @@
       "order_confirmation": {
     "thank_you": "Thank you for your order!",
     "notification": "You will receive a notification once your order is processed and shipped."
-  }
+  },
+  "resetpassword": {
+  "title": "Reset Your Password",
+  "otp_label": "OTP Code",
+  "otp_error": "OTP is required and must be at least 6 characters.",
+  "new_password_label": "New Password",
+  "new_password_placeholder": "Enter your new password",
+  "password_error": "Password must be at least 6 characters.",
+  "otp_instruction": "Enter the OTP sent to your email"
+}
+
     
     
   
