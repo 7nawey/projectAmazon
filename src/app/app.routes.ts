@@ -67,6 +67,8 @@ import { FootballComponent } from './football/football.component';
 import { BasketballComponent } from './basketball/basketball.component';
 import { ScreenComponent } from './screen/screen.component';
 import { AccesoriesComponent } from './accesories/accesories.component';
+import { ShippingallComponent } from './shippingall/shippingall.component'; 
+import { ShippingDetailsComponent } from './shipping-details/shipping-details.component';
 
 export const routes: Routes = [
     {
@@ -160,6 +162,9 @@ export const routes: Routes = [
     { path: 'basketball', component: BasketballComponent },
     { path: 'screen', component: ScreenComponent },
     { path: 'accesories', component: AccesoriesComponent },
+    {path:'shippingall',component:ShippingallComponent},
+    {path:'shipping-details/:shippingId',component:ShippingDetailsComponent},
     {path:'**', component:NotfoundComponent},
+
     
 ];

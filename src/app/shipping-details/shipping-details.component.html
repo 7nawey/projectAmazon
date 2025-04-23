@@ -1,0 +1,171 @@
+<div class="container py-5 shipping-dashboard">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-screen">
+        <div class="loader-wrapper">
+            <div class="pulse-loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <p class="loading-text">Preparing your shipment details...</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="!loading && shippingDetails" class="animate__animated animate__fadeIn">
+        <!-- Header Section -->
+        <div class="dashboard-header">
+            <div class="header-content">
+                <h1 class="dashboard-title">
+                    <i class="fas fa-truck"></i> Order Details
+                </h1>
+                <p class="order-number">Order #{{shippingDetails.orderDate}}</p>
+            </div>
+            <div class="order-status-badge" [ngClass]="{
+                'status-delivered': shippingDetails.shippingStatus === 'Delivered',
+                'status-shipped': shippingDetails.shippingStatus === 'Shipped',
+                'status-processing': shippingDetails.shippingStatus === 'Processing'
+            }">
+                {{shippingDetails.shippingStatus}}
+            </div>
+        </div>
+
+        <!-- Unified Card Layout -->
+        <div class="master-card">
+            <!-- Order Summary Section -->
+            <div class="card-section summary-section">
+                <div class="section-header">
+                    <h2>Order Summary</h2>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h5>Order Date</h5>
+                            <p>{{shippingDetails.orderDate | date:'fullDate'}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h5>Payment Method</h5>
+                            <p>{{shippingDetails.paymentMethod}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h5>Payment Status</h5>
+                            <p class="status-indicator" [ngClass]="{
+                                'status-success': shippingDetails.paymentStatus === 'Paid',
+                                'status-warning': shippingDetails.paymentStatus === 'Pending',
+                                'status-danger': shippingDetails.paymentStatus === 'Failed'
+                            }">
+                                {{shippingDetails.paymentStatus}}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h5>Total Amount</h5>
+                            <p class="total-amount">{{shippingDetails.totalAmount | currency:'USD':'symbol':'1.2-2'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping Information Section -->
+            <div class="card-section shipping-section">
+                <div class="section-header">
+                    <h2>Shipping Information</h2>
+                </div>
+                
+                <div class="shipping-content">
+                    <div class="shipping-address">
+                        <div class="address-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="address-details">
+                            <h5>Delivery Address</h5>
+                            <p>{{shippingDetails.shippingAddress}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="shipping-timeline">
+                        <div class="timeline-progress">
+                            <div class="progress-bar" [style.width]="shippingDetails.shippingStatus === 'Processing' ? '33%' : 
+                                shippingDetails.shippingStatus === 'Shipped' ? '66%' : '100%'"></div>
+                        </div>
+                        <div class="timeline-steps">
+                            <div class="timeline-step" [class.active]="true">
+                                <div class="step-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <p>Order Placed</p>
+                            </div>
+                            <div class="timeline-step" [class.active]="shippingDetails.shippingStatus === 'Shipped' || shippingDetails.shippingStatus === 'Delivered'">
+                                <div class="step-icon">
+                                    <i class="fas fa-shipping-fast"></i>
+                                </div>
+                                <p>Shipped</p>
+                            </div>
+                            <div class="timeline-step" [class.active]="shippingDetails.shippingStatus === 'Delivered'">
+                                <div class="step-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <p>Delivered</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="card-section products-section">
+                <div class="section-header">
+                    <h2>Ordered Products</h2>
+                    <span class="items-count">{{shippingDetails.products.length}} items</span>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" *ngFor="let product of shippingDetails.products">
+                        <div class="product-image">
+                            <img [src]="product.productImageUrl" alt="{{product.productName}}">
+                            <span class="product-quantity">{{product.quantity}}</span>
+                        </div>
+                        <div class="product-details">
+                            <h5 class="product-name">{{product.productName}}</h5>
+                            <div class="product-meta">
+                                <span class="product-price">{{product.price | currency:'USD':'symbol':'1.2-2'}}</span>
+                                <span class="product-subtotal">Subtotal: {{product.subTotal | currency:'USD':'symbol':'1.2-2'}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="error-card">
+        <div class="error-content">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Error Loading Data</h3>
+            <p>{{error}}</p>
+            <button class="retry-button">Try Again</button>
+        </div>
+    </div>
+</div>

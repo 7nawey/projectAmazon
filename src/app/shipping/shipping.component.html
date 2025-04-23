@@ -1,77 +1,80 @@
-<div class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
-    <div class="container py-4">
-      <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
-          <div class="card shadow-lg border-0 animate__animated animate__fadeIn">
-            <div class="card-header bg-primary text-white text-center">
-              <h4 class="mb-0">
-                📦 Shipping Information
-              </h4>
-            </div>
-  
-            <div class="card-body" *ngIf="shipping; else noData">
-              <div class="mb-4">
-                <h6 class="text-dark mb-1">
-                  📍 Address
-                </h6>
-                <p class="ms-3 text-muted">{{ shipping.shippingAddress }}</p>
-              </div>
-  
-              <div class="mb-4">
-                <h6 class="text-dark mb-1">
-                  🚚 Shipping Date
-                </h6>
-                <p class="ms-3 text-muted">
-                  {{ shipping.shippingDate ? (shipping.shippingDate | date:'fullDate') : 'Not shipped yet' }}
-                </p>
-              </div>
-  
-              <div class="mb-4">
-                <h6 class="text-dark mb-1">
-                  🔢 Tracking Number
-                </h6>
-                <p class="ms-3 text-muted">
-                  {{ shipping.trackingNumber || 'N/A' }}
-                </p>
-              </div>
-  
-              <div class="mb-4">
-                <h6 class="text-dark mb-1">
-                  📦 Status
-                </h6>
-                <span class="badge fs-6 px-3 py-2"
-                  [ngClass]="{
-                    'bg-secondary': shipping.shippingStatus === 'Pending',
-                    'bg-success': shipping.shippingStatus === 'Shipped',
-                    'bg-danger': shipping.shippingStatus === 'Cancelled'
-                  }">
-                  {{ shipping.shippingStatus }}
-                </span>
-              </div>
-  
-              
-              <div class="d-flex justify-content-between mt-4">
-                <button class="btn btn-outline-secondary" (click)="goBack()">
-                  <i class="fas fa-arrow-left me-1"></i> Back
-                </button>
-  
-                <button class="btn btn-outline-primary" 
-                (click)="goToCheckout(orderId)"
-                [disabled]="isOrderSuccess">
-  <i class="fas fa-edit me-1"></i> Edit Shipping
-</button>
+<div class="tracking-container d-flex align-items-center justify-content-center min-vh-100">
+  <div class="tracking-card shadow-lg animate__animated animate__fadeIn">
+    
+    <!-- Header -->
+    <div class="tracking-header bg-primary text-white text-center py-4">
+      <h2 class="mb-1 headerr">📦 Shipping Tracker</h2>
+      <p class="mb-0 small">Track your shipment status in real time</p>
+    </div>
 
-              </div>
-            </div>
-  
-            <ng-template #noData>
-              <div class="alert alert-info text-center m-0 p-4">
-                <i class="fas fa-info-circle me-2"></i> No shipping info available.
-              </div>
-            </ng-template>
-          </div>
+    <!-- Content -->
+    <div class="tracking-content p-4" *ngIf="shipping; else noData">
+      
+      <!-- Status -->
+      <div class="tracking-status mb-4">
+        <h5 class="mb-1">Current Status</h5>
+        <span class="badge status-badge"
+              [ngClass]="{
+                'bg-success': shipping.shippingStatus === 'Shipped',
+                'bg-warning': shipping.shippingStatus === 'Pending',
+                'bg-danger': shipping.shippingStatus === 'Cancelled'
+              }">
+          {{ shipping.shippingStatus }}
+        </span>
+      </div>
+
+      <!-- Timeline -->
+      <div class="tracking-timeline mb-4">
+        <div class="step" [class.active]="true">
+          <i class="fas fa-check-circle step-icon"></i>
+          <span>Order Placed</span>
+        </div>
+        <div class="step" [class.active]="shipping.shippingStatus == 'Success'">
+          <i class="fas fa-shipping-fast step-icon"></i>
+          <span>Shipped</span>
+        </div>
+        <div class="step" [class.active]="shipping.shippingStatus === 'Delivered'">
+          <i class="fas fa-home step-icon"></i>
+          <span>Delivered</span>
         </div>
       </div>
+
+      <!-- Address -->
+      <div class="info-box mb-3">
+        <h6>📍 Delivery Address</h6>
+        <p>{{ shipping.shippingAddress }}</p>
+      </div>
+
+      <!-- Date -->
+      <div class="info-box mb-3">
+        <h6>🚚 Shipping Date</h6>
+        <p>{{ shipping.shippingDate ? (shipping.shippingDate | date:'fullDate') : 'Not shipped yet' }}</p>
+      </div>
+
+      <!-- Tracking Number -->
+      <div class="info-box mb-4">
+        <h6>🔢 Tracking Number</h6>
+        <p>{{ shipping.trackingNumber || 'N/A' }}</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-outline-secondary" (click)="goBack()">
+          <i class="fas fa-arrow-left me-1"></i> Back
+        </button>
+        <button class="btn btn-outline-primary" 
+                (click)="goToCheckout(orderId)" 
+                [disabled]="isOrderSuccess">
+          <i class="fas fa-edit me-1"></i> Edit Shipping
+        </button>
+      </div>
     </div>
+
+    <!-- Fallback -->
+    <ng-template #noData>
+      <div class="alert alert-info m-0 text-center p-4">
+        <i class="fas fa-info-circle me-2"></i> No shipping info found.
+      </div>
+    </ng-template>
   </div>
-  
+</div>
