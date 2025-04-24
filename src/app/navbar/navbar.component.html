@@ -46,7 +46,7 @@
               <i class="fa-solid fa-microphone text-dark"></i>
             </button>
         
-            <button (click)="onSearch()" class="btn btn-warning">{{ 'NAV.SEARCH' | translate }}</button>
+            <button (click)="onSearch()" class="btn btn-warning"><i class="fa-solid fa-magnifying-glass"></i></button>
           </div>
         </li>
 
@@ -67,6 +67,29 @@
   </a>
 </li>
 
+<li class="nav-item position-relative" *ngIf="isLoggedIn">
+  <!-- Bell Icon as Button -->
+  <a class="nav-link text-white position-relative" (click)="toggleNotifications()">
+    <i class="fas fa-bell me-2 fs-5 notification-bell"></i>  <!-- Bell icon only -->
+    <span *ngIf="newOrderStatus" class="notification-dot position-absolute"></span>  <!-- Notification dot -->
+  </a>
+
+  <!-- Notification Dropdown -->
+  <div [class.show]="showDropdown" class="dropdown-menu position-absolute">
+    <div *ngIf="notifications.length === 0" class="dropdown-item">
+      {{ 'notifications.no_notifications' | translate }}
+    </div>
+    <div *ngFor="let notification of notifications" class="dropdown-item">
+      <p>{{ 'notifications.success' | translate }}</p>
+      <p class="timestamp">{{ notification.timestamp | date:'shortTime' }}</p>
+      <a routerLink="/orders" class="view-orders-link"><p>{{ 'notifications.view_orders' | translate }}</p>
+      </a>
+    </div>
+    <div *ngIf="notifications.length > 0" class="dropdown-item text-center">
+      <button class="btn btn-link" (click)="clearNotifications()">{{ 'notifications.clear_all' | translate }}</button>
+    </div>
+  </div>
+</li>
 
         <!-- Settings Dropdown -->
         <li class="nav-item dropdown ms-3" *ngIf="isLoggedIn">
@@ -84,7 +107,7 @@
             </li>
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2" routerLink="/shippingall">
-                <i class="fa-solid fa-truck-fast text-success"></i> Shipping
+                <i class="fa-solid fa-truck-fast text-success"></i> {{ 'NAV.DROPDOWN.SHIPPING' | translate }}
               </a>
             </li>
             <li>
@@ -100,6 +123,8 @@
           </ul>
         </li>
 
+       
+        
         <!-- Login / Logout -->
         <li class="nav-item ms-3">
           <button class="log nav-link" (click)="logout()">

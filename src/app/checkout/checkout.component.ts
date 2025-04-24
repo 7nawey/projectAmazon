@@ -169,6 +169,7 @@ export class CheckoutComponent implements OnInit {
     if (!this.paymentId) return;
 
     if (this.paymentMethod === 'CashOnDelivery') {
+      localStorage.setItem('orderSuccess', 'true');
       this.router.navigate(['/thankyou']);
     } else if (this.paymentMethod === 'PayPal') {
       this.http.post<any>(`https://localhost:7105/api/payments/process/${this.paymentId}`, {})

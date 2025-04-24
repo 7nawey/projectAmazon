@@ -16,7 +16,7 @@ import nlp from 'compromise';
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -36,7 +36,9 @@ export class NavbarComponent implements OnInit {
   selectedImagePreview: string | null = null;
   isListening = false;
   recognition: any;
-
+  newOrderStatus: boolean = false; 
+  notifications: { message: string, timestamp: Date }[] = [];
+  showDropdown: boolean = false;  
   private tmModel: tmImage.CustomMobileNet | null = null;
   private maxPredictions = 0;
   private cocoModel: cocoSsd.ObjectDetection | null = null;
@@ -50,6 +52,11 @@ export class NavbarComponent implements OnInit {
     private wishlistService: WishlistService
   ) {
     this.cart$ = this.cartService.cart$;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.checkForOrderSuccess();
+      }
+    });
   }
 
   async ngOnInit(): Promise<void> {
@@ -220,5 +227,39 @@ export class NavbarComponent implements OnInit {
       this.recognition = null;
     }
     this.isListening = false;
+  }
+  checkForOrderSuccess() {
+    const orderSuccess = localStorage.getItem('orderSuccess');
+    
+    if (orderSuccess === 'true') {
+      const timestamp = new Date();  // Get current timestamp
+      this.addNotification({
+        message: '!',
+        timestamp: timestamp
+      });
+      this.newOrderStatus = true;  // Show red dot when new order is placed
+      localStorage.removeItem('orderSuccess');  // Clear the flag after showing the notification
+    }
+  }
+  
+
+  addNotification(notification: { message: string, timestamp: Date }) {
+    this.notifications.push(notification);
+  }
+  
+  
+
+  toggleNotifications() {
+    this.showDropdown = !this.showDropdown;  // Toggle the dropdown visibility
+
+    if (this.showDropdown) {
+      this.newOrderStatus = false;
+    }
+    
+  }
+
+  clearNotifications() {
+    this.notifications = [];  // Clear all notifications when clicked
+    this.showDropdown = false;  // Close the dropdown
   }
 }
