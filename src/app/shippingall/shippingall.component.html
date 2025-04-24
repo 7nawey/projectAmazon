@@ -1,6 +1,6 @@
 <div class="container py-5">
   <h2 class="text-center mb-5 text-success fw-bold animate__animated animate__fadeInDown">
-    <i class="fa-solid fa-truck-fast me-2"></i> Shipping Information
+    <i class="fa-solid fa-truck-fast me-2"></i> {{ 'shipping.shipping_info' | translate }}
   </h2>
 
   <div *ngIf="shippedOrders.length > 0; else noShipped" class="row g-4">
@@ -20,7 +20,7 @@
           </h5>
 
           <div class="mb-3">
-            <p class="mb-1"><i class="fa-solid fa-map me-2 text-primary"></i> <strong>Full Address:</strong></p>
+            <p class="mb-1"><i class="fa-solid fa-map me-2 text-primary"></i> <strong>{{ 'shipping.full_address' | translate }}</strong></p>
             <p class="text-muted ms-4 small">
               {{ order.shipping?.street }}, {{ order.shipping?.building }}, {{ order.shipping?.city }},
               {{ order.shipping?.district }}, {{ order.shipping?.governorate }}
@@ -29,7 +29,7 @@
 
           <p class="mb-4">
             <i class="fa-solid fa-barcode me-2 text-info"></i>
-            <strong>Tracking:</strong>
+            <strong>{{ 'shipping.tracking' | translate }}:</strong>
             <span class="text-dark">{{ order.shipping?.trackingNumber || '05140320' }}</span>
           </p>
 
@@ -48,7 +48,7 @@
         <div class="card-footer bg-light text-center">
           <button class="btn btn-outline-success rounded-pill px-4 py-1 fw-semibold shadow-sm hover-glow"
   (click)="goToDetails(order.shipping.shippingId)">
-  <i class="fa-solid fa-eye me-2"></i> View Details
+  <i class="fa-solid fa-eye me-2"></i> {{ 'shipping.view_details' | translate }}
 </button>
         </div>
       </div>
@@ -58,7 +58,7 @@
   <ng-template #noShipped>
     <div class="text-center text-muted mt-5 animate__animated animate__fadeIn">
       <i class="fa-regular fa-face-sad-tear fa-4x mb-3"></i>
-      <h5>No shipped orders found.</h5>
+      <h5>{{ 'shipping.no_shipped_orders' | translate }}</h5>
     </div>
   </ng-template>
 </div>

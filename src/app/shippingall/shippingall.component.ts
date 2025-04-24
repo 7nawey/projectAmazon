@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shippingall',
-  imports: [CommonModule],
+  standalone:true,
+  imports: [CommonModule,TranslateModule],
   templateUrl: './shippingall.component.html',
   styleUrl: './shippingall.component.css'
 })

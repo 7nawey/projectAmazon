@@ -327,10 +327,35 @@
   "new_password_placeholder": "Enter your new password",
   "password_error": "Password must be at least 6 characters.",
   "otp_instruction": "Enter the OTP sent to your email"
+},
+"shipping": {
+  "tracker_title": "Shipping Tracker",
+  "tracker_description": "Track your shipment status in real time",
+  "current_status": "Current Status",
+  "order_placed": "Order Placed",
+  "shipped": "Shipped",
+  "delivered": "Delivered",
+  "delivery_address": "Delivery Address",
+  "shipping_date": "Shipping Date",
+  "tracking_number": "Tracking Number",
+  "back": "Back",
+  "edit_shipping": "Edit Shipping",
+  "order_details": "Order Details",
+  "order": "Order",
+  "order_summary": "Order Summary",
+  "order_date": "Order Date",
+  "payment_method": "Payment Method",
+  "payment_status": "Payment Status",
+  "total_amount": "Total Amount",
+  "shipping_info": "Shipping Information",
+  "full_address": "Full Address",
+  "tracking": "Tracking:",
+  "view_details": "View Details",
+  "no_shipped_orders": "No shipped orders found.",
+  "ordered_products": "Ordered Products",
+  "subtotal": "Subtotal:"
 }
 
-    
-    
   
   
   

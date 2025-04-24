@@ -3,8 +3,8 @@
     
     <!-- Header -->
     <div class="tracking-header bg-primary text-white text-center py-4">
-      <h2 class="mb-1 headerr">📦 Shipping Tracker</h2>
-      <p class="mb-0 small">Track your shipment status in real time</p>
+      <h2 class="mb-1 headerr">📦 {{ 'shipping.tracker_title' | translate }}</h2>
+      <p class="mb-0 small">{{ 'shipping.tracker_description' | translate }}</p>
     </div>
 
     <!-- Content -->
@@ -12,7 +12,7 @@
       
       <!-- Status -->
       <div class="tracking-status mb-4">
-        <h5 class="mb-1">Current Status</h5>
+        <h5 class="mb-1">{{ 'shipping.current_status' | translate }}</h5>
         <span class="badge status-badge"
               [ngClass]="{
                 'bg-success': shipping.shippingStatus === 'Shipped',
@@ -27,45 +27,45 @@
       <div class="tracking-timeline mb-4">
         <div class="step" [class.active]="true">
           <i class="fas fa-check-circle step-icon"></i>
-          <span>Order Placed</span>
+          <span>{{ 'shipping.order_placed' | translate }}</span>
         </div>
         <div class="step" [class.active]="shipping.shippingStatus == 'Success'">
           <i class="fas fa-shipping-fast step-icon"></i>
-          <span>Shipped</span>
+          <span>{{ 'shipping.shipped' | translate }}</span>
         </div>
         <div class="step" [class.active]="shipping.shippingStatus === 'Delivered'">
           <i class="fas fa-home step-icon"></i>
-          <span>Delivered</span>
+          <span>{{ 'shipping.delivered' | translate }}</span>
         </div>
       </div>
 
       <!-- Address -->
       <div class="info-box mb-3">
-        <h6>📍 Delivery Address</h6>
+        <h6>📍 {{ 'shipping.delivery_address' | translate }}</h6>
         <p>{{ shipping.shippingAddress }}</p>
       </div>
 
       <!-- Date -->
       <div class="info-box mb-3">
-        <h6>🚚 Shipping Date</h6>
+        <h6>🚚 {{ 'shipping.shipping_date' | translate }}</h6>
         <p>{{ shipping.shippingDate ? (shipping.shippingDate | date:'fullDate') : 'Not shipped yet' }}</p>
       </div>
 
       <!-- Tracking Number -->
       <div class="info-box mb-4">
-        <h6>🔢 Tracking Number</h6>
+        <h6>🔢 {{ 'shipping.tracking_number' | translate }}</h6>
         <p>{{ shipping.trackingNumber || 'N/A' }}</p>
       </div>
 
       <!-- Actions -->
       <div class="d-flex justify-content-between">
         <button class="btn btn-outline-secondary" (click)="goBack()">
-          <i class="fas fa-arrow-left me-1"></i> Back
+          <i class="fas fa-arrow-left me-1"></i> {{ 'shipping.back' | translate }}
         </button>
         <button class="btn btn-outline-primary" 
                 (click)="goToCheckout(orderId)" 
                 [disabled]="isOrderSuccess">
-          <i class="fas fa-edit me-1"></i> Edit Shipping
+          <i class="fas fa-edit me-1"></i> {{ 'shipping.edit_shipping' | translate }}
         </button>
       </div>
     </div>
@@ -73,7 +73,7 @@
     <!-- Fallback -->
     <ng-template #noData>
       <div class="alert alert-info m-0 text-center p-4">
-        <i class="fas fa-info-circle me-2"></i> No shipping info found.
+        <i class="fas fa-info-circle me-2"></i> {{ 'shipping.no_shipped_orders' | translate }}
       </div>
     </ng-template>
   </div>

@@ -333,7 +333,35 @@
   "new_password_placeholder": "أدخل كلمة المرور الجديدة",
   "password_error": "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
   "otp_instruction": "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني"
+},
+"shipping": {
+  "tracker_title": "تتبع الشحن",
+  "tracker_description": "تتبع حالة شحنتك في الوقت الحقيقي",
+  "current_status": "الحالة الحالية",
+  "order_placed": "تم الطلب",
+  "shipped": "تم الشحن",
+  "delivered": "تم التوصيل",
+  "delivery_address": "عنوان التوصيل",
+  "shipping_date": "تاريخ الشحن",
+  "tracking_number": "رقم التتبع",
+  "back": "الرجوع",
+  "edit_shipping": "تعديل الشحن",
+  "order_details": "تفاصيل الطلب",
+  "order": "الطلب",
+  "order_summary": "ملخص الطلب",
+  "order_date": "تاريخ الطلب",
+  "payment_method": "طريقة الدفع",
+  "payment_status": "حالة الدفع",
+  "total_amount": "المبلغ الإجمالي",
+  "shipping_info": "معلومات الشحن",
+  "full_address": "العنوان الكامل",
+  "tracking": "التتبع:",
+  "view_details": "عرض التفاصيل",
+  "no_shipped_orders": "لا توجد طلبات مشحونة.",
+  "ordered_products": "المنتجات المطلوبة",
+  "subtotal": "الإجمالي الفرعي:"
 }
+
 
   
           
