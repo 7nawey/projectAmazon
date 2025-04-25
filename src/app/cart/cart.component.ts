@@ -3,13 +3,15 @@ import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterLink]
+  imports: [CommonModule, RouterLink,LanguageSwitcherComponent,TranslateModule]
 })
 export class CartComponent implements OnInit {
   items: any[] = [];
@@ -35,17 +37,27 @@ export class CartComponent implements OnInit {
     });
   }
 
-  getTotalItems(): number {
-    return this.items.reduce((total, item) => total + item.quantity, 0);
-  }
-
   getSubTotal(): number {
-    return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return this.items.reduce((total, item) => {
+      return total + (item.price * item.quantity);
+    }, 0);
   }
 
   getTotal(): number {
-    return this.getSubTotal();
+    return this.items.reduce((total, item) => {
+      const discountedPrice = item.price * (1 - item.discountPercentage);
+      return total + (discountedPrice * item.quantity);
+    }, 0);
   }
+
+  getTotalDiscount(): number {
+    return this.getSubTotal() - this.getTotal();
+  }
+
+  getItemsCount(): number {
+    return this.items.reduce((count, item) => count + item.quantity, 0);
+  }
+  
 
   removeItem(productId: number): void {
     this.cartService.removeFromCart(productId).subscribe(() => {

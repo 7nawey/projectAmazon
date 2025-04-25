@@ -4,10 +4,12 @@ import { ApiService } from '../api.service';
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-forgetpassword',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,TranslateModule],
   templateUrl: './forgetpassword.component.html',
   styleUrl: './forgetpassword.component.css'
 })

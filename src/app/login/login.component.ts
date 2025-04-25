@@ -3,10 +3,10 @@ import { AuthService } from '../auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, CommonModule, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule,TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -47,6 +47,7 @@ export class LoginComponent {
         // فقط عند الدخول نقوم بحفظ التوكن
         localStorage.setItem('token', response.token);
         this.router.navigate(['']); 
+        // window.location.reload();
       },
       error: (error) => {
         this.errorMessage = error.error?.message || 'Login failed, please check your credentials and try again!';

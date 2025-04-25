@@ -7,11 +7,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service'; // ✅ إضافة AuthService
+import { ProductsComponent } from '../products/products.component';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,LanguageSwitcherComponent,TranslateModule],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
   animations: []
@@ -23,6 +27,7 @@ export class ProductDetailsComponent implements OnInit {
   rating: number = 5;
   reviewText: string = '';
   expandedDescriptions: Set<number> = new Set();
+  discountPercentage: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -30,7 +35,7 @@ export class ProductDetailsComponent implements OnInit {
     private cartService: CartService,
     private reviewService: ReviewService,
     private router: Router,
-    private authService: AuthService // ✅ استخدمناه هنا
+    private authService: AuthService ,
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +43,7 @@ export class ProductDetailsComponent implements OnInit {
     if (productID) {
       this.loadProduct(productID);
       this.loadReviews(productID);
+      
     }
   }
 
@@ -45,7 +51,14 @@ export class ProductDetailsComponent implements OnInit {
     this.apiService.getProductById(productID).subscribe({
       next: (data) => {
         this.product = data;
-        this.isLoading = false;
+        this.isLoading = false; 
+        // ✅ Calculate percentage discount
+        if (this.product.price && this.product.priceAfterDiscount < this.product.price) {
+          const discount = ((this.product.price - this.product.priceAfterDiscount) / this.product.price) * 100;
+          this.discountPercentage = Math.round(discount * 10) / 10; // e.g., 10.5%
+        } else {
+          this.discountPercentage = 0;
+        }
       },
       error: (error) => {
         console.error("Error fetching product details", error);
@@ -159,4 +172,15 @@ export class ProductDetailsComponent implements OnInit {
       this.expandedDescriptions.add(productID);
     }
   }
+  getRemainingDays(): number | null {
+    if (this.product?.deal?.endDate) {
+      const end = new Date(this.product.deal.endDate);
+      const now = new Date();
+      const diff = end.getTime() - now.getTime();
+      return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    }
+    return null;
+  }  
+  
+  
 }

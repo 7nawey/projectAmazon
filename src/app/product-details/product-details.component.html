@@ -9,12 +9,17 @@
       </div>
       <div class="main-image">
         <img [src]="product.imgCover" alt="{{ product.title }}" class="w-100" id="mainImage">
+        <span 
+    *ngIf="discountPercentage > 0" 
+    class="badge bg-danger text-white position-absolute rounded-pill px-3 py-1 discount-badge">
+    -{{ discountPercentage }}%
+  </span>
       </div>
     </div>
 
     <!-- ✅ تعليقات المنتج -->
     <div class="reviews-section mt-5 pt-4 border-top">
-      <h4>Reviews</h4>
+      <h4>{{ 'product.reviews' | translate }}</h4>
       <div *ngFor="let review of reviews" class="review">
         <div class="review-header d-flex align-items-center mb-2">
           <div class="user-icon-container me-2">
@@ -42,7 +47,7 @@
   <!-- معلومات المنتج + فورم التقييم -->
   <div class="product-info w-50">
     <h2>{{ product.name }}</h2>
-    <h4 class="mt-4">About This Item</h4>
+    <h4 class="mt-4">{{ 'product.about_this_item' | translate }}</h4>
     <p>
       {{ expandedDescriptions.has(product.productID) || product.descreption.length <= 100 
           ? product.descreption 
@@ -56,12 +61,21 @@
       {{ expandedDescriptions.has(product.productID) ? 'See Less' : 'See More' }}
     </a>
 
-    <h2 class="price"> {{ product.price }} EGP</h2>
+
+    <h2 class="price" *ngIf="product.priceAfterDiscount < product.price">
+      <span class="text-muted text-decoration-line-through">$ {{ product.price }}</span>
+    </h2>
     <h2>{{ product.priceAfterDiscount }}</h2>
+     
+    <div *ngIf="getRemainingDays() !== null" class="text-danger fw-bold">
+        {{ 'product.offer_ends_in' | translate }} {{ getRemainingDays() }} 
+        {{ getRemainingDays() === 1 ? ('product.day' | translate) : ('product.days' | translate) }}!
+    </div>
+    
 
     <p class="rounded-5 ms-1 stock d-flex justify-content-center text-white" 
        [ngClass]="product.stockQuantity > 0 ? 'bg-success' : 'bg-danger'">
-      {{ product.stockQuantity > 0 ? 'In Stock' : 'Out of Stock' }}
+        {{ product.stockQuantity > 0 ? ('product.in_stock' | translate) : ('product.out_of_stock' | translate) }}
     </p> 
 
     <div class="rating mb-3">
@@ -69,20 +83,20 @@
     </div>
 
     <button class="buy-btn" (click)="addToCart()" [disabled]="product.stockQuantity <= 0">
-      Add to Cart
+      {{ 'BUTTONS.ADD_TO_CART' | translate }}
     </button>
 
     <!-- ✅ Review Form -->
     <div class="review-form mt-4">
-      <h4>Leave a Review</h4>
+      <h4>{{ 'product.leave_review' | translate }}</h4>
       <textarea [(ngModel)]="reviewText" placeholder="Write your review..." class="form-control" rows="4"></textarea>
       <div class="rating mt-2">
-        <label for="rating">Rate this product: </label>
+        <label for="rating"> {{ 'product.rate_product_label' | translate }} </label>
         <select [(ngModel)]="rating" class="form-select" id="rating">
           <option *ngFor="let ratingOption of [1,2,3,4,5]" [value]="ratingOption">{{ratingOption}} Star</option>
         </select>
       </div>
-      <button class="btn btn-success mt-3" (click)="submitReview()">Submit Review</button>
+      <button class="btn btn-success mt-3" (click)="submitReview()">{{ 'BUTTONS.SUBMIT_REVIEW' | translate }}</button>
     </div>
   </div>
 </div>

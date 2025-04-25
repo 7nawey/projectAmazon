@@ -1,190 +1,206 @@
-<footer >
-  <div class="footer-top text-center" (click)="scrollToTop()">Back To Top</div>
-  <div class="footer-sec">
-    <div class="container">
-      <div class="row p-5 text-white py-5">
-        <div class="col-md-3">
-          <p class="active">Get to Know Us</p>
-          <p>Careers</p>
-          <p>Blog</p>
-          <p>About Amazon</p>
-          <p>Investor Relations</p>
-          <p>Amazon Devices</p>
-          <p>Amazon Science</p>
-        </div>
-        <div class="col-md-3">
-          <p class="active">Make Money with Us</p>
-          <p>Sell products on Amazon</p>
-          <p>Sell on Amazon Business</p>
-          <p>Sell apps on Amazon</p>
-          <p>Become an Affiliate</p>
-          <p>Advertise Your Products</p>
-          <p>Self-Publish with Us</p>
-          <p>Host an Amazon Hub</p>
-          <p>See More Make Money with Us</p>
-        </div>
-        <div class="col-md-3">
-          <p class="active">Amazon Payment Products</p>
-          <p>Amazon Business Card</p>
-          <p>Shop with Points</p>
-          <p>Reload Your Balance</p>
-          <p>Amazon Currency Converter</p>
-        </div>
-        <div class="col-md-3">
-          <p class="active">Let Us Help You</p>
-          <p>Amazon and COVID-19</p>
-          <p>Your Account</p>
-          <p>Your Orders</p>
-          <p>Shipping Rates & Policies</p>
-          <p>Returns & Replacements</p>
-          <p>Manage Your Content and Devices</p>
-          <p>Help</p>
-        </div>
-      </div>
+
+<div class="footer-top text-center" (click)="scrollToTop()">{{ 'BUTTONS.BACK_TO_TOP' | translate }}</div>
+
+<div class="footer-links">
+  <div class="column">
+    <h4>{{ 'FOOTER.GET_TO_KNOW_US' | translate }}</h4>
+    <ul>
+      <li>{{ 'FOOTER.CAREERS' | translate }}</li>
+      <li>{{ 'FOOTER.BLOG' | translate }}</li>
+      <li>{{ 'FOOTER.ABOUT' | translate }}</li>
+      <li>{{ 'FOOTER.INVESTOR_RELATIONS' | translate }}</li>
+      <li>{{ 'FOOTER.DEVICES' | translate }}</li>
+      <li>{{ 'FOOTER.SCIENCE' | translate }}</li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>{{ 'FOOTER.MAKE_MONEY' | translate }}</h4>
+    <ul>
+      <li>{{ 'FOOTER.SELL_PRODUCTS' | translate }}</li>
+      <li>{{ 'FOOTER.SELL_BUSINESS' | translate }}</li>
+      <li>{{ 'FOOTER.SELL_APPS' | translate }}</li>
+      <li>{{ 'FOOTER.AFFILIATE' | translate }}</li>
+      <li>{{ 'FOOTER.ADVERTISE' | translate }}</li>
+      <li>{{ 'FOOTER.SELF_PUBLISH' | translate }}</li>
+      <li>{{ 'FOOTER.HOST_HUB' | translate }}</li>
+      <li>{{ 'FOOTER.SEE_MORE' | translate }}</li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>{{ 'FOOTER.PAYMENT_PRODUCTS' | translate }}</h4>
+    <ul>
+      <li>{{ 'FOOTER.BUSINESS_CARD' | translate }}</li>
+      <li>{{ 'FOOTER.SHOP_POINTS' | translate }}</li>
+      <li>{{ 'FOOTER.RELOAD' | translate }}</li>
+      <li>{{ 'FOOTER.CURRENCY_CONVERTER' | translate }}</li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>{{ 'FOOTER.HELP_YOU' | translate }}</h4>
+    <ul>
+      <li>{{ 'FOOTER.COVID' | translate }}</li>
+      <li>{{ 'FOOTER.ACCOUNT' | translate }}</li>
+      <li>{{ 'FOOTER.ORDERS' | translate }}</li>
+      <li>{{ 'FOOTER.SHIPPING' | translate }}</li>
+      <li>{{ 'FOOTER.RETURNS' | translate }}</li>
+      <li>{{ 'FOOTER.CONTENT_DEVICES' | translate }}</li>
+      <li>{{ 'FOOTER.HELP' | translate }}</li>
+    </ul>
+  </div>
+</div>
+
+<div class="footer-sec2 d-flex justify-content-center py-5">
+  <img
+    src="https://th.bing.com/th/id/R.53bc80c8e19db7955e7ba0aa2438aa68?rik=D1p21LTwuSV0%2fw&pid=ImgRaw&r=0"
+    alt="Logo"
+  />
+  <div class="btn-group ms-4">
+    <button class="me-4">{{ 'FOOTER.english' | translate }}</button>
+    <button class="me-4"> EGP - egyption pound (Default)</button>
+    <button>Egypt</button>
+  </div>
+</div>
+
+
+
+
+<div class="footer-services">
+  <div>
+    <h5>{{ 'FOOTER.MUSIC' | translate }}</h5>
+    <span>{{ 'FOOTER.MUSIC_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.BUSINESS' | translate }}</h5>
+    <span>{{ 'FOOTER.BUSINESS_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.IMDBPRO' | translate }}</h5>
+    <span>{{ 'FOOTER.IMDBPRO_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.EERO' | translate }}</h5>
+    <span>{{ 'FOOTER.EERO_DESC' | translate }}</span>
+  </div>
+
+  <div>
+    <h5>{{ 'FOOTER.ADS' | translate }}</h5>
+    <span>{{ 'FOOTER.ADS_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.GLOBAL' | translate }}</h5>
+    <span>{{ 'FOOTER.GLOBAL_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.KINDLE' | translate }}</h5>
+    <span>{{ 'FOOTER.KINDLE_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.EBLINK' | translate }}</h5>
+    <span>{{ 'FOOTER.EBLINK_DESC' | translate }}</span>
+  </div>
+
+  <div>
+    <h5>{{ 'FOOTER.SIXPM' | translate }}</h5>
+    <span>{{ 'FOOTER.SIXPM_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.AWS' | translate }}</h5>
+    <span>{{ 'FOOTER.AWS_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.PVD' | translate }}</h5>
+    <span>{{ 'FOOTER.PVD_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.NEIGHBORS' | translate }}</h5>
+    <span>{{ 'FOOTER.NEIGHBORS_DESC' | translate }}</span>
+  </div>
+
+  <div>
+    <h5>{{ 'FOOTER.ABEBOOKS' | translate }}</h5>
+    <span>{{ 'FOOTER.ABEBOOKS_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.AUDIBLE' | translate }}</h5>
+    <span>{{ 'FOOTER.AUDIBLE_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.SHOPBOP' | translate }}</h5>
+    <span>{{ 'FOOTER.SHOPBOP_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.BOXES' | translate }}</h5>
+    <span>{{ 'FOOTER.BOXES_DESC' | translate }}</span>
+  </div>
+
+  <div>
+    <h5>{{ 'FOOTER.ACX' | translate }}</h5>
+    <span>{{ 'FOOTER.ACX_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.BOX_MOJO' | translate }}</h5>
+    <span>{{ 'FOOTER.BOX_MOJO_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.WOOT' | translate }}</h5>
+    <span>{{ 'FOOTER.WOOT_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.PILLPACK' | translate }}</h5>
+    <span>{{ 'FOOTER.PILLPACK_DESC' | translate }}</span>
+  </div>
+
+
+  <!-- become a seller -->
+  <div>
+    <h5>
+      <a [routerLink]="['/become-seller']" >
+        {{ 'FOOTER.SELL' | translate }}
+      </a>
+    </h5>
+    <span>
+      <a [routerLink]="['/become-seller']" >
+        {{ 'FOOTER.SELL_DESC' | translate }}
+      </a>
+    </span>
+  </div>
+  
+  <div>
+    <h5>{{ 'FOOTER.GOODREADS' | translate }}</h5>
+    <span>{{ 'FOOTER.GOODREADS_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.ZAPPOS' | translate }}</h5>
+    <span>{{ 'FOOTER.ZAPPOS_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.LUNA' | translate }}</h5>
+    <span>{{ 'FOOTER.LUNA_DESC' | translate }}</span>
+  </div>
+
+  <div>
+    <h5>{{ 'FOOTER.VEEQO' | translate }}</h5>
+    <span>{{ 'FOOTER.VEEQO_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.IMDB' | translate }}</h5>
+    <span>{{ 'FOOTER.IMDB_DESC' | translate }}</span>
+  </div>
+  <div>
+    <h5>{{ 'FOOTER.RING' | translate }}</h5>
+    <span>{{ 'FOOTER.RING_DESC' | translate }}</span>
+  </div>
+</div>
+
+<div class="footer-legal">
+  <p>{{ 'FOOTER.LEGAL' | translate }}</p>
+</div>
+<div class="footer-sec-3">
+  <div class="container">
+    <div class="footer-sec-4 justify-content-between text-white pt-5">
+      <!-- You can add any extra legal links or copyright -->
+      <div class="footer-width">© 2025 YourCompany Inc.</div>
+      <div class="footer-width">Privacy · Terms · Cookies</div>
     </div>
   </div>
-  <div class="footer-sec2 d-flex justify-content-center py-5">
-    <img
-      src="https://th.bing.com/th/id/R.53bc80c8e19db7955e7ba0aa2438aa68?rik=D1p21LTwuSV0%2fw&pid=ImgRaw&r=0"
-      alt=""
-    />
-    <div class="btn-group ms-4">
-      <button class="me-4">English</button>
-      <button class="me-4">$ - USD - US Dollar (Default)</button>
-      <button>United States</button>
-    </div>
-  </div>
-  <div class="footer-sec-3">
-    <div class="container ">
-      <div class="footer-sec-4 justify-content-between text-white pt-5">
-        <div>
-          <div class="mb-4">
-            <h5 class="active">Amazon Music</h5>
-            <p>Stream millionsof songs</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Amazon Business</h5>
-            <p>Everything For Your Business</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">IMDbPro</h5>
-            <p>Get Info Entertainment Professionals Need</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">eero WiFi</h5>
-            <p>Stream 4K Video in Every Room</p>
-          </div>
-        </div>
-        <div>
-          <div class="mb-4">
-            <h5 class="active">Amazon Ads</h5>
-            <p>Reach customers wherever they spend their time</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">AmazonGlobal</h5>
-            <p>Ship Orders Internationally</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Kindle Direct Publishing</h5>
-            <p>Indie Digital & Print Publishing Made Easy</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">eBlink</h5>
-            <p>Smart Security for Every Home</p>
-          </div>
-        </div>
-        <div>
-          <div class="mb-4">
-            <h5 class="active">6pm</h5>
-            <p>Score deals on fashion brands</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Amazon Web Services</h5>
-            <p>Scalable Cloud Computing Services</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Prime Video Direct</h5>
-            <p>Video Distribution Made Easy</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Neighbors App</h5>
-            <p>Real-Time Crime & Safety Alerts</p>
-          </div>
-        </div>
-        <div>
-          <div class="mb-4">
-            <h5 class="active">AbeBooks</h5>
-            <p>Books, art & collectibles</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Audible</h5>
-            <p>Listen to Books & Original Audio Performances</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Shopbop</h5>
-            <p>Designer Fashion Brands</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">NAmazon Subscription Boxes</h5>
-            <p>Top subscription boxes – right to your door</p>
-          </div>
-        </div>
-        <div>
-          <div class="mb-4">
-            <h5 class="active">ACX</h5>
-            <p>Audiobook Publishing Made Easy</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Box Office Mojo</h5>
-            <p>Find Movie Box Office Data</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Woot!</h5>
-            <p>Deals and Shenanigans</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">PillPack</h5>
-            <p>Pharmacy Simplified</p>
-          </div>
-        </div>
-        <div>
-          <div class="mb-4">
-            <h5 class="active">Sell on Amazon</h5>
-            <p>Start a Selling Account</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Goodreads</h5>
-            <p>Book reviews & recommendations</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Zappos</h5>
-            <p>Shoes & Clothing</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Amazon Luna</h5>
-            <p>Video games from the cloud, no console required</p>
-          </div>
-        </div>
-        <div>
-          <div class="mb-4">
-            <h5 class="active">Veeqo</h5>
-            <p>Shipping Software Inventory Management</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">IMDb</h5>
-            <p>Movies, TV & Celebrities</p>
-          </div>
-          <div class="mb-4">
-            <h5 class="active">Ring</h5>
-            <p>Smart Home Security Systems</p>
-          </div>
-        </div>
-      </div>
-      <h5 class="footer-width pb-4 mx-auto pt-3">Conditions of Use
-        Privacy Notice
-        Consumer Health Data Privacy Disclosure
-        Your Ads Privacy Choices
-        © 1996-2025, Amazon.com, Inc. or its affiliates</h5>
-    </div>
-  </div>
-</footer>
+</div>

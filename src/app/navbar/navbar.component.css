@@ -182,6 +182,109 @@ button.log:disabled {
   color: #666; 
   cursor: not-allowed; 
 }
+/* Notification Bell Icon */
+.notification-bell {
+  font-size: 24px;
+  color: white;
+  cursor: pointer; /* 👈 makes it a pointer on hover */
+  position: relative;
+  z-index: 2;
+  transition: color 0.2s ease; /* 👈 smooth color transition */
+}
+
+.notification-bell:hover {
+  color: #ffd700; /* 👈 gold color on hover (or pick your own) */
+}
+
+/* Red Dot for New Notification */
+.notification-dot {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  border: 2px solid white;
+  z-index: 3;
+}
+
+/* Dropdown Menu: Responsive width, fits content */
+.dropdown-menu {
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  z-index: 1;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+
+  min-width: 250px;  /* ensures space for short messages */
+  max-width: 400px;  /* prevents it from becoming too wide */
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Show the menu when toggled */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Notification Items: full-width with clean padding */
+.dropdown-item {
+  padding: 10px 12px;
+  color: #333;
+  border-bottom: 1px solid #f1f1f1;
+  line-height: 1.5;
+}
+
+/* Last item (like Clear All) */
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Notification Items */
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  color: #333;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f9f9f9;
+}
+
+/* "Clear All" button */
+.dropdown-item button {
+  color: #dc3545;
+}
+.view-orders-link {
+  display: inline-block;
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.view-orders-link:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+
 
 
 @keyframes pulse {

@@ -4,12 +4,15 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
+
+  imports: [CommonModule, FormsModule,TranslateModule,ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  imports: [ReactiveFormsModule,CommonModule],
+  styleUrls: ['./register.component.css']
+
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;  
