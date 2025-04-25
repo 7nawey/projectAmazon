@@ -4,13 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 @Component({
   selector: 'app-update-user',
   templateUrl: './update-user.component.html',
   styleUrls: ['./update-user.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule,NavDashbordComponent]
 })
 export class UpdateUserComponent implements OnInit {
   UpdateUserForm: FormGroup;

@@ -56,8 +56,9 @@ export class UpdateSubcategoryComponent implements OnInit {
       this.subcategoryService.getsubcategoryById(this.sub_CategoryId).subscribe(data => {
         this.UpdateSubcategoryForm.patchValue({
           subcategoryName: data.title,
-          categoryId: data.categoryId
+          categoryId: data.categoryId,
         });
+        
       });
     });
   }

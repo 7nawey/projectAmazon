@@ -1,21 +1,28 @@
+
+
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ApiService } from '../api.service';
+import Swal from 'sweetalert2';
+import { Subcategory } from '../types/subcategory';
 import { CommonModule } from '@angular/common';
 import { ConfirmDeleteModalComponent } from '../shared/confirm-delete-modal/confirm-delete-modal.component';
-import { Subcategory } from '../types/subcategory';
-import Swal from 'sweetalert2';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
-
 
 @Component({
   selector: 'app-subcategory-dashboard',
-  imports: [RouterLink,CommonModule,ConfirmDeleteModalComponent,NavDashbordComponent],
+  standalone: true,
+  imports: [RouterLink, CommonModule, ConfirmDeleteModalComponent, NavDashbordComponent],
   templateUrl: './subcategory-dashboard.component.html',
-  styleUrl: './subcategory-dashboard.component.css'
+  styleUrls: ['./subcategory-dashboard.component.css']
 })
 export class SubcategoryDashboardComponent implements OnInit {
   subcategories: Subcategory[] = [];
+  currentPage: number = 1;
+  pageSize: number = 10; 
+  totalItems: number = 0; 
+  totalPages: number = 0; 
+  pageNumbers: number[] = []; 
 
   constructor(private subcategoryService: ApiService) {}
 
@@ -24,26 +31,30 @@ export class SubcategoryDashboardComponent implements OnInit {
   }
 
   getSubcategories() {
-    this.subcategoryService.getAllSubcategories().subscribe(
+    this.subcategoryService.getSubCategories(this.currentPage, this.pageSize).subscribe(
       (data) => {
-        this.subcategories = data;
+        this.subcategories = data.category;  
+        this.totalItems = data.totalCount;  
+        this.totalPages = data.totalPages;  
+
+        
+        this.pageNumbers = Array.from({ length: this.totalPages }, (_, index) => index + 1);
       },
       (error) => {
         console.error('Error fetching categories:', error);
       }
     );
-
   }
 
   deleteSubcategory(subcategory: Subcategory) {
     Swal.fire({
-      title: ' Are you sure ',
-      text: `Do you want to delete"${subcategory?.title}"`,
+      title: 'Are you sure?',
+      text: `Do you want to delete "${subcategory?.title}"?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: ' Yes,Delete',
+      confirmButtonText: 'Yes, Delete',
       cancelButtonText: 'Cancel'
     }).then((result) => {
       if (result.isConfirmed) {
@@ -52,9 +63,9 @@ export class SubcategoryDashboardComponent implements OnInit {
             this.subcategories = this.subcategories.filter(
               c => c.sub_CategoryId !== subcategory.sub_CategoryId
             );
-  
+
             Swal.fire({
-              title: 'Done !',
+              title: 'Done!',
               text: 'Subcategory has been deleted successfully.',
               icon: 'success',
               confirmButtonText: 'Yes, Done'
@@ -73,6 +84,11 @@ export class SubcategoryDashboardComponent implements OnInit {
       }
     });
   }
-  
 
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getSubcategories();  
+    }
+  }
 }

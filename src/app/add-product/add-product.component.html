@@ -1,84 +1,160 @@
+
 <app-nav-dashbord></app-nav-dashbord>
-<div class="container my-5">
-  <form [formGroup]="AddProductForm" (ngSubmit)="handleAddProductForm()" class="p-4 border rounded shadow">
-    <!-- Name -->
-    <div class="mb-3">
-      <label class="form-label">Product Name</label>
-      <input type="text" formControlName="name" class="form-control" placeholder="Enter product name">
-    </div>
-  
-    <!-- Price -->
-    <div class="mb-3">
-      <label class="form-label">Price</label>
-      <input type="number" formControlName="price" class="form-control" placeholder="Enter price">
-    </div>
-  
-    <!-- Price After Discount -->
-    <div class="mb-3">
-      <label class="form-label">Price After Discount</label>
-      <input type="number" formControlName="priceAfterDiscount" class="form-control" placeholder="Enter discounted price">
-    </div>
-  
-    <!-- Description -->
-    <div class="mb-3">
-      <label class="form-label">Description</label>
-      <textarea formControlName="descreption" class="form-control" rows="3" placeholder="Enter description"></textarea>
-    </div>
-  
-    <!-- Stock Quantity -->
-    <div class="mb-3">
-      <label class="form-label">Stock Quantity</label>
-      <input type="number" formControlName="stockQuantity" class="form-control" placeholder="Enter stock">
-    </div>
-  
-    <!-- Rating -->
-    <div class="mb-3">
-      <label class="form-label">Rating</label>
-      <input type="number" formControlName="rating" class="form-control" placeholder="Enter rating (0 to 5)">
-    </div>
-  
-    <!-- Image Cover -->
-    <div class="mb-3">
-      <label class="form-label">Image Cover URL</label>
-      <input type="text" formControlName="imgCover" class="form-control" placeholder="Enter image URL">
-    </div>
-  
-    <!-- Seller Name -->
-    <div class="mb-3">
-      <label class="form-label">Seller Name</label>
-      <input type="text" formControlName="sellerName" class="form-control" placeholder="Enter seller name">
-    </div>
-  
-    <!-- Subcategory Dropdown -->
-    <div class="mb-3">
-      <label class="form-label">Subcategory</label>
-      <select formControlName="subCategoryName" class="form-select">
-        <option value="" disabled selected>Select subcategory</option>
-        <option *ngFor="let sub of subCategories" [value]="sub.title">
-          {{ sub.title }} ({{ sub.categoryName }})
-        </option>
-      </select>
-    </div>
-  
-    <!-- Product Images -->
-    <div formArrayName="productImages" class="mb-3">
-      <label class="form-label">Product Images</label>
-      <div *ngFor="let image of productImages.controls; let i = index" [formGroupName]="i" class="border p-3 rounded mb-2">
-        <div class="mb-2">
-          <input formControlName="imageURL" type="text" class="form-control" placeholder="Image URL">
-        </div>
-        <div class="form-check">
-          <input formControlName="isPrimary" type="checkbox" class="form-check-input" id="primaryImage{{i}}">
-          <label class="form-check-label" for="primaryImage{{i}}">Primary Image</label>
-        </div>
-        <button class="btn btn-danger btn-sm mt-2" type="button" (click)="removeImageField(i)" *ngIf="productImages.length > 1">Remove</button>
+<div class="container">
+  <h3 class="my-4">New Product</h3>
+  <form [formGroup]="addProductForm" (ngSubmit)="handleAddProductForm()" class="mb-5 p-4 border rounded shadow">
+    
+    <div class="form-group">
+      <label for="name">Product Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+        placeholder="Enter product name"
+      />
+      <div *ngIf="formControls['name'].invalid && formControls['name'].touched" class="text-danger">
+        <small *ngIf="formControls['name'].hasError('required')">Product name is required.</small>
+        <small *ngIf="formControls['name'].hasError('minlength')">Product name should be at least 3 characters long.</small>
       </div>
-      <button class="btn btn-secondary btn-sm" type="button" (click)="addImageField()">Add Another Image</button>
     </div>
-  
-    <button class="btn btn-primary mt-3" type="submit" [disabled]="AddProductForm.invalid">Add Product</button>
+
+    
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input
+        type="number"
+        class="form-control"
+        id="price"
+        formControlName="price"
+        placeholder="Enter price"
+      />
+      <div *ngIf="formControls['price'].invalid && formControls['price'].touched" class="text-danger">
+        <small *ngIf="formControls['price'].hasError('required')">Price is required.</small>
+        <small *ngIf="formControls['price'].hasError('min')">Price must be 0 or more.</small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="priceAfterDiscount">Price After Discount</label>
+      <input
+        type="number"
+        class="form-control"
+        id="priceAfterDiscount"
+        formControlName="priceAfterDiscount"
+        placeholder="Enter price after discount"
+      />
+    </div>
+
+    
+    <div class="form-group">
+      <label for="descreption">Description</label>
+      <textarea
+        class="form-control"
+        id="descreption"
+        formControlName="descreption"
+        placeholder="Enter description"
+      ></textarea>
+      <div *ngIf="formControls['descreption'].invalid && formControls['descreption'].touched" class="text-danger">
+        <small *ngIf="formControls['descreption'].hasError('required')">Description is required.</small>
+        <small *ngIf="formControls['descreption'].hasError('minlength')">Description should be at least 9 characters long.</small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="stockQuantity">Stock Quantity</label>
+      <input
+        type="number"
+        class="form-control"
+        id="stockQuantity"
+        formControlName="stockQuantity"
+        placeholder="Enter stock quantity"
+      />
+      <div *ngIf="formControls['stockQuantity'].invalid && formControls['stockQuantity'].touched" class="text-danger">
+        <small *ngIf="formControls['stockQuantity'].hasError('required')">Stock quantity is required.</small>
+        <small *ngIf="formControls['stockQuantity'].hasError('min')">Stock quantity Must be 0 or more.</small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <input
+        type="number"
+        class="form-control"
+        id="rating"
+        formControlName="rating"
+        placeholder="Enter rating (0-5)"
+        min="0"
+        max="5"
+      />
+      <div *ngIf="formControls['rating'].invalid && formControls['rating'].touched" class="text-danger">
+        <small *ngIf="formControls['rating'].hasError('min')">Rating must be 0 or more.</small>
+        <small *ngIf="formControls['rating'].hasError('max')">Rating can't be more than 5.</small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="categoryID">Category</label>
+      <select class="form-control" class="form-select" formControlName="categoryID">
+        <option value="" >Select category</option>
+        <option *ngFor="let category of categories" [value]="category.categoryID">{{ category.categoryName }}</option>
+      </select>
+      <div *ngIf="formControls['categoryID'].invalid && formControls['categoryID'].touched" class="text-danger">
+        <small *ngIf="formControls['categoryID'].hasError('required')">Category is required.</small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="sub_categoryID">Subcategory</label>
+      <select class="form-control" class="form-select" formControlName="sub_categoryID">
+        <option value="">Select subcategory</option>
+        <option *ngFor="let subCategory of subCategories" [value]="subCategory.sub_categoryID">{{ subCategory.title }} ({{ subCategory.categoryName }})</option>
+      </select>
+      <div *ngIf="formControls['sub_categoryID'].invalid && formControls['sub_categoryID'].touched" class="text-danger">
+        <small *ngIf="formControls['sub_categoryID'].hasError('required')">Subcategory is required.</small>
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="imgCover">Cover Image</label>
+      <input
+        type="file"
+        class="form-control"
+        id="imgCover"
+        (change)="onImgCoverFileChange($event)"
+      />
+      <div *ngIf="formControls['imgCover'].invalid && formControls['imgCover'].touched" class="text-danger">
+        <small *ngIf="formControls['imgCover'].hasError('required')">Cover image is required.</small>
+      </div>
+    </div>
+
+    
+    <div formArrayName="productImages">
+      <div *ngFor="let image of productImages.controls; let i = index">
+        <div [formGroupName]="i" class="form-group">
+          <label for="imageURL">Product Image {{ i + 1 }}</label>
+          <input
+            type="file"
+            class="form-control"
+            id="imageURL"
+            (change)="onImageFileChange($event, i)"
+          />
+          <div *ngIf="image.get('imageURL')?.invalid && image.get('imageURL')?.touched" class="text-danger">
+            <small *ngIf="image.get('imageURL')?.hasError('required')">Image is required.</small>
+          </div>
+          
+          <button type="button" class="btn btn-danger my-2" (click)="removeImage(i)">Remove Image</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-secondary my-2" (click)="addImage()">Add Image</button><br>
+    <button type="submit" class="btn btn-primary" [disabled]="addProductForm.invalid">Add Product</button>
   </form>
-  
-</div>  
-
-
+</div>

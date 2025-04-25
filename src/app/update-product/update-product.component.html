@@ -1,82 +1,115 @@
-<app-nav-dashbord></app-nav-dashbord>
-<div class="container my-5">
-  <form [formGroup]="UpdateProductForm" (ngSubmit)="handleUpdateProductForm()" class="p-4 border rounded shadow">
-    <!-- Name -->
-    <div class="mb-3">
-      <label class="form-label">Product Name</label>
-      <input type="text" formControlName="name" class="form-control" placeholder="Enter product name">
-    </div>
-  
-    <!-- Price -->
-    <div class="mb-3">
-      <label class="form-label">Price</label>
-      <input type="number" formControlName="price" class="form-control" placeholder="Enter price">
-    </div>
-  
-    <!-- Price After Discount -->
-    <div class="mb-3">
-      <label class="form-label">Price After Discount</label>
-      <input type="number" formControlName="priceAfterDiscount" class="form-control" placeholder="Enter discounted price">
-    </div>
-  
-    <!-- Description -->
-    <div class="mb-3">
-      <label class="form-label">Description</label>
-      <textarea formControlName="descreption" class="form-control" rows="3" placeholder="Enter description"></textarea>
-    </div>
-  
-    <!-- Stock Quantity -->
-    <div class="mb-3">
-      <label class="form-label">Stock Quantity</label>
-      <input type="number" formControlName="stockQuantity" class="form-control" placeholder="Enter stock">
-    </div>
-  
-    <!-- Rating -->
-    <div class="mb-3">
-      <label class="form-label">Rating</label>
-      <input type="number" formControlName="rating" class="form-control" placeholder="Enter rating (0 to 5)">
-    </div>
-  
-    <!-- Image Cover -->
-    <div class="mb-3">
-      <label class="form-label">Image Cover URL</label>
-      <input type="text" formControlName="imgCover" class="form-control" placeholder="Enter image URL">
-    </div>
-  
-    <!-- Seller Name -->
-    <div class="mb-3">
-      <label class="form-label">Seller Name</label>
-      <input type="text" formControlName="sellerName" class="form-control" placeholder="Enter seller name">
-    </div>
-  
-    <!-- Subcategory Dropdown -->
-    <div class="mb-3">
-      <label class="form-label">Subcategory</label>
-      <select formControlName="subCategoryName" class="form-select">
-        <option value="" disabled selected>Select subcategory</option>
-        <option *ngFor="let sub of subCategories" [value]="sub.title">
-          {{ sub.title }} ({{ sub.categoryName }})
-        </option>
-      </select>
-    </div>
-  
-    <!-- Product Images -->
-    <div formArrayName="productImages" class="mb-3">
-      <label class="form-label">Product Images</label>
-      <div *ngFor="let image of productImages.controls; let i = index" [formGroupName]="i" class="border p-3 rounded mb-2">
-        <div class="mb-2">
-          <input formControlName="imageURL" type="text" class="form-control" placeholder="Image URL">
-        </div>
-        <div class="form-check">
-          <input formControlName="isPrimary" type="checkbox" class="form-check-input" id="primaryImage{{i}}">
-          <label class="form-check-label" for="primaryImage{{i}}">Primary Image</label>
-        </div>
-        <button class="btn btn-danger btn-sm mt-2" type="button" (click)="removeImageField(i)" *ngIf="productImages.length > 1">Remove</button>
-      </div>
-      <button class="btn btn-secondary btn-sm" type="button" (click)="addImageField()">Add Another Image</button>
-    </div>
-  
-    <button class="btn btn-primary mt-3" type="submit" [disabled]="UpdateProductForm.invalid">Update Product</button>
-  </form>
-</div>
 
+ <app-nav-dashbord></app-nav-dashbord>
+ <div class="container my-5">
+   <h3 class="my-4">Update Product</h3>
+ 
+   <form [formGroup]="UpdateProductForm" (ngSubmit)="handleUpdateProductForm()" class="mb-5 p-4 border rounded shadow">
+ 
+     <div class="mb-3">
+       <label class="form-label">Product Name</label>
+       <input type="text" formControlName="name" class="form-control" placeholder="Enter product name">
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['name'].touched">
+         <div *ngIf="UpdateProductForm.controls['name'].errors?.['required']">Product name is required</div>
+         <div *ngIf="!UpdateProductForm.controls['name'].errors?.['required'] && UpdateProductForm.controls['name'].errors?.['minlength']">Product name should be at least 3 characters long.</div>
+       </div>
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Price</label>
+       <input type="number" formControlName="price" class="form-control" placeholder="Enter price">
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['price'].touched">
+         <div *ngIf="UpdateProductForm.controls['price'].errors?.['required']">Price is required</div>
+         <div *ngIf="!UpdateProductForm.controls['price'].errors?.['required'] && UpdateProductForm.controls['price'].errors?.['min']">Price must be 0 or more</div>
+       </div>
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Price After Discount</label>
+       <input type="number" formControlName="priceAfterDiscount" class="form-control" placeholder="Enter price after discount">
+       <!-- <div class="text-danger" *ngIf="UpdateProductForm.controls['priceAfterDiscount'].touched">
+         <div *ngIf="UpdateProductForm.controls['priceAfterDiscount'].errors?.['required']">Discounted price is required</div>
+         <div *ngIf="!UpdateProductForm.controls['priceAfterDiscount'].errors?.['required'] && UpdateProductForm.controls['priceAfterDiscount'].errors?.['min']">Discounted price must be 0 or more</div>
+       </div> -->
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Description</label>
+       <textarea formControlName="descreption" class="form-control" rows="3"></textarea>
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['descreption'].touched">
+         <div *ngIf="UpdateProductForm.controls['descreption'].errors?.['required']">Description is required</div>
+          <div *ngIf="!UpdateProductForm.controls['descreption'].errors?.['required'] && UpdateProductForm.controls['descreption'].errors?.['minlength']">Description should be at least 9 characters long.</div>
+       </div>
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Stock Quantity</label>
+       <input type="number" formControlName="stockQuantity" class="form-control">
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['stockQuantity'].touched">
+         <div *ngIf="UpdateProductForm.controls['stockQuantity'].errors?.['required']">Stock quantity is required</div>
+         <div *ngIf="!UpdateProductForm.controls['stockQuantity'].errors?.['required'] && UpdateProductForm.controls['stockQuantity'].errors?.['min']">Stock quantity Must be 0 or more.</div>
+       </div>
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Rating</label>
+       <input type="number" formControlName="rating" class="form-control" max="5">
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['rating'].touched">
+         <!-- <div *ngIf="UpdateProductForm.controls['rating'].errors?.['required']">Rating is required</div> -->
+         <div *ngIf="!UpdateProductForm.controls['rating'].errors?.['required'] && UpdateProductForm.controls['rating'].errors?.['min']">Rating must be 0 or more</div>
+         <div *ngIf="!UpdateProductForm.controls['rating'].errors?.['required'] && UpdateProductForm.controls['rating'].errors?.['max']">Rating can't be more than 5</div>
+       </div>
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Cover Image</label>
+       <input type="file" class="form-control" (change)="onCoverImageChange($event)">
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['imgCover'].touched && UpdateProductForm.controls['imgCover'].errors?.['required']">Cover image is required</div>
+     </div>
+ 
+     <div *ngIf="imgCover" class="mb-3">
+       <img [src]="imgCover" class="img-thumbnail" width="200" height="200">
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Category</label>
+       <select formControlName="categoryID" class="form-select">
+         <option *ngFor="let sub of subCategories" [value]="sub.categoryId">{{ sub.categoryName }}</option>
+       </select>
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['categoryID'].touched && UpdateProductForm.controls['categoryID'].errors?.['required']">Category is required</div>
+     </div>
+ 
+     <div class="mb-3">
+       <label class="form-label">Subcategory</label>
+       <select formControlName="sub_categoryID" class="form-select">
+         <option *ngFor="let sub of subCategories" [value]="sub.sub_CategoryId">
+           {{ sub.title }} ({{ sub.categoryName }})
+         </option>
+       </select>
+       <div class="text-danger" *ngIf="UpdateProductForm.controls['sub_categoryID'].touched && UpdateProductForm.controls['sub_categoryID'].errors?.['required']">Subcategory is required</div>
+     </div>
+ 
+     <div formArrayName="productImages" class="mb-3">
+       <label class="form-label">Product Images</label>
+ 
+       <div *ngFor="let image of productImages.controls; let i = index" [formGroupName]="i" class="border p-3 rounded mb-2">
+         <input type="file" class="form-control mb-2" (change)="onProductImageChange($event, i)">
+         <div *ngIf="image.get('imageURL')?.value" class="mt-2">
+           <img [src]="image.get('imageURL')?.value" class="img-thumbnail" width="200">
+         </div>
+         <div class="text-danger" *ngIf="image.get('imageURL')?.touched">
+           <div *ngIf="image.get('imageURL')?.errors?.['required']">Image is required</div>
+         </div>
+         <div class="form-check mt-2">
+           <input type="checkbox" formControlName="isPrimary" class="form-check-input" id="primaryImage{{i}}">
+           <label class="form-check-label" for="primaryImage{{i}}">Primary Image</label>
+         </div>
+         <button class="btn btn-danger btn-sm mt-2" type="button" (click)="removeImageField(i)" *ngIf="productImages.length > 1">Remove</button>
+       </div>
+ 
+       <button class="btn btn-secondary btn-sm" type="button" (click)="addImageField()">Add Another Image</button>
+     </div>
+ 
+     <button class="btn btn-primary mt-3" type="submit" [disabled]="UpdateProductForm.invalid">Update Product</button>
+   </form>
+ </div>
+ 

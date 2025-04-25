@@ -1,4 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -20,13 +22,25 @@ export class AuthService {
     this.isLoggedIn$ = this.isLoggedInSubject.asObservable();
   }
 
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('auth_token');
+    let headers = new HttpHeaders();
+    if (token) {
+      headers = headers.append('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  }
+
   private hasToken(): boolean {
     const token = localStorage.getItem('auth_token');
     return !!token && !this.jwtHelper.isTokenExpired(token);
   }
 
+  // دالة للتسجيل
   register(registerData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, registerData).pipe(
+    return this.http.post<any>(`${this.apiUrl}/register`, registerData, {
+      headers: this.getAuthHeaders()
+    }).pipe(
       catchError((error) => {
         console.error('Registration error:', error);
         return throwError(() => error.error || new Error('Registration failed!'));
@@ -34,6 +48,7 @@ export class AuthService {
     );
   }
 
+  // دالة لتسجيل الدخول
   login(loginData: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, loginData).pipe(
       tap((response) => {
@@ -49,6 +64,7 @@ export class AuthService {
     );
   }
 
+  // دالة للحصول على معرّف المستخدم
   getApplicationUserId(): string | null {
     const token = localStorage.getItem('auth_token');
     if (!token) return null;
@@ -57,15 +73,14 @@ export class AuthService {
     return decodedToken?.ApplicationUserId || decodedToken?.nameid || null;
   }
 
+  // دالة للحصول على الأدوار من التوكن
   getUserRoles(): string[] {
     const token = localStorage.getItem('auth_token');
     if (!token) return [];
-  
+
     const decodedToken = this.jwtHelper.decodeToken(token);
-    
-    // استخدم المسار الصحيح لاستخراج الدور من التوكن
     const roles = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-    
+
     if (Array.isArray(roles)) {
       return roles;
     } else if (roles) {
@@ -73,27 +88,38 @@ export class AuthService {
     }
     return [];
   }
-  
+
+  // التحقق من إذا كان المستخدم مسجلاً دخوله
   isAuthenticated(): boolean {
     const token = localStorage.getItem('auth_token');
     return token ? !this.jwtHelper.isTokenExpired(token) : false;
   }
 
+  // تسجيل الخروج
   logout(): void {
     localStorage.clear();
     this.isLoggedInSubject.next(false);
     this.router.navigate(['/login']);
   }
 
+  // إرسال رمز OTP لإعادة تعيين كلمة المرور
   verifyEmail(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/SendOtpForResetPassword?email=${email}`, {});
+    return this.http.post(`${this.apiUrl}/SendOtpForResetPassword?email=${email}`, {}, {
+      headers: this.getAuthHeaders()
+    });
   }
 
+  // التحقق من OTP
   verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/confirm-otp`, { email, otp });
+    return this.http.post(`${this.apiUrl}/confirm-otp`, { email, otp }, {
+      headers: this.getAuthHeaders()
+    });
   }
 
+  // إعادة تعيين كلمة المرور باستخدام OTP
   resetPasswordWithOtp(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/ResetPasswordWithOtp`, data);
+    return this.http.post(`${this.apiUrl}/ResetPasswordWithOtp`, data, {
+      headers: this.getAuthHeaders()
+    });
   }
 }

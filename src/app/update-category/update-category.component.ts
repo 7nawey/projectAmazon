@@ -4,11 +4,12 @@ import { ApiService } from '../api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
+import { CommonModule, NgIf } from '@angular/common';
 
 
 @Component({
   selector: 'app-update-category',
-    imports: [ ReactiveFormsModule,NavDashbordComponent],
+    imports: [ ReactiveFormsModule,NavDashbordComponent,CommonModule],
   templateUrl: './update-category.component.html',
   styleUrl: './update-category.component.css'
 })
@@ -24,7 +25,7 @@ export class UpdateCategoryComponent implements OnInit {
   constructor(private catrgoryService: ApiService, private formbuilder : FormBuilder,private route: ActivatedRoute,  private router: Router,) {
     this.UpdateCategoryForm = this.formbuilder.group({
       categoryName: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(9)]],
       image: [null] 
     });
   }
@@ -67,19 +68,31 @@ export class UpdateCategoryComponent implements OnInit {
    
     }
 
-  handleFileInput(event: any) {
-    const file = event.target.files[0];
-  
-    if (!file) return;
-  
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
-      this.fileError = 'File must be an image (jpeg, png, gif, webp)';
-      this.imageBase64 = '';
-      this.UpdateCategoryForm.patchValue({ categoryImg: '' });
-      return;
+    handleFileInput(event: any) {
+      const file = event.target.files[0];
+    
+      if (!file) return;
+    
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        this.fileError = 'File must be an image (jpeg, png, gif, webp)';
+        this.imageBase64 = '';
+        this.UpdateCategoryForm.patchValue({ image: null });
+        return;
+      }
+    
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageBase64 = reader.result as string;
+        this.fileError = '';
+      };
+      reader.onerror = () => {
+        this.fileError = 'Failed to read file';
+        this.imageBase64 = '';
+      };
+      reader.readAsDataURL(file);
     }
-  }
+    
   handleUpdateCategoryForm(): void {
 
     if (this.UpdateCategoryForm.invalid) return;

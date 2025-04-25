@@ -1,42 +1,63 @@
-import { Component } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css'],
+  imports: [ReactiveFormsModule,CommonModule],
 })
-export class RegisterComponent {
-  username: string = '';
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
-  errorMessage: string = '';
-  successMessage: string = '';
+export class RegisterComponent implements OnInit {
+  registerForm!: FormGroup;  
+  errorMessages: string[] = [];  
+  successMessage: string = '';  
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  register() {
-    // التحقق من تطابق كلمات المرور
-    if (this.password !== this.confirmPassword) {
-      this.errorMessage = 'Passwords do not match!';
+  ngOnInit(): void {
+    this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,20}$')
+      ]],
+      confirmPassword: ['', Validators.required]
+    });
+
+
+    this.registerForm.get('confirmPassword')?.setValidators([
+      Validators.required,
+      this.passwordMatchValidator.bind(this)
+    ]);
+  }
+
+  passwordMatchValidator(control: any) {
+    if (control.value !== this.registerForm.get('password')?.value) {
+      return { compare: true };
+    }
+    return null;
+  }
+
+  register(): void {
+    if (this.registerForm.invalid) {
       return;
     }
 
-    if (this.password.length < 8 || this.password.length > 20) {
-      this.errorMessage = 'Password must be between 8 and 20 characters.';
-      return;
-    }    
-
     const registerData = {
-      userName: this.username,
-      email: this.email,
-      password: this.password,
-      confirmPassword: this.confirmPassword
+      userName: this.registerForm.value.username,
+      email: this.registerForm.value.email,
+      password: this.registerForm.value.password,
+      confirmPassword: this.registerForm.value.confirmPassword
     };
 
     this.authService.register(registerData).subscribe({
@@ -44,28 +65,25 @@ export class RegisterComponent {
         console.log('Registration successful', response);
         this.successMessage = 'Registration successful! Please check your email for the verification code.';
         
-        // إزالة أي تخزين محلي غير ضروري
-        localStorage.clear();
-        
-        // توجيه المستخدم لصفحة التحقق من OTP بعد تأخير بسيط
+       
         setTimeout(() => {
-          this.router.navigate(['/verify-otp'], { 
-            queryParams: { email: this.email },
-            replaceUrl: true // لمنع العودة إلى صفحة التسجيل
-          });
+          this.router.navigate(['/verify-otp'], { queryParams: { email: this.registerForm.value.email } });  
         }, 2000);
       },
       error: (error) => {
         console.error('Registration failed', error);
-        this.errorMessage = error.error?.message || 'Registration failed, please try again!';
+      
+        if (error.error?.errors && Array.isArray(error.error.errors)) {
+          this.errorMessages = error.error.errors;
+        } else if (error.error?.message) {
+          this.errorMessages = [error.error.message];
+        } else if (error.message) {
+          this.errorMessages = [error.message]; 
+        } else {
+          this.errorMessages = ['Registration failed, please try again!'];
+        }
       }
+      
     });
   }
-  
-  ngOnInit(): void {
-    // إذا كان المستخدم مسجل دخول بالفعل، نوجهه للصفحة الرئيسية
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    }
-  } 
 }

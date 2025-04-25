@@ -1,11 +1,14 @@
+
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
 import Swal from 'sweetalert2';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Product } from '../types/product';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
-import { Product } from '../types/product';  // استيراد الواجهة
+import { Subcategory } from '../types/subcategory';
 
 @Component({
   selector: 'app-update-product',
@@ -16,8 +19,9 @@ import { Product } from '../types/product';  // استيراد الواجهة
 })
 export class UpdateProductComponent implements OnInit {
   UpdateProductForm: FormGroup;
-  subCategories: any[] = [];
-  productID: number = 0; // هذا الرقم سوف نستخدمه للحصول على بيانات المنتج المراد تحديثه
+  subCategories: Subcategory[] = [];
+  productID: number = 0;
+  imgCover = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,35 +32,25 @@ export class UpdateProductComponent implements OnInit {
     this.UpdateProductForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       price: [0, [Validators.required, Validators.min(0)]],
-      priceAfterDiscount: [0, [Validators.required, Validators.min(0)]],
-      descreption: ['', Validators.required],
+      priceAfterDiscount: [0],
+      descreption: ['', [Validators.required, Validators.minLength(9)]],
       stockQuantity: [0, [Validators.required, Validators.min(0)]],
-      rating: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
+      rating: [0, [Validators.min(0), Validators.max(5)]],
       imgCover: ['', Validators.required],
-      sellerName: ['', Validators.required],
-      subCategoryName: ['', Validators.required],
-      productImages: this.formBuilder.array([
-        this.createImageFormGroup()
-      ])
+      categoryID: [null, Validators.required],
+      sub_categoryID: [null, Validators.required],
+      productImages: this.formBuilder.array([], Validators.required)
     });
   }
 
   ngOnInit(): void {
-    this.productID = +(this.activatedRoute.snapshot.paramMap.get('id') || 0);  // تأكد من تعيين productID بشكل صحيح
-    if (this.productID === 0) {
-      console.error('Invalid product ID');
-      return; // يمكنك إضافة تحقق إضافي هنا
-    }
-  
+    this.productID = +(this.activatedRoute.snapshot.paramMap.get('id') || 0);
     this.getSubCategories();
-    this.getProductDetails(this.productID);  // جلب تفاصيل المنتج
+    this.getProductDetails(this.productID);
   }
-  
-
   get formControls() {
     return this.UpdateProductForm.controls;
   }
-
   get productImages(): FormArray {
     return this.UpdateProductForm.get('productImages') as FormArray;
   }
@@ -80,75 +74,78 @@ export class UpdateProductComponent implements OnInit {
 
   getSubCategories(): void {
     this.apiService.getAllSubcategories().subscribe({
-      next: (data) => {
-        this.subCategories = data;
-      },
-      error: (error) => {
-        console.error('Error fetching subcategories:', error);
-      }
+      next: (data) => this.subCategories = data,
+      error: (err) => console.error('Failed to fetch subcategories', err)
     });
   }
 
   getProductDetails(id: number): void {
     this.apiService.getProductById(id).subscribe({
       next: (data: Product) => {
-        // تعبئة الـ FormGroup بالنموذج
         this.UpdateProductForm.patchValue({
           name: data.name,
           price: data.price,
           priceAfterDiscount: data.priceAfterDiscount,
-          description: data.descreption,
+          descreption: data.descreption,
           stockQuantity: data.stockQuantity,
           rating: data.rating,
           imgCover: data.imgCover,
-          sellerName: data.sellerName,
-          subCategoryName: data.subCategoryName
+          categoryID: data.categoryID,
+          sub_categoryID: data.sub_categoryID
         });
+        this.imgCover = data.imgCover;
 
-        // إضافة الصور إلى الـ FormArray
-        data.productImages.forEach((image) => {
-          this.addImageField(image.imageURL, image.isPrimary);
-        });
+        this.productImages.clear();
+        if (data.productImages && data.productImages.length > 0) {
+          data.productImages.forEach(img => {
+            this.addImageField(img.imageURL, img.isPrimary);
+          });
+        }
       },
-      error: (error) => {
-        console.error('Error fetching product details:', error);
-      }
+      error: (err) => console.error('Failed to load product', err)
     });
+  }
+
+  onCoverImageChange(event: any): void {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.UpdateProductForm.patchValue({ imgCover: reader.result as string });
+      this.imgCover = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onProductImageChange(event: any, index: number): void {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.productImages.at(index).patchValue({ imageURL: reader.result as string });
+    };
+    reader.readAsDataURL(file);
   }
 
   handleUpdateProductForm(): void {
     if (this.UpdateProductForm.invalid) return;
-  
-    const formData = this.UpdateProductForm.value;
-  
-    // إضافة productID إلى formData
-    formData.productID = this.productID;
-  
+
+    const formData = {
+      ...this.UpdateProductForm.value,
+      productID: this.productID
+    };
+
     this.apiService.updateProduct(formData, this.productID).subscribe({
-      next: (response: any) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: `Product "${response.name}" updated successfully`,
-          confirmButtonText: 'OK'
-        }).then(() => {
-          this.router.navigate(['/ProductList']);
-        });
+      next: (res) => {
+        Swal.fire('Success', `Product "${res.name}" updated successfully`, 'success')
+          .then(() => this.router.navigate(['/ProductList']));
       },
-      error: (error) => {
-        console.error(error);
-        // عرض التفاصيل حول الأخطاء التي تم إرجاعها من الخادم
-        if (error.error && error.error.errors) {
-          for (const field in error.error.errors) {
-            console.error(`Error in ${field}: ${error.error.errors[field].join(', ')}`);
-          }
-        }
+      error: (err) => {
+        console.error(err);
         Swal.fire('Error', 'Failed to update product', 'error');
       }
     });
   }
-  
-  
-  
-  
 }

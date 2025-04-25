@@ -1,4 +1,8 @@
-<form [formGroup]="UpdateUserForm" (ngSubmit)="handleUpdateUserForm()" class="row g-3 p-4">
+<app-nav-dashbord></app-nav-dashbord>
+
+<div class="container">
+  <h3 class="my-4">Update User</h3>
+<form [formGroup]="UpdateUserForm" (ngSubmit)="handleUpdateUserForm()" class="row g-3 mb-5 p-4 border rounded shadow">
     <div class="col-md-6">
       <label for="UserName" class="form-label">User Name</label>
       <input class="form-control" id="UserName" formControlName="UserName" [disabled]="true" />
@@ -18,3 +22,4 @@
       <button type="submit" class="btn btn-primary" [disabled]="UpdateUserForm.invalid">Submit</button>
     </div>
   </form>
+</div>
