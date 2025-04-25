@@ -25,7 +25,7 @@ export class AddCategoryComponent {
   ) {
     this.AddCategoryForm = this.formbuilder.group({
       categoryName: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(9)]],
       categoryImg: [null, Validators.required]
     });
   }

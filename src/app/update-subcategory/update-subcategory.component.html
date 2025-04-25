@@ -2,19 +2,19 @@
 <div class="container mt-5">
   <h3 class="mb-4">Update Subcategory</h3>
 
-  <form [formGroup]="UpdateSubcategoryForm" (ngSubmit)="handleUpdateSubcategoryForm()">
+  <form [formGroup]="UpdateSubcategoryForm" (ngSubmit)="handleUpdateSubcategoryForm()" class="mb-5 p-4 border rounded shadow">
     <div class="form-group mb-3">
-      <label for="subcategoryName">ٍSubcategory Name</label>
+      <label for="subcategoryName">Subcategory Name</label>
       <input
         type="text"
         class="form-control"
         id="subcategoryName"
         formControlName="subcategoryName"
-        [class.is-invalid]="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched"
+
       />
-      <div *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched" class="invalid-feedback">
+      <div class="text-danger" *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched">
         <span *ngIf="formControls['subcategoryName'].hasError('required')"> Required Field</span>
-        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Length must be greater than 3</span>
+        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Subcategory name should be at least 3 characters long.</span>
       </div>
     </div>
 

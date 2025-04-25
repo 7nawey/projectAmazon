@@ -1,20 +1,21 @@
 <app-nav-dashbord></app-nav-dashbord>
-<div class="container">
-  <form class="row g-3 p-4" [formGroup]="AddSubcategoryForm" (ngSubmit)="handleAddAddSubcategoryForm()">
-    <div class="col-md-3">
+<div class="container ">
+  <h3 class="my-4">New Subcategory</h3>
+  <form class="row g-3 p-4" [formGroup]="AddSubcategoryForm" (ngSubmit)="handleAddAddSubcategoryForm()" class="mb-5 p-4 border rounded shadow">
+    <div class="col-md-12">
       <label for="subcategoryName" class="form-label">Subcategory Name</label>
       <input type="text" class="form-control" id="subcategoryName" formControlName="subcategoryName" placeholder="Enter Subcategory Name">
       
       <div *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched" class="form-text text-danger">
         <span *ngIf="formControls['subcategoryName'].hasError('required')">Required Field</span>
-        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Length must be greater than 3</span>
+        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Subcategory name should be at least 3 characters long</span>
       </div>
     </div>
   
-    <div class="col-md-4">
+    <div class="col-md-12 my-3">
       <label for="categoryName" class="form-label">Category Name</label>
       <select id="categoryName" class="form-select" formControlName="categoryId">
-        <option value="">Select a Category</option>
+        <option value="">Select Category</option>
         <option *ngFor="let item of categories; trackBy: trackByCategoryId" [value]="item.categoryID">
           {{ item.categoryName }}
         </option>

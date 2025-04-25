@@ -8,14 +8,16 @@ export interface Product {
     stockQuantity: number;
     rating: number;
     imgCover: string;
-    sellerName: string;
+    categoryID: number;          
+    sub_categoryID: number;  
     subCategoryName: string;
     productImages: { imageURL: string; isPrimary: boolean }[];
   }
   
-  interface ProductImage {
-    imageURL: string;
-    isPrimary: boolean;
+export  interface productImages {
+  imageURL: string;
+  isPrimary: boolean;
+  imageID: number;
   }
   
   

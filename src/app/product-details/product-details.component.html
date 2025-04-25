@@ -61,6 +61,7 @@
       {{ expandedDescriptions.has(product.productID) ? 'See Less' : 'See More' }}
     </a>
 
+
     <h2 class="price" *ngIf="product.priceAfterDiscount < product.price">
       <span class="text-muted text-decoration-line-through">$ {{ product.price }}</span>
     </h2>

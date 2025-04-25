@@ -1,106 +1,138 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { ApiService } from '../api.service';
+import { CommonModule, NgForOf, NgIf } from '@angular/common';
+import { Category } from '../types/category';
+import { Subcategory } from '../types/subcategory';
+import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css'],
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NavDashbordComponent]
+  imports: [ReactiveFormsModule, CommonModule, NavDashbordComponent,NgIf,NgForOf],
 })
 export class AddProductComponent implements OnInit {
-  AddProductForm: FormGroup;
+  addProductForm!: FormGroup;
+  categories: Category[] = [];
   subCategories: any[] = [];
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private apiService: ApiService,
-    private router: Router
-  ) {
-    this.AddProductForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      price: [0, [Validators.required, Validators.min(0)]],
-      priceAfterDiscount: [0, [Validators.required, Validators.min(0)]],
-      descreption: ['', Validators.required],
-      stockQuantity: [0, [Validators.required, Validators.min(0)]],
-      rating: [0, [Validators.required, Validators.min(0), Validators.max(5)]],
-      imgCover: ['', Validators.required],
-      sellerName: ['', Validators.required],
-      subCategoryName: ['', Validators.required], // ممكن تبقى ID لو بتحبي
-      productImages: this.formBuilder.array([
-        this.createImageFormGroup()
-      ])
-    });
-  }
+  constructor(private fb: FormBuilder, private apiService: ApiService,private router:Router) {}
 
   ngOnInit(): void {
-    this.getSubCategories();
-  }
-
-  get formControls() {
-    return this.AddProductForm.controls;
-  }
-
-  get productImages(): FormArray {
-    return this.AddProductForm.get('productImages') as FormArray;
-  }
-
-  createImageFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      imageURL: ['', Validators.required],
-      isPrimary: [false]
+    
+    this.addProductForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      price: [0, [Validators.required, Validators.min(0)]],
+      priceAfterDiscount: [0],
+      descreption: ['', [Validators.required, Validators.minLength(9)]],
+      stockQuantity: [0, [Validators.required, Validators.min(0)]],
+      rating: [0, [Validators.min(0), Validators.max(5)]],
+      categoryID: [null, Validators.required],
+      sub_categoryID: [null,Validators.required], 
+      imgCover: ['', Validators.required],
+      productImages: this.fb.array([this.fb.group({ imageURL: ['', Validators.required] })]),
     });
+
+    
+    this.apiService.getCategoriesAndSubCategories().subscribe(response => {
+      this.categories = response.categories;
+      this.subCategories = response.subCategories;
+    });
+
+    console.log(this.categories);
+    console.log(this.subCategories);  
+
+    
+    this.addImage();
   }
 
-  addImageField(): void {
-    this.productImages.push(this.createImageFormGroup());
+  
+  get productImages(): FormArray {
+    return this.addProductForm.get('productImages') as FormArray;
+  }
+  
+  get formControls() {
+    return this.addProductForm.controls;
   }
 
-  removeImageField(index: number): void {
-    if (this.productImages.length > 1) {
-      this.productImages.removeAt(index);
+  
+  addImage(): void {
+    this.productImages.push(this.fb.group({
+      imageURL: ['', Validators.required]
+    }));
+  }
+
+  
+  removeImage(index: number): void {
+    this.productImages.removeAt(index);
+  }
+
+  
+  onImgCoverFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.addProductForm.patchValue({ imgCover: reader.result });
+      };
+      reader.readAsDataURL(file);
     }
   }
 
-  getSubCategories(): void {
-    this.apiService.getAllSubcategories().subscribe({
-      next: (data) => {
-        this.subCategories = data;
-      },
-      error: (error) => {
-        console.error('Error fetching subcategories:', error);
-      }
-    });
+  
+  onImageFileChange(event: any, index: number): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.productImages.at(index).patchValue({ imageURL: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
+  
   handleAddProductForm(): void {
-    if (this.AddProductForm.invalid) return;
-
-    const formData = this.AddProductForm.value;
-
-    this.apiService.AddProduct(formData).subscribe({
-      next: (response) => {
+    if (this.addProductForm.invalid) {
+      return;
+    }
+  
+    const formData = {
+      ...this.addProductForm.value,
+      categoryID: +this.addProductForm.value.categoryID,  
+      sub_categoryID: +this.addProductForm.value.sub_categoryID, 
+      price: +this.addProductForm.value.price,
+      priceAfterDiscount: +this.addProductForm.value.priceAfterDiscount,
+      stockQuantity: +this.addProductForm.value.stockQuantity,
+      rating: +this.addProductForm.value.rating,
+    };
+  
+    console.log('Form data before sending:', formData); 
+  
+    this.apiService.addProduct(formData).subscribe({
+      next: (res) => {
         Swal.fire({
           icon: 'success',
-          title: 'Success',
-          text: `Product "${response.name}" added successfully`,
-          confirmButtonText: 'Go to Product List'
-        }).then(() => {
-          this.router.navigate(['/ProductList']);
-        });
-
-        this.AddProductForm.reset();
-        while (this.productImages.length > 1) {
-          this.productImages.removeAt(1);
-        }
+          title: 'Product Added',
+          text: `"${res.name}" has been added successfully!`,
+          confirmButtonColor: '#3085d6',
+        }).then(()=>{this.router.navigate(['/ProductList'])});
+        this.addProductForm.reset();
+        this.productImages.clear();
+        this.addImage();
       },
-      error: () => {
-        Swal.fire('Error', 'Failed to add product', 'error');
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong while adding the product.',
+          confirmButtonColor: '#d33',
+        });
+        console.error("Error adding product", err);
       }
     });
   }

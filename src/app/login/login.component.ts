@@ -15,13 +15,31 @@ export class LoginComponent {
   emailOrUserName: string = '';
   errorMessage: string = '';
   successMessage: string = '';
+  formValues={
+    emailOrUserName: this.emailOrUserName,
+    password: this.password
+  };
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  isValidEmailOrUsername(value: string): boolean {
+    if (!value) return false;
+  
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    const isUsername = /^[a-zA-Z0-9_]{3,}$/.test(value);
+  
+    return isEmail || isUsername;
+  }
+  
   login(): void {
+    if (!this.isValidEmailOrUsername(this.formValues.emailOrUserName)) {
+      this.errorMessage = 'Enter a valid email or a username with at least 3 characters.';
+      return;
+    }
+  
     const loginData = {
-      password: this.password,
-      emailOrUserName: this.emailOrUserName
+      password: this.formValues.password,
+    emailOrUserName: this.formValues.emailOrUserName
     };
   
     this.authService.login(loginData).subscribe({

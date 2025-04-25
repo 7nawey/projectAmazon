@@ -1,8 +1,9 @@
 <app-nav-dashbord></app-nav-dashbord>
-<div class="container">
-  <form class="row g-3 p-4" [formGroup]="AddCategoryForm" (ngSubmit)="handleAddCategoryForm()">
-    <div class="col-md-3" >
-      <label for="CaregoryName" class="form-label">Caregory Name</label>
+<div class="container"> 
+  <h3 class="my-4">New Category</h3>
+  <form class="row g-3 p-4 m-3" [formGroup]="AddCategoryForm" (ngSubmit)="handleAddCategoryForm()" class="mb-5 p-4 border rounded shadow">
+    <div class="col-md-12" >
+      <label for="CaregoryName" class="form-label">Category Name</label>
       <input type="text" class="form-control" id="CaregoryName" formControlName="categoryName" placeholder="Enter Category Name">
       @if(formControls['categoryName'].invalid && formControls['categoryName'].touched){
         <div id="CaregoryNameId" class="form-text text-danger">
@@ -10,35 +11,41 @@
               <span>Required Field</span>
           }
           @else if(formControls['categoryName'].hasError('minlength')){
-              <span>length must be greater than 3</span>
+              <span>Category name should be at least 3 characters long.</span>
   
           }
         </div>
           }
     </div>
-    <div class="col-6">
+    <div class="col-md-12 my-3">
       <label for="Descreption" class="form-label">Descreption</label>
-      <input type="text" class="form-c
-      ontrol" id="Descreption"  formControlName="description" placeholder="Enter Category Description">
+      <input type="text" class="form-control" id="Descreption"  formControlName="description" placeholder="Enter Category Description">
       @if (formControls['description'].invalid && formControls['description'].touched) {
         <div class="form-text text-danger">
           @if (formControls['description'].hasError('required')) {
             <span>Required Field</span>
           }
           @else if (formControls['description'].hasError('minlength')) {
-            <span>Length must be greater than 3</span>
+            <span>Description should be at least 9 characters long.</span>
           }
         </div>
       }
   </div>
-    <div class="mb-3">
-        <label>Category Image</label>
-        <input type="file" (change)="handleFileInput($event)" class="form-control">
-        <div class="text-danger" *ngIf="fileError">{{ fileError }}</div>
-      </div>
+  <div class="mb-3 my-3">
+    <label>Category Image</label>
+    <input type="file" (change)="handleFileInput($event)" class="form-control">
+  
+    <div class="text-danger" *ngIf="fileError">{{ fileError }}</div>
+  
+    <div class="form-text text-danger" *ngIf="formControls['categoryImg'].touched && formControls['categoryImg'].hasError('required')">
+      <span>Required Field</span>
+    </div>
+  </div>
+  
+  
     
      
-      <div *ngIf="imageBase64">
+      <div *ngIf="imageBase64" >
         <img [src]="imageBase64" class="img-thumbnail" width="300">
       </div>
     

@@ -33,6 +33,20 @@ export class ApiService {
   getAllSubGrocery(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/SubCategory/GetByCategory/Grocery`);
   }
+  getSubCategories(pageNumber: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<any>(`${this.baseUrl}/SubCategory/GetAllSubCategoriesPagination`, { params });
+  }
+  getCategoriesPagination(pageNumber: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('page', pageNumber.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<any>(`${this.baseUrl}/Category/GetAllCategoriesPagination`, { params });
+  }
   getmeats(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/Product/GetBySubCategory/meats`);
   }
@@ -172,19 +186,10 @@ export class ApiService {
   }
   
   updateProduct(formData: any, productID: number): Observable<any> {
-    // نرسل الـ productID في الـ URL وأيضًا في body
+    
     return this.http.put(`${this.baseUrl}/Product/UpdateProduct/${productID}`, formData);
   }
-  
-  
-  
 
-
-  
-  
-  AddProduct(productData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/Product`, productData);
-  }
   getAllSubcategories():Observable<any>{
     return this.http.get<any>(`${this.baseUrl}/SubCategory/GetAllSubCategories`)
   }
@@ -192,7 +197,7 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/SubCategory`, subcategory);
   }
   getsubcategoryById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/SubCategory/GetById/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/SubCategory/${id}`);
   } 
   updatesubcategory(id: any, updatedsubcategory: any): Observable<any> {
     return this.http.put(`https://localhost:7105/api/SubCategory/UpdateSubcategory/${id}`, updatedsubcategory);
@@ -202,5 +207,13 @@ export class ApiService {
   }
   searchProducts(term: string) {
     return this.http.get<any[]>(`https://localhost:7105/api/Product/Search/${term}`);
+  }
+  getCategoriesAndSubCategories(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/Product/GetCategoriesAndSubCategories`);
+  }
+
+  
+  addProduct(product: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/Product`, product);
   }
 }

@@ -1,18 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+
+
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ConfirmDeleteModalComponent } from '../shared/confirm-delete-modal/confirm-delete-modal.component';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-dashboard',
-  imports: [RouterLink,CommonModule,ConfirmDeleteModalComponent,NavDashbordComponent],
+  imports: [RouterLink, CommonModule, NavDashbordComponent],
   templateUrl: './product-dashboard.component.html',
   styleUrl: './product-dashboard.component.css'
 })
-export class ProductDashboardComponent  implements OnInit {
+export class ProductDashboardComponent implements OnInit {
   products: any[] = [];
   currentPage = 1;
   pageSize = 15;
@@ -42,21 +43,14 @@ export class ProductDashboardComponent  implements OnInit {
     return Array(this.totalPages).fill(0).map((_, i) => i + 1);
   }
 
-    selectedProduct!: any;
-  
-  setProductToDelete(product: any) {
-    this.selectedProduct = product;
-  }
-
- 
   deleteProduct(product: any) {
     const productID = product?.productID;
-  
+
     if (!productID) {
       console.error('Product ID is undefined!');
       return;
     }
-  
+
     Swal.fire({
       title: 'Are you sure?',
       text: `You won't be able to revert this!`,
@@ -70,7 +64,7 @@ export class ProductDashboardComponent  implements OnInit {
         this.productService.deleteProduct(productID).subscribe(
           () => {
             this.products = this.products.filter(c => c.productID !== productID);
-  
+
             Swal.fire(
               'Deleted!',
               'Your product has been deleted.',
@@ -85,8 +79,4 @@ export class ProductDashboardComponent  implements OnInit {
       }
     });
   }
-  
-  
-
-
 }
