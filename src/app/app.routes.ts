@@ -69,8 +69,10 @@ import { ScreenComponent } from './screen/screen.component';
 import { AccesoriesComponent } from './accesories/accesories.component';
 import { ShippingallComponent } from './shippingall/shippingall.component'; 
 import { ShippingDetailsComponent } from './shipping-details/shipping-details.component';
+import { BecomeSellerComponent } from './become-seller/become-seller.component';
 
 export const routes: Routes = [
+
     {
         path:"",
         component:HomeComponent,
@@ -164,7 +166,9 @@ export const routes: Routes = [
     { path: 'accesories', component: AccesoriesComponent },
     {path:'shippingall',component:ShippingallComponent},
     {path:'shipping-details/:shippingId',component:ShippingDetailsComponent},
+    {path:'become-seller',component:BecomeSellerComponent},
     {path:'**', component:NotfoundComponent},
+    
 
     
 ];

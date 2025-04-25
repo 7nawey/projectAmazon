@@ -149,10 +149,21 @@
     <span>{{ 'FOOTER.PILLPACK_DESC' | translate }}</span>
   </div>
 
+
+  <!-- become a seller -->
   <div>
-    <h5>{{ 'FOOTER.SELL' | translate }}</h5>
-    <span>{{ 'FOOTER.SELL_DESC' | translate }}</span>
+    <h5>
+      <a [routerLink]="['/become-seller']" >
+        {{ 'FOOTER.SELL' | translate }}
+      </a>
+    </h5>
+    <span>
+      <a [routerLink]="['/become-seller']" >
+        {{ 'FOOTER.SELL_DESC' | translate }}
+      </a>
+    </span>
   </div>
+  
   <div>
     <h5>{{ 'FOOTER.GOODREADS' | translate }}</h5>
     <span>{{ 'FOOTER.GOODREADS_DESC' | translate }}</span>
