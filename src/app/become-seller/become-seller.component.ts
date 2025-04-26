@@ -3,13 +3,14 @@ import emailjs from '@emailjs/browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-become-seller',
   standalone: true,
   templateUrl: './become-seller.component.html',
   styleUrl: './become-seller.component.css',
-  imports: [CommonModule, FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule,TranslateModule]
 })
 export class BecomeSellerComponent {
   formData = {

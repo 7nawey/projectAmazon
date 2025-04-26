@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatbotService } from '../chatbot.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-chatbot',
-  imports:[CommonModule,FormsModule],
+  imports:[CommonModule,FormsModule,TranslateModule],
   templateUrl: './chatbot.component.html',
   styleUrls: ['./chatbot.component.css']
 })

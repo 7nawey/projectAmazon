@@ -337,7 +337,23 @@
       "no_notifications": "لا توجد إشعارات",
       "success": "تم وضع طلبك بنجاح",
       "view_orders": "عرض طلباتي"
-    }
+    },
+      "chatbot": {
+        "chat_with_assistant": "تحدث مع مساعدنا",
+        "type_message": "اكتب رسالتك...",
+        "send": "إرسال"
+      },
+      "seller": {
+    "become_seller": "كن بائعًا",
+    "username": "اسم المستخدم",
+    "enter_username": "يرجى إدخال اسم المستخدم",
+    "email_address": "عنوان البريد الإلكتروني",
+    "enter_valid_email": "يرجى إدخال بريد إلكتروني صالح.",
+    "request_details": "تفاصيل الطلب",
+    "describe_request": "يرجى وصف طلبك.",
+    "submit_request": "إرسال الطلب"
+  }
+    
   
   
 }

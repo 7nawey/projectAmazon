@@ -337,5 +337,22 @@
     "no_notifications": "No notifications available",
   "success": "your order have been Placed successfully",
     "view_orders": "view my orders"
-  }
+  },
+    "chatbot": {
+      "chat_with_assistant": "Chat with Our Assistant",
+      "type_message": "Type your message...",
+      "send": "Send"
+    },
+      "seller": {
+        "become_seller": "Become a Seller",
+        "username": "Username",
+        "enter_username": "Please enter your username",
+        "email_address": "Email Address",
+        "enter_valid_email": "Please enter a valid email address.",
+        "request_details": "Request Details",
+        "describe_request": "Please describe your request.",
+        "submit_request": "Submit Request"
+      }
+    
+  
 }
