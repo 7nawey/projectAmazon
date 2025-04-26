@@ -13,14 +13,14 @@
           <form (ngSubmit)="login()" #loginForm="ngForm">
             <div class="mb-3">
 
-              <label for="emailOrUserName" class="form-label">Username / Email {{ 'login.username_or_email' | translate }}</label>
+              <label for="emailOrUserName" class="form-label"> {{ 'login.username_or_email' | translate }}</label>
               <input type="text" id="emailOrUserName" [(ngModel)]="formValues.emailOrUserName" name="emailOrUserName" class="form-control" required  #emailOrUserName="ngModel"  />
               <div *ngIf="emailOrUserName.invalid &&  emailOrUserName.touched && !isValidEmailOrUsername(formValues.emailOrUserName)" class="text-danger">
                 <div *ngIf="emailOrUserName.errors?.['required']">Username or Email is required.</div>
             </div>
             </div>
             <div class="mb-3">
-              <label for="password" class="form-label">Password {{ 'login.password' | translate }}</label>
+              <label for="password" class="form-label">{{ 'login.password' | translate }}</label>
               <input type="password" id="password" [(ngModel)]="formValues.password" name="password" class="form-control" required minlength="8" 
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$"
               #password="ngModel"/>

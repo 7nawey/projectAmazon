@@ -9,14 +9,25 @@ export const adminGuard: CanActivateFn = (route, state) => {
     const decodedToken = jwtHelper.decodeToken(token);
     const roles = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-    if (Array.isArray(roles) && roles.includes('Admin')) {
-      return true;
-    } else if (roles === 'Admin') {
+    const isAdmin = Array.isArray(roles) ? roles.includes('Admin') : roles === 'Admin';
+    const isSeller = Array.isArray(roles) ? roles.includes('Seller') : roles === 'Seller';
+
+    // لو الصفحة اللي بيحاول يفتحها هي add-product-seller
+    if (state.url.includes('add-product-seller')) {
+      if (isSeller) {
+        return true;
+      } else {
+        window.alert('Access denied. Only Sellers can access this page.');
+        return false;
+      }
+    }
+
+    // باقي الصفحات مسموح بيها للـ Admin فقط
+    if (isAdmin) {
       return true;
     }
   }
 
-  window.alert('Access denied. Admins only.');
+  window.alert('Access denied.');
   return false;
 };
-

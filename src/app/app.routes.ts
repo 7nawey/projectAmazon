@@ -70,6 +70,7 @@ import { AccesoriesComponent } from './accesories/accesories.component';
 import { ShippingallComponent } from './shippingall/shippingall.component'; 
 import { ShippingDetailsComponent } from './shipping-details/shipping-details.component';
 import { BecomeSellerComponent } from './become-seller/become-seller.component';
+import { AddProductSellerComponent } from './add-product-seller/add-product-seller.component';
 
 export const routes: Routes = [
 
@@ -167,6 +168,7 @@ export const routes: Routes = [
     {path:'shippingall',component:ShippingallComponent},
     {path:'shipping-details/:shippingId',component:ShippingDetailsComponent},
     {path:'become-seller',component:BecomeSellerComponent},
+    {path:'add-product-seller',component:AddProductSellerComponent},
     {path:'**', component:NotfoundComponent},
     
 

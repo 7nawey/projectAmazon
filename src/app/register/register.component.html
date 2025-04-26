@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-6">
 
-        <h2 class="text-center">Register {{ 'login.register_title' | translate }}</h2>
+        <h2 class="text-center"> {{ 'login.register_title' | translate }}</h2>
         <div *ngIf="errorMessages?.length" class="alert alert-danger">
           <ul>
             <li *ngFor="let msg of errorMessages">{{ msg }}</li>
@@ -22,7 +22,7 @@
         <form [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="mb-3">
 
-            <label for="username" class="form-label">Username {{ 'login.username' | translate }}</label>
+            <label for="username" class="form-label"> {{ 'login.username' | translate }}</label>
             <input id="username" formControlName="username" class="form-control" />
             <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="text-danger">
               <small *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</small>
@@ -34,7 +34,7 @@
 
           <div class="mb-3">
 
-            <label for="email" class="form-label">Email {{ 'login.email' | translate }}</label>
+            <label for="email" class="form-label"> {{ 'login.email' | translate }}</label>
             <input id="email" formControlName="email" class="form-control" />
             <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger">
               <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
@@ -45,7 +45,7 @@
 
           <div class="mb-3">
 
-            <label for="password" class="form-label">Password {{ 'login.password' | translate }}</label>
+            <label for="password" class="form-label"> {{ 'login.password' | translate }}</label>
             <input type="password" id="password" formControlName="password" class="form-control" />
             <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger">
               <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
@@ -57,7 +57,7 @@
 
           <div class="mb-3">
 
-            <label for="confirmPassword" class="form-label">Confirm Password {{ 'login.confirm_password' | translate }}</label>
+            <label for="confirmPassword" class="form-label"> {{ 'login.confirm_password' | translate }}</label>
             <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" />
             <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="text-danger">
               <small *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</small>
@@ -69,7 +69,7 @@
           <div class="mb-3">
 
             <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">
-              Register  {{ 'login.register_title' | translate }}
+              {{ 'login.register_title' | translate }}
 
             </button>
           </div>

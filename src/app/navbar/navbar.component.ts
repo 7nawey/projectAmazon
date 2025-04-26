@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CartService } from '../services/cart.service';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { ApiService } from '../api.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -16,12 +16,11 @@ import nlp from 'compromise';
 import '@tensorflow/tfjs';
 import '@tensorflow/tfjs-backend-webgl';
 import { TranslateModule } from '@ngx-translate/core';
-import { NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, FormsModule, CommonModule,TranslateModule],
+  imports: [RouterLink, FormsModule, CommonModule, TranslateModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -30,15 +29,16 @@ export class NavbarComponent implements OnInit {
   cartItemCount = 0;
   cart$: Observable<any>;
   isAdmin = false;
+  isSeller = false;
   searchTerm = '';
   userRole: string | null = null;
   selectedImage: File | null = null;
   selectedImagePreview: string | null = null;
   isListening = false;
   recognition: any;
-  newOrderStatus: boolean = false; 
+  newOrderStatus: boolean = false;
   notifications: { message: string, timestamp: Date }[] = [];
-  showDropdown: boolean = false;  
+  showDropdown: boolean = false;
   private tmModel: tmImage.CustomMobileNet | null = null;
   private maxPredictions = 0;
   private cocoModel: cocoSsd.ObjectDetection | null = null;
@@ -49,7 +49,8 @@ export class NavbarComponent implements OnInit {
     private cartService: CartService,
     private router: Router,
     private apiService: ApiService,
-    private wishlistService: WishlistService
+    private wishlistService: WishlistService,
+    private cdr: ChangeDetectorRef // Add ChangeDetectorRef to trigger manual change detection
   ) {
     this.cart$ = this.cartService.cart$;
     this.router.events.subscribe(event => {
@@ -60,8 +61,10 @@ export class NavbarComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    // Ensure TensorFlow is ready
     await tf.ready();
 
+    // Load models for image recognition
     const modelURL = 'assets/model.json';
     const metadataURL = 'assets/metadata.json';
     this.tmModel = await tmImage.load(modelURL, metadataURL);
@@ -70,6 +73,7 @@ export class NavbarComponent implements OnInit {
     this.cocoModel = await cocoSsd.load();
     this.mobileNetModel = await mobilenet.load();
 
+    // Subscribe to login status changes
     this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
       if (this.isLoggedIn) {
@@ -79,11 +83,15 @@ export class NavbarComponent implements OnInit {
         this.cartItemCount = 0;
         this.userRole = null;
         this.isAdmin = false;
+        this.isSeller = false;
       }
+      this.cdr.detectChanges();  // Trigger change detection when login status changes
     });
 
+    // Subscribe to cart changes
     this.cart$.subscribe(cart => {
       this.cartItemCount = cart?.items?.length || 0;
+      this.cdr.detectChanges();  // Trigger change detection after cart updates
     });
   }
 
@@ -91,6 +99,7 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.cartItemCount = 0;
     this.isAdmin = false;
+    this.isSeller = false;
   }
 
   async onSearch() {
@@ -173,6 +182,7 @@ export class NavbarComponent implements OnInit {
     const roles = this.authService.getUserRoles();
     this.userRole = roles.length > 0 ? roles[0] : null;
     this.isAdmin = roles.includes('Admin');
+    this.isSeller = roles.includes('Seller');
   }
 
   onImageSelected(event: any) {
@@ -228,38 +238,35 @@ export class NavbarComponent implements OnInit {
     }
     this.isListening = false;
   }
+
   checkForOrderSuccess() {
     const orderSuccess = localStorage.getItem('orderSuccess');
-    
+
     if (orderSuccess === 'true') {
-      const timestamp = new Date();  // Get current timestamp
+      const timestamp = new Date();
       this.addNotification({
-        message: '!',
+        message: 'تم تنفيذ الطلب بنجاح!',
         timestamp: timestamp
       });
-      this.newOrderStatus = true;  // Show red dot when new order is placed
-      localStorage.removeItem('orderSuccess');  // Clear the flag after showing the notification
+      this.newOrderStatus = true;
+      localStorage.removeItem('orderSuccess');
     }
   }
-  
 
   addNotification(notification: { message: string, timestamp: Date }) {
     this.notifications.push(notification);
   }
-  
-  
 
   toggleNotifications() {
-    this.showDropdown = !this.showDropdown;  // Toggle the dropdown visibility
+    this.showDropdown = !this.showDropdown;
 
     if (this.showDropdown) {
       this.newOrderStatus = false;
     }
-    
   }
 
   clearNotifications() {
-    this.notifications = [];  // Clear all notifications when clicked
-    this.showDropdown = false;  // Close the dropdown
+    this.notifications = [];
+    this.showDropdown = false; 
   }
 }
