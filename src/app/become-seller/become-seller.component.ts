@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import emailjs from '@emailjs/browser';
-import {CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import {  RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-become-seller',
   standalone: true,
   templateUrl: './become-seller.component.html',
   styleUrl: './become-seller.component.css',
-  imports: [CommonModule , FormsModule, RouterModule]
+  imports: [CommonModule, FormsModule, RouterModule]
 })
 export class BecomeSellerComponent {
   formData = {
@@ -18,7 +18,15 @@ export class BecomeSellerComponent {
     message: ''
   };
 
-  sendEmail() {
+  isSubmitted = false;
+
+  sendEmail(form: NgForm) {
+    this.isSubmitted = true;
+
+    if (form.invalid) {
+      return; // مايبعتش لو الفورم مش صالح
+    }
+
     const serviceID = 'service_ndgfhml';
     const templateID = 'template_5bsv9n9';
     const publicKey = '7323LhQWgwJPJRI7c';
@@ -40,7 +48,9 @@ export class BecomeSellerComponent {
     emailjs.send(serviceID, templateID, formattedData, publicKey)
       .then(() => {
         alert('تم إرسال الطلب بنجاح!');
-        this.formData = { name: '', email: '', message: '' }; // Reset form
+        this.formData = { name: '', email: '', message: '' };
+        this.isSubmitted = false;
+        form.resetForm();
       }, (err) => {
         alert('حدث خطأ أثناء إرسال الطلب:\n' + JSON.stringify(err));
       });

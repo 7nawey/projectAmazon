@@ -45,6 +45,10 @@
         formControlName="priceAfterDiscount"
         placeholder="Enter price after discount"
       />
+      <div *ngIf="formControls['priceAfterDiscount'].invalid && formControls['priceAfterDiscount'].touched" class="text-danger">
+       
+        <small *ngIf="formControls['priceAfterDiscount'].hasError('min')">Price must be 0 or more.</small>
+      </div>
     </div>
 
     
