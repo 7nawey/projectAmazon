@@ -12,7 +12,7 @@ import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 @Component({
   selector: 'app-subcategory-dashboard',
   standalone: true,
-  imports: [RouterLink, CommonModule, ConfirmDeleteModalComponent, NavDashbordComponent],
+  imports: [RouterLink, CommonModule,NavDashbordComponent],
   templateUrl: './subcategory-dashboard.component.html',
   styleUrls: ['./subcategory-dashboard.component.css']
 })

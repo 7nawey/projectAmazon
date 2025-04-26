@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-thank-you',
-  imports: [CommonModule,LanguageSwitcherComponent,TranslateModule],
+  imports: [CommonModule,TranslateModule],
   templateUrl: './thank-you.component.html',
   styleUrl: './thank-you.component.css'
 })

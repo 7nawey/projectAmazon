@@ -10,7 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'app-verify-otp',
   templateUrl: './verify-otp.component.html',
   styleUrls: ['./verify-otp.component.css'],
-  imports: [CommonModule, RouterLink, FormsModule,TranslateModule],
+  imports: [CommonModule, FormsModule,TranslateModule],
 })
 export class VerifyOtpComponent {
   email: string = '';

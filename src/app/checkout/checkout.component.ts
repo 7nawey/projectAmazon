@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,LanguageSwitcherComponent,TranslateModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule,TranslateModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })

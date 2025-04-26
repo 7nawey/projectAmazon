@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterLink,LanguageSwitcherComponent,TranslateModule]
+  imports: [CommonModule, RouterLink,TranslateModule]
 })
 export class CartComponent implements OnInit {
   items: any[] = [];

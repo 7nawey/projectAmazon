@@ -14,7 +14,7 @@ import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
   templateUrl: './categorydashboard.component.html',
   styleUrls: ['./categorydashboard.component.css'],
   standalone: true,
-  imports: [CommonModule, RouterModule, ConfirmDeleteModalComponent, NavDashbordComponent],
+  imports: [CommonModule, RouterModule, NavDashbordComponent],
 })
 export class CategorydashboardComponent implements OnInit {
   categories: Category[] = [];

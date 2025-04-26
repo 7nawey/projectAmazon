@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [CommonModule, RouterLink,LanguageSwitcherComponent,TranslateModule],  
+  imports: [CommonModule, RouterLink,TranslateModule],  
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.css']
 })

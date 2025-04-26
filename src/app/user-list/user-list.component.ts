@@ -9,7 +9,7 @@ import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 
 @Component({
   selector: 'app-user-list',
-  imports: [RouterLink, CommonModule,ConfirmDeleteModalComponent,NavDashbordComponent],
+  imports: [RouterLink, CommonModule,NavDashbordComponent],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })

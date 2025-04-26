@@ -16,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./products.component.css'],
 
   standalone: true,
-  imports: [CommonModule, RouterLink,LanguageSwitcherComponent,TranslateModule]
+  imports: [CommonModule, RouterLink,TranslateModule]
 
 })
 export class ProductsComponent implements OnInit {

@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
-  imports: [ProductsComponent,SliderHomeComponent,RouterModule,LanguageSwitcherComponent,TranslateModule],
+  imports: [ProductsComponent,SliderHomeComponent,RouterModule,TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

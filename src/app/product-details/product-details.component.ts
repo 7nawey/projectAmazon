@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [CommonModule, FormsModule,LanguageSwitcherComponent,TranslateModule],
+  imports: [CommonModule, FormsModule,TranslateModule],
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.css'],
   animations: []

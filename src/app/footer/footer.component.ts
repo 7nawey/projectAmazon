@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {  RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
-  imports: [LanguageSwitcherComponent,TranslateModule,RouterModule],
+  imports: [TranslateModule,RouterModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

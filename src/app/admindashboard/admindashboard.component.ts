@@ -6,7 +6,7 @@ import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 @Component({
   selector: 'app-admindashboard',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive,NavDashbordComponent],
+  imports: [NavDashbordComponent],
   templateUrl: './admindashboard.component.html',
   styleUrl: './admindashboard.component.css'
 })

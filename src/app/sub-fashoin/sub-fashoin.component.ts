@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sub-fashoin',
-  imports: [RouterLink,LanguageSwitcherComponent,TranslateModule],
+  imports: [RouterLink,TranslateModule],
   templateUrl: './sub-fashoin.component.html',
   styleUrl: './sub-fashoin.component.css'
 })
