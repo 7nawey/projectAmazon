@@ -15,7 +15,7 @@ export interface WishlistItem {
   providedIn: 'root'
 })
 export class WishlistService {
-  private baseUrl = 'https://localhost:7105/api/Wishlist';
+  private baseUrl = 'https://kashef.runasp.net/api/Wishlist';
 
   constructor(
     private http: HttpClient,
@@ -24,7 +24,7 @@ export class WishlistService {
   ) {}
 
   getProductDetails(productID: number): Observable<any> {
-    return this.http.get<any>(`https://localhost:7105/api/products/${productID}`);
+    return this.http.get<any>(`https://kashef.runasp.net/api/products/${productID}`);
   }
 
   private getHeaders(): HttpHeaders {

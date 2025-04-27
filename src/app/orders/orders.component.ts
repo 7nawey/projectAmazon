@@ -39,12 +39,12 @@ export class OrdersComponent implements OnInit {
   }
 
   fetchOrders() {
-    this.http.get<any[]>(`https://localhost:7105/api/Order/customer/${this.customerId}`)
+    this.http.get<any[]>(`https://kashef.runasp.net/api/Order/customer/${this.customerId}`)
       .subscribe({
         next: (orders) => {
           // ابدأ بجلب عناصر كل طلب
           const requests = orders.map(order =>
-            this.http.get<any[]>(`https://localhost:7105/api/OrderItems/ByOrder/${order.orderID}`)
+            this.http.get<any[]>(`https://kashef.runasp.net/api/OrderItems/ByOrder/${order.orderID}`)
               .toPromise()
               .then(items => {
                 order.items = items; // أضف العناصر للطلب
@@ -66,7 +66,7 @@ export class OrdersComponent implements OnInit {
   }
 
   confirmCancel(orderId: number) {
-    this.http.delete(`https://localhost:7105/api/Order/${orderId}`).subscribe({
+    this.http.delete(`https://kashef.runasp.net/api/Order/${orderId}`).subscribe({
       next: () => {
         this.orders = this.orders.filter(o => o.orderID !== orderId);
         this.successMessage = 'Order canceled successfully.';

@@ -34,14 +34,14 @@ export class ShippingallComponent {
   }
 
   fetchShippedOrders() {
-    this.http.get<any[]>(`https://localhost:7105/api/Order/customer/${this.customerId}`).subscribe({
+    this.http.get<any[]>(`https://kashef.runasp.net/api/Order/customer/${this.customerId}`).subscribe({
       next: (orders) => {
         const shipped = orders.filter(o => o.orderStatus.toLowerCase() === 'completed' || o.orderStatus.toLowerCase() === 'success');
   
         const requests = shipped.map(order =>
           Promise.all([ 
-            this.http.get<any[]>(`https://localhost:7105/api/OrderItems/ByOrder/${order.orderID}`).toPromise(),
-            this.http.get<any>(`https://localhost:7105/api/shipping/order/${order.orderID}`).toPromise()
+            this.http.get<any[]>(`https://kashef.runasp.net/api/OrderItems/ByOrder/${order.orderID}`).toPromise(),
+            this.http.get<any>(`https://kashef.runasp.net/api/shipping/order/${order.orderID}`).toPromise()
           ]).then(([items, shipping]) => {
             order.items = items;
             shipping.shippingId = shipping.shippingID;

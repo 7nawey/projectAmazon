@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://localhost:7105/api/Account';
+  private apiUrl = 'https://kashef.runasp.net/api/Account';
   private jwtHelper: JwtHelperService;
 
   private isLoggedInSubject: BehaviorSubject<boolean>;

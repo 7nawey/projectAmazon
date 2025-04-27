@@ -48,7 +48,7 @@ export class ShippingComponent implements OnInit {
   }
 
   checkOrderState(): void {
-    this.http.get<any>(`https://localhost:7105/api/order/${this.orderId}`)
+    this.http.get<any>(`https://kashef.runasp.net/api/order/${this.orderId}`)
       .subscribe(
         data => {
           console.log('Order Data:', data);
@@ -63,7 +63,7 @@ export class ShippingComponent implements OnInit {
   }
 
   loadShipping(): void {
-    this.http.get<any>(`https://localhost:7105/api/shipping/order/${this.orderId}`)
+    this.http.get<any>(`https://kashef.runasp.net/api/shipping/order/${this.orderId}`)
       .subscribe(
         data => {
           this.shipping = data;
@@ -75,7 +75,7 @@ export class ShippingComponent implements OnInit {
   }
 
   checkPaymentStatus(): void {
-    this.http.get<any>(`https://localhost:7105/api/payments/order/${this.orderId}`)
+    this.http.get<any>(`https://kashef.runasp.net/api/payments/order/${this.orderId}`)
       .subscribe(
         data => {
           if (data?.paymentStatus === 'Completed') {

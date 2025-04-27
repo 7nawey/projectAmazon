@@ -46,7 +46,7 @@ export class ShippingDetailsComponent implements OnInit {
     });
 
     // 👇 Append userId as query parameter
-    const url = `https://localhost:7105/api/Shipping/details/${this.shippingId}?currentuserid=${userId}`;
+    const url = `https://kashef.runasp.net/api/Shipping/details/${this.shippingId}?currentuserid=${userId}`;
 
     this.http.get(url, { headers }).subscribe({
       next: (data) => {

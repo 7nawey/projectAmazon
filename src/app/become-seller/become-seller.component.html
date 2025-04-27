@@ -12,7 +12,7 @@
           [(ngModel)]="formData.name" 
           name="name" 
           required
-          [class.is-invalid]="isSubmitted && form.controls['name']?.invalid">
+          [class.is-invalid]="isSubmitted && form.controls['name'].invalid">
         <div class="invalid-feedback">{{ 'seller.enter_username' | translate }}</div>
       </div>
 
@@ -26,7 +26,7 @@
           name="email" 
           required
           email
-          [class.is-invalid]="isSubmitted && form.controls['email']?.invalid">
+          [class.is-invalid]="isSubmitted && form.controls['email'].invalid">
         <div class="invalid-feedback">{{ 'seller.enter_valid_email' | translate }}</div>
       </div>
 
@@ -39,7 +39,7 @@
           [(ngModel)]="formData.message" 
           name="message" 
           required
-          [class.is-invalid]="isSubmitted && form.controls['message']?.invalid"></textarea>
+          [class.is-invalid]="isSubmitted && form.controls['message'].invalid"></textarea>
         <div class="invalid-feedback">{{ 'seller.describe_request' | translate }}</div>
       </div>
 

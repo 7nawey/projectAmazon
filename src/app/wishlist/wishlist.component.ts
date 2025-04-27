@@ -44,7 +44,7 @@ export class WishlistComponent implements OnInit {
   }
 
   getProductDetails(productID: number): void {
-    const productUrl = `https://localhost:7105/api/Product/${productID}`;
+    const productUrl = `https://kashef.runasp.net/api/Product/${productID}`;
     this.http.get<any>(productUrl).subscribe({
       next: (product) => {
         // Find the product in the wishlist and update it with fetched details

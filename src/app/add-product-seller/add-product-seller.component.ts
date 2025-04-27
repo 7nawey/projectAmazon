@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } fr
 import { ApiService } from '../api.service';
 import { CommonModule, NgForOf, NgIf } from '@angular/common';
 import { Category } from '../types/category';
-;
+import { noSpacesValidator } from '../app/validators/no-spaces.validator';
+import { NoLeadingSpaceValidator } from '../app/validators/no-leading-space';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -25,10 +26,10 @@ export class  AddProductSellerComponent implements OnInit {
   ngOnInit(): void {
     
     this.addProductForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3), noSpacesValidator(),NoLeadingSpaceValidator()]],
       price: [0, [Validators.required, Validators.min(0)]],
       priceAfterDiscount:[0, [ Validators.min(0)]],
-      descreption: ['', [Validators.required, Validators.minLength(9)]],
+      descreption: ['', [Validators.required, Validators.minLength(9), noSpacesValidator(),NoLeadingSpaceValidator()]],
       stockQuantity: [0, [Validators.required, Validators.min(0)]],
       rating: [0, [Validators.min(0), Validators.max(5)]],
       categoryID: [null, Validators.required],

@@ -8,7 +8,7 @@ import { Category } from './types/category';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'https://localhost:7105/api';
+  private baseUrl = 'https://kashef.runasp.net/api';
 
   constructor(private http: HttpClient) {}
 
@@ -163,21 +163,21 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/Category`, category);
   }
   deleteCategory(id: number): Observable<any> {
-    return this.http.delete(`https://localhost:7105/api/Category/${id}`);
+    return this.http.delete(`https://kashef.runasp.net/api/Category/${id}`);
   }
   getCategoryById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/Category/GetById/${id}`);
   }  
   updateCategory(id: number, updatedCategory: Category): Observable<any> {
-    // const url = `https://localhost:7105/api/Category/UpdateCategory/${id}`;
-    return this.http.put(`https://localhost:7105/api/Category/UpdateCategory/${id}`, updatedCategory);
+    // const url = `https://kashef.runasp.net/api/Category/UpdateCategory/${id}`;
+    return this.http.put(`https://kashef.runasp.net/api/Category/UpdateCategory/${id}`, updatedCategory);
   }
   getProducts(page: number, pageSize: number) {
     const params = new HttpParams()
       .set('page', page)
       .set('pageSize', pageSize);
   
-    return this.http.get<any>('https://localhost:7105/api/Product/GetAllProductsPagination', { params });
+    return this.http.get<any>('https://kashef.runasp.net/api/Product/GetAllProductsPagination', { params });
   }
   deleteProduct(id: number) {
     return this.http.delete(`${this.baseUrl}/Product`, {
@@ -200,13 +200,13 @@ export class ApiService {
     return this.http.get<any>(`${this.baseUrl}/SubCategory/${id}`);
   } 
   updatesubcategory(id: any, updatedsubcategory: any): Observable<any> {
-    return this.http.put(`https://localhost:7105/api/SubCategory/UpdateSubcategory/${id}`, updatedsubcategory);
+    return this.http.put(`https://kashef.runasp.net/api/SubCategory/UpdateSubcategory/${id}`, updatedsubcategory);
   } 
   deleteSubategory(id: number): Observable<any> {
-    return this.http.delete(`https://localhost:7105/api/SubCategory/${id}`);
+    return this.http.delete(`https://kashef.runasp.net/api/SubCategory/${id}`);
   }
   searchProducts(term: string) {
-    return this.http.get<any[]>(`https://localhost:7105/api/Product/Search/${term}`);
+    return this.http.get<any[]>(`https://kashef.runasp.net/api/Product/Search/${term}`);
   }
   getCategoriesAndSubCategories(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/Product/GetCategoriesAndSubCategories`);

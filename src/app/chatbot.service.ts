@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatbotService {
-  private apiUrl = 'https://localhost:7105/api/Chatbot/ask'; // Replace with your backend API URL
+  private apiUrl = 'https://kashef.runasp.net/api/Chatbot/ask'; // Replace with your backend API URL
 
   constructor(private http: HttpClient) {}
 

@@ -63,7 +63,7 @@ export class CheckoutComponent implements OnInit {
         this.orderId = +passedOrderId;
         this.loadOrderDetails();
       } else {
-        this.http.get<any>(`https://localhost:7105/api/order/current/${this.userId}`)
+        this.http.get<any>(`https://kashef.runasp.net/api/order/current/${this.userId}`)
           .subscribe(res => {
             if (!res || !res.orderID) {
               this.router.navigate(['/cart']);
@@ -86,7 +86,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getOrderTotal() {
-    this.http.get<any>(`https://localhost:7105/api/order/${this.orderId}`)
+    this.http.get<any>(`https://kashef.runasp.net/api/order/${this.orderId}`)
       .subscribe(res => {
         this.totalAmount = res.totalAmount;
       }, err => {
@@ -95,7 +95,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getExistingPayment() {
-    this.http.get<any>(`https://localhost:7105/api/payments/order/${this.orderId}`)
+    this.http.get<any>(`https://kashef.runasp.net/api/payments/order/${this.orderId}`)
       .subscribe(res => {
         if (res && res.paymentId) {
           this.paymentId = res.paymentId;
@@ -116,14 +116,14 @@ export class CheckoutComponent implements OnInit {
     };
 
     if (this.paymentId) {
-      this.http.put<any>(`https://localhost:7105/api/payments/${this.paymentId}`, payload)
+      this.http.put<any>(`https://kashef.runasp.net/api/payments/${this.paymentId}`, payload)
         .subscribe(() => {
           console.log('Payment updated');
         }, err => {
           console.error('Failed to update payment', err);
         });
     } else {
-      this.http.post<any>('https://localhost:7105/api/payments/create', payload)
+      this.http.post<any>('https://kashef.runasp.net/api/payments/create', payload)
         .subscribe(res => {
           this.paymentId = res.paymentId;
         });
@@ -145,7 +145,7 @@ export class CheckoutComponent implements OnInit {
       orderId: this.orderId
     };
 
-    this.http.post<any>('https://localhost:7105/api/shipping', payload)
+    this.http.post<any>('https://kashef.runasp.net/api/shipping', payload)
       .subscribe(res => {
         this.shippingId = res.shippingId;
         this.step = 2;
@@ -172,7 +172,7 @@ export class CheckoutComponent implements OnInit {
       localStorage.setItem('orderSuccess', 'true');
       this.router.navigate(['/thankyou']);
     } else if (this.paymentMethod === 'PayPal') {
-      this.http.post<any>(`https://localhost:7105/api/payments/process/${this.paymentId}`, {})
+      this.http.post<any>(`https://kashef.runasp.net/api/payments/process/${this.paymentId}`, {})
         .subscribe(res => {
           window.location.href = res.redirectUrl;
         }, err => {
@@ -183,7 +183,7 @@ export class CheckoutComponent implements OnInit {
     const status = "Success";
     const requestBody = JSON.stringify(status);
 
-    this.http.put<any>(`https://localhost:7105/api/order/${this.orderId}/status`, requestBody, {
+    this.http.put<any>(`https://kashef.runasp.net/api/order/${this.orderId}/status`, requestBody, {
       headers: { 'Content-Type': 'application/json' }
     }).subscribe({
       error: (err) => {
@@ -194,7 +194,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getShippingAddress() {
-    this.http.get<any>(`https://localhost:7105/api/shipping/order/${this.orderId}`)
+    this.http.get<any>(`https://kashef.runasp.net/api/shipping/order/${this.orderId}`)
       .subscribe(res => {
         if (res && res.shippingAddress) {
           this.shippingId = res.shippingId;

@@ -23,7 +23,7 @@ export interface Cart {
   providedIn: 'root'
 })
 export class CartService {
-  private baseUrl = 'https://localhost:7105/api/Cart';
+  private baseUrl = 'https://kashef.runasp.net/api/Cart';
   private cartSubject = new BehaviorSubject<Cart | null>(null);
   cart$ = this.cartSubject.asObservable();
 
@@ -101,7 +101,7 @@ export class CartService {
 
   placeOrder(): Observable<any> {
     const userId = this.getUserId();
-    return this.http.post(`https://localhost:7105/api/Order/place-order/${userId}`, {}, { headers: this.getHeaders() })
+    return this.http.post(`https://kashef.runasp.net/api/Order/place-order/${userId}`, {}, { headers: this.getHeaders() })
       .pipe(
         tap(() => this.updateCart())  // ✅ تحديث الكارت بعد الطلب
       );
