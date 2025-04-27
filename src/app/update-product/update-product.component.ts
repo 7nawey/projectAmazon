@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 import { Subcategory } from '../types/subcategory';
+import { noSpacesValidator } from '../app/validators/no-spaces.validator';
+import { NoLeadingSpaceValidator } from '../app/validators/no-leading-space';
 
 @Component({
   selector: 'app-update-product',
@@ -22,6 +24,10 @@ export class UpdateProductComponent implements OnInit {
   subCategories: Subcategory[] = [];
   productID: number = 0;
   imgCover = '';
+  coverImageError: string = '';
+  productImagesErrors: string[] = [];
+
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,10 +36,10 @@ export class UpdateProductComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {
     this.UpdateProductForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      name: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100),noSpacesValidator(),NoLeadingSpaceValidator()]],
       price: [0, [Validators.required, Validators.min(0)]],
       priceAfterDiscount: [0],
-      descreption: ['', [Validators.required, Validators.minLength(9)]],
+      descreption: ['', [Validators.required, Validators.minLength(9),Validators.maxLength(1000),noSpacesValidator(),NoLeadingSpaceValidator()]],
       stockQuantity: [0, [Validators.required, Validators.min(0)]],
       rating: [0, [Validators.min(0), Validators.max(5)]],
       imgCover: ['', Validators.required],
@@ -109,7 +115,24 @@ export class UpdateProductComponent implements OnInit {
   onCoverImageChange(event: any): void {
     const file = event.target.files[0];
     if (!file) return;
-
+  
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    
+    // تحقق من نوع الصورة
+    if (!allowedTypes.includes(file.type)) {
+      this.coverImageError = 'Only JPEG, PNG, GIF, and WEBP images are allowed.';
+      return;
+    }
+  
+    // تحقق من حجم الصورة (مثال: الحد الأقصى 2 ميجابايت)
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+      this.coverImageError = 'The image size must not exceed 2MB.';
+      return;
+    }
+  
+    this.coverImageError = ''; // Clear error if valid
+  
     const reader = new FileReader();
     reader.onload = () => {
       this.UpdateProductForm.patchValue({ imgCover: reader.result as string });
@@ -117,17 +140,39 @@ export class UpdateProductComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
+  
+  
 
   onProductImageChange(event: any, index: number): void {
     const file = event.target.files[0];
     if (!file) return;
-
+  
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSize = 2 * 1024 * 1024; // 2MB in bytes
+  
+    // التحقق من نوع الصورة
+    if (!allowedTypes.includes(file.type)) {
+      this.productImagesErrors[index] = 'Only JPEG, PNG, GIF, and WEBP images are allowed.';
+      return;
+    }
+  
+    // التحقق من حجم الصورة
+    if (file.size > maxSize) {
+      this.productImagesErrors[index] = 'Image size should not exceed 2MB.';
+      return;
+    }
+  
+    // Clear error if valid
+    this.productImagesErrors[index] = '';
+  
     const reader = new FileReader();
     reader.onload = () => {
       this.productImages.at(index).patchValue({ imageURL: reader.result as string });
     };
     reader.readAsDataURL(file);
   }
+  
+  
 
   handleUpdateProductForm(): void {
     if (this.UpdateProductForm.invalid) return;

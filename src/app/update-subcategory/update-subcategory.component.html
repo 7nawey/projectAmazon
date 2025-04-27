@@ -12,17 +12,42 @@
         formControlName="subcategoryName"
 
       />
-      <div class="text-danger" *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched">
-        <span *ngIf="formControls['subcategoryName'].hasError('required')"> Required Field</span>
-        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Subcategory name should be at least 3 characters long.</span>
+      <div class="text-danger" *ngIf="formControls['subcategoryName'].touched && formControls['subcategoryName'].invalid">
+  
+        <span *ngIf="formControls['subcategoryName'].hasError('required')">
+          Required Field
+        </span>
+        
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && formControls['subcategoryName'].hasError('noSpaces')">
+          Subcategory name cannot contain only spaces.
+        </span>
+        
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && !formControls['subcategoryName'].hasError('noSpaces') && formControls['subcategoryName'].hasError('noLeadingSpace')">
+          Subcategory name cannot start with spaces.
+        </span>
+        
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && !formControls['subcategoryName'].hasError('noSpaces') && !formControls['subcategoryName'].hasError('noLeadingSpace') && formControls['subcategoryName'].hasError('minlength')">
+          Subcategory name should be at least 3 characters long.
+        </span>
+        
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && !formControls['subcategoryName'].hasError('noSpaces') && !formControls['subcategoryName'].hasError('noLeadingSpace') && !formControls['subcategoryName'].hasError('minlength') && formControls['subcategoryName'].hasError('maxlength')">
+          Subcategory name should not exceed 100 characters.
+        </span>
+      
       </div>
-    </div>
+    </div>      
 
     <div class="form-group mb-4">
       <label for="categoryId">Category Name</label>
       <select class="form-select" formControlName="categoryId" id="categoryId">
         <option *ngFor="let cat of categories" [value]="cat.categoryID">{{ cat.categoryName }}</option>
       </select>
+      <div *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched" class="form-text text-danger">
+  
+        <span *ngIf="formControls['categoryId'].hasError('required')">
+          Required Field
+        </span>
+        </div>
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="UpdateSubcategoryForm.invalid">Save Changes</button>

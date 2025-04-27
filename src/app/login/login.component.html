@@ -1,58 +1,150 @@
-
-  <section class="login">
-    <div class="container mt-5">
-      <div class="row justify-content-center justify-content-between">
-        <div class="col-md-6">
-          <img src="https://th.bing.com/th/id/OIP.72nxyS6R26MnQkqagCTDfwHaFE?w=1400&h=958&rs=1&pid=ImgDetMain" class="w-100" alt="">
+<section class="login">
+  <div class="container mt-5">
+    <div class="row justify-content-center justify-content-between">
+      <div class="col-md-6">
+        <img
+          src="https://th.bing.com/th/id/OIP.72nxyS6R26MnQkqagCTDfwHaFE?w=1400&h=958&rs=1&pid=ImgDetMain"
+          class="w-100"
+          alt=""
+        />
+      </div>
+      <div class="col-md-6">
+        <h2 class="text-center">{{ "login.login_title" | translate }}</h2>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
         </div>
-        <div class="col-md-6">
-          <h2 class="text-center">{{ 'login.login_title' | translate }}</h2>
-          <div *ngIf="errorMessage" class="alert alert-danger">
-            {{ errorMessage }}
-          </div>
-          <form (ngSubmit)="login()" #loginForm="ngForm">
-            <div class="mb-3">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="mb-3">
+            <label for="emailOrUserName" class="form-label">
+              {{ 'login.username_or_email' | translate }}
+            </label>
+            <input
+              type="text"
+              id="emailOrUserName"
+              formControlName="emailOrUserName"
+              class="form-control"
+            />
+          
+            <div *ngIf="loginForm.get('emailOrUserName')?.touched && loginForm.get('emailOrUserName')?.errors" class="form-text text-danger">
 
-              <label for="emailOrUserName" class="form-label"> {{ 'login.username_or_email' | translate }}</label>
-              <input type="text" id="emailOrUserName" [(ngModel)]="formValues.emailOrUserName" name="emailOrUserName" class="form-control" required  #emailOrUserName="ngModel"  />
-              <div *ngIf="emailOrUserName.invalid &&  emailOrUserName.touched && !isValidEmailOrUsername(formValues.emailOrUserName)" class="text-danger">
-                <div *ngIf="emailOrUserName.errors?.['required']">Username or Email is required.</div>
-            </div>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">{{ 'login.password' | translate }}</label>
-              <input type="password" id="password" [(ngModel)]="formValues.password" name="password" class="form-control" required minlength="8" 
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$"
-              #password="ngModel"/>
-              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger mt-1">
-                <div *ngIf="password.errors?.['required']">
-                  Password is required.
-                </div>
-                <div *ngIf="!password.errors?.['required'] && password.errors?.['minlength']">
-                  Password must be at least 8 characters long.
-                </div>
-                <div *ngIf="!password.errors?.['required'] && !password.errors?.['minlength'] && password.errors?.['pattern']">
-                  Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.
-                </div>
-              </div>
+              <ng-container *ngIf="loginForm.get('emailOrUserName')?.errors as errors">
             
-      
+                <!-- Required -->
+                <small *ngIf="errors['required']">
+                  Username is required.
+                </small>
+            
+                <!-- No spaces -->
+                <small *ngIf="!errors['required'] && errors['noSpaces']">
+                  Username cannot contain only spaces.
+                </small>
+            
+                <!-- No leading space -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && errors['noLeadingSpace']">
+                  Username cannot start or end with a space.
+                </small>
+            
+                <!-- Space between -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && errors['spaceBetween']">
+                  Username cannot contain spaces.
+                </small>
+            
+                <!-- Minlength -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spaceBetween'] && errors['invalidEmailOrUsername']">
+                  enter a valid email address or a valid username (at least 3 characters)
+                </small>
+            
+                <!-- Maxlength -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spaceBetween'] && !errors['invalidEmailOrUsername'] && errors['maxlength']">
+                  Username must be less than 40 characters.
+                </small>
+            
+              </ng-container>
+            
+            </div>
+</div>
+          
 
+          
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">
+              {{ 'login.password' | translate }}
+            </label>
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
+              class="form-control"
+            />
+          
+            <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors" class="form-text text-danger">
+
+              <ng-container *ngIf="loginForm.get('password')?.errors as errors">
+                
+                <!-- Required -->
+                <small *ngIf="errors['required']">
+                  Password is required.
+                </small>
+            
+                <!-- No spaces -->
+                <small *ngIf="!errors['required'] && errors['noSpaces']">
+                  Password cannot contain only spaces.
+                </small>
+            
+                <!-- No leading space -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && errors['noLeadingSpace']">
+                  Password cannot start or end with a space.
+                </small>
+            
+                <!-- Space between -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && errors['spaceBetween']">
+                  Password cannot contain spaces.
+                </small>
+            
+                <!-- Minlength -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spaceBetween'] && errors['minlength']">
+                  Password must be at least 8 characters long.
+                </small>
+            
+                <!-- Maxlength -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spaceBetween'] && !errors['minlength'] && errors['maxlength']">
+                  Password must be less than 50 characters.
+                </small>
+            
+                <!-- Pattern mismatch -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spaceBetween'] && !errors['minlength'] && !errors['maxlength'] && errors['pattern']">
+                  Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.
+                </small>
+            
+              </ng-container>
+            
             </div>
-    
-            <div class="mb-3">
-              <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.form.valid">
-                {{ 'login.login_button' | translate }}
-              </button>
+            
             </div>
-            <div class="d-flex justify-content-between mt-4">
-              <a routerLink="/register" class="text-black">{{ 'login.sign_up' | translate }}</a>
-              <a routerLink="/forgetpassword" class="text-black">{{ 'login.forgot_password' | translate }}</a>
-            </div>
-    
-          </form>
-        </div>
+          <!-- </div> -->
+          
+          
+
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="loginForm.invalid"
+            >
+              {{ "login.login_button" | translate }}
+            </button>
+          </div>
+          <div class="d-flex justify-content-between mt-4">
+            <a routerLink="/register" class="text-black">{{
+              "login.sign_up" | translate
+            }}</a>
+            <a routerLink="/forgetpassword" class="text-black">{{
+              "login.forgot_password" | translate
+            }}</a>
+          </div>
+        </form>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

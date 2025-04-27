@@ -7,9 +7,35 @@
       <input type="text" class="form-control" id="subcategoryName" formControlName="subcategoryName" placeholder="Enter Subcategory Name">
       
       <div *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched" class="form-text text-danger">
-        <span *ngIf="formControls['subcategoryName'].hasError('required')">Required Field</span>
-        <span *ngIf="formControls['subcategoryName'].hasError('minlength')">Subcategory name should be at least 3 characters long</span>
+  
+        <!-- إذا كان الحقل مطلوب -->
+        <span *ngIf="formControls['subcategoryName'].hasError('required')">
+          Required Field
+        </span>
+      
+        <!-- إذا كان يحتوي فقط على مسافات -->
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && formControls['subcategoryName'].hasError('noSpaces')">
+          Subcategory name cannot contain only spaces.
+        </span>
+      
+        <!-- إذا كان يبدأ بمسافة -->
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && !formControls['subcategoryName'].hasError('noSpaces') && formControls['subcategoryName'].hasError('noLeadingSpace')">
+          Subcategory name cannot start or end with spaces.
+        </span>
+      
+        <!-- إذا كان الطول أقل من 3 أحرف -->
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && !formControls['subcategoryName'].hasError('noSpaces') && !formControls['subcategoryName'].hasError('noLeadingSpace') && formControls['subcategoryName'].hasError('minlength')">
+          Subcategory name should be at least 3 characters long.
+        </span>
+      
+        <!-- إذا تجاوز الحد الأقصى -->
+        <span *ngIf="!formControls['subcategoryName'].hasError('required') && !formControls['subcategoryName'].hasError('noSpaces') && !formControls['subcategoryName'].hasError('noLeadingSpace') && !formControls['subcategoryName'].hasError('minlength') && formControls['subcategoryName'].hasError('maxlength')">
+          Subcategory name should not exceed 100 characters.
+        </span>
+      
       </div>
+      
+      
     </div>
   
     <div class="col-md-12 my-3">
@@ -20,6 +46,12 @@
           {{ item.categoryName }}
         </option>
       </select>
+      <div *ngIf="formControls['subcategoryName'].invalid && formControls['subcategoryName'].touched" class="form-text text-danger">
+  
+      <span *ngIf="formControls['categoryId'].hasError('required')">
+        Required Field
+      </span>
+      </div>
     </div>
   
     <div class="col-12">

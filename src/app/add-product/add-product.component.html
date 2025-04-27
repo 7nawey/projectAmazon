@@ -14,9 +14,25 @@
         placeholder="Enter product name"
       />
       <div *ngIf="formControls['name'].invalid && formControls['name'].touched" class="text-danger">
-        <small *ngIf="formControls['name'].hasError('required')">Product name is required.</small>
-        <small *ngIf="formControls['name'].hasError('minlength')">Product name should be at least 3 characters long.</small>
+        
+        <div *ngIf="addProductForm.controls['name'].errors?.['required']">
+          Product name is required
+        </div>
+        <div *ngIf="!addProductForm.controls['name'].errors?.['required'] && addProductForm.controls['name'].errors?.['noSpaces']">
+          Product name cannot contain only spaces.
+        </div>
+        <div *ngIf="!addProductForm.controls['name'].errors?.['required'] && !addProductForm.controls['name'].errors?.['noSpaces'] && addProductForm.controls['name'].errors?.['noLeadingSpace']">
+          Product name cannot start or end with spaces.
+        </div>
+        <div *ngIf="!addProductForm.controls['name'].errors?.['required'] && !addProductForm.controls['name'].errors?.['noSpaces'] && !addProductForm.controls['name'].errors?.['noLeadingSpace'] && addProductForm.controls['name'].errors?.['minlength']">
+          Product name should be at least 3 characters long.
+        </div>
+        <div *ngIf="!addProductForm.controls['name'].errors?.['required'] && !addProductForm.controls['name'].errors?.['noSpaces'] && !addProductForm.controls['name'].errors?.[''] && !addProductForm.controls['name'].errors?.['minlength'] && addProductForm.controls['name'].errors?.['maxlength']">
+          Product name should not exceed 100 characters.
+        </div>
       </div>
+      
+      
     </div>
 
     
@@ -61,9 +77,25 @@
         placeholder="Enter description"
       ></textarea>
       <div *ngIf="formControls['descreption'].invalid && formControls['descreption'].touched" class="text-danger">
-        <small *ngIf="formControls['descreption'].hasError('required')">Description is required.</small>
-        <small *ngIf="formControls['descreption'].hasError('minlength')">Description should be at least 9 characters long.</small>
+        <div *ngIf="addProductForm.controls['descreption'].errors?.['required']">
+          Description is required
+        </div>
+        <div *ngIf="!addProductForm.controls['descreption'].errors?.['required'] && addProductForm.controls['descreption'].errors?.['noSpaces']">
+          Description cannot contain only spaces.
+        </div>
+        <div *ngIf="!addProductForm.controls['descreption'].errors?.['required'] && !addProductForm.controls['descreption'].errors?.['noSpaces'] && addProductForm.controls['descreption'].errors?.['noLeadingSpace']">
+          Description cannot start or end with spaces.
+        </div>
+        <div *ngIf="!addProductForm.controls['descreption'].errors?.['required'] && !addProductForm.controls['descreption'].errors?.['noSpaces'] && !addProductForm.controls['descreption'].errors?.['noLeadingSpace'] && addProductForm.controls['descreption'].errors?.['minlength']">
+          Description should be at least 9 characters long.
+        </div>
+        <div *ngIf="!addProductForm.controls['descreption'].errors?.['required'] && !addProductForm.controls['descreption'].errors?.['noSpaces'] && !addProductForm.controls['descreption'].errors?.['noLeadingSpace'] && !addProductForm.controls['descreption'].errors?.['minlength'] && addProductForm.controls['descreption'].errors?.['maxlength']">
+          Description should not exceed 1000 characters.
+        </div>
+      
       </div>
+      
+      
     </div>
 
     
@@ -133,32 +165,56 @@
         id="imgCover"
         (change)="onImgCoverFileChange($event)"
       />
+    
+      <!-- عرض الأخطاء المتعلقة بالصورة -->
+      <div *ngIf="fileErrorCover" class="text-danger">
+        {{ fileErrorCover }}
+      </div>
+    
+      <!-- عرض رسالة الخطأ إذا كانت الصورة مطلوبة -->
       <div *ngIf="formControls['imgCover'].invalid && formControls['imgCover'].touched" class="text-danger">
         <small *ngIf="formControls['imgCover'].hasError('required')">Cover image is required.</small>
       </div>
-    </div>
-
     
-    <div formArrayName="productImages">
-      <div *ngFor="let image of productImages.controls; let i = index">
-        <div [formGroupName]="i" class="form-group">
-          <label for="imageURL">Product Image {{ i + 1 }}</label>
-          <input
-            type="file"
-            class="form-control"
-            id="imageURL"
-            (change)="onImageFileChange($event, i)"
-          />
-          <div *ngIf="image.get('imageURL')?.invalid && image.get('imageURL')?.touched" class="text-danger">
-            <small *ngIf="image.get('imageURL')?.hasError('required')">Image is required.</small>
-          </div>
-          
-          <button type="button" class="btn btn-danger my-2" (click)="removeImage(i)">Remove Image</button>
-        </div>
-      </div>
-    </div>
+      <!-- عرض الصورة عند تحميلها -->
+      <!-- عرض صورة الغلاف -->
+<div *ngIf="addProductForm.get('imgCover')?.value" class="mt-2">
+  <img [src]="addProductForm.get('imgCover')?.value" class="img-thumbnail" width="200" height="200" alt="Cover Image" />
+</div>
 
-    <button type="button" class="btn btn-secondary my-2" (click)="addImage()">Add Image</button><br>
-    <button type="submit" class="btn btn-primary" [disabled]="addProductForm.invalid">Add Product</button>
-  </form>
+<div formArrayName="productImages">
+  <div *ngFor="let image of productImages.controls; let i = index" [formGroupName]="i">
+    <div class="form-group">
+      <label for="imageURL">Product Image {{ i + 1 }}</label>
+      <input
+        type="file"
+        class="form-control"
+        id="imageURL"
+        (change)="onImageFileChange($event, i)"
+      />
+
+      <!-- عرض الصورة التي تم تحميلها -->
+      <div *ngIf="productImages.at(i).get('imageURL')?.value" class="mt-2">
+        <img [src]="productImages.at(i).get('imageURL')?.value" class="img-thumbnail" width="200" height="200" alt="Product Image {{ i + 1 }}" />
+      </div>
+
+      <!-- عرض رسائل الخطأ الخاصة بالصورة -->
+      <div *ngIf="fileErrorImg && fileErrorImg[i] && fileErrorImg[i].length > 0" class="text-danger">
+
+        <small *ngFor="let error of fileErrorImg[i]">{{ error }}</small>
+      </div>
+
+      <div *ngIf="productImages.at(i).get('imageURL')?.invalid && productImages.at(i).get('imageURL')?.touched" class="text-danger">
+        <small *ngIf="productImages.at(i).get('imageURL')?.hasError('required')">Image is required.</small>
+      </div>
+
+      <button type="button" class="btn btn-danger my-2" (click)="removeImage(i)">Remove Image</button>
+    </div>
+  </div>
+
+  <!-- زر إضافة صورة جديدة -->
+  <button type="button" class="btn btn-secondary my-2" (click)="addImage()">Add Image</button><br>
+
+  <!-- زر إضافة المنتج -->
+  <button type="submit" class="btn btn-primary" [disabled]="addProductForm.invalid">Add Product</button>
 </div>

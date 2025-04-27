@@ -21,50 +21,165 @@
 
         <form [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="mb-3">
-
-            <label for="username" class="form-label"> {{ 'login.username' | translate }}</label>
+            <label for="username" class="form-label">{{ 'login.username' | translate }}</label>
             <input id="username" formControlName="username" class="form-control" />
-            <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="text-danger">
-              <small *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</small>
-              <small *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters long.</small>
-              <small *ngIf="registerForm.get('username')?.errors?.['maxlength']">Username must be less than 20 characters.</small>
-            </div>
+            <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors" class="form-text text-danger">
 
+              <ng-container *ngIf="registerForm.get('username')?.errors as errors">
+            
+                <!-- Required -->
+                <small *ngIf="errors['required']">
+                  Username is required.
+                </small>
+            
+                <!-- No spaces -->
+                <small *ngIf="!errors['required'] && errors['noSpaces']">
+                  Username cannot contain only spaces.
+                </small>
+            
+                <!-- No leading space -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && errors['noLeadingSpace']">
+                  Username cannot start or end with a space.
+                </small>
+            
+                <!-- Space between -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && errors['spacebetweenValidator']">
+                  Username cannot contain spaces.
+                </small>
+            
+                <!-- Minlength -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spacebetweenValidator'] && errors['minlength']">
+                  Username must be at least 3 characters long.
+                </small>
+            
+                <!-- Maxlength -->
+                <small *ngIf="!errors['required'] && !errors['noSpaces'] && !errors['noLeadingSpace'] && !errors['spacebetweenValidator'] && !errors['minlength'] && errors['maxlength']">
+                  Username must be less than 40 characters.
+                </small>
+            
+              </ng-container>
+            
+            </div>
+              
+            
           </div>
+        
+          
 
           <div class="mb-3">
-
-            <label for="email" class="form-label"> {{ 'login.email' | translate }}</label>
+            <label for="email" class="form-label">{{ 'login.email' | translate }}</label>
             <input id="email" formControlName="email" class="form-control" />
             <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger">
-              <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
-              <small *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address.</small>
+              <small *ngIf="registerForm.get('email')?.errors?.['required']">
+                Email is required.
+              </small>
+              <small *ngIf="registerForm.get('email')?.errors?.['noSpaces'] && !registerForm.get('email')?.errors?.['required']">
+                Email cannot contain only spaces.
+
+              </small>
+              <small *ngIf="registerForm.get('email')?.errors?.['noLeadingSpace'] && !registerForm.get('email')?.errors?.['required'] && !registerForm.get('email')?.errors?.['noSpaces']">
+                Email cannot start or end with a space.
+              </small>
+              <small *ngIf="registerForm.get('email')?.errors?.['spacebetweenValidator'] &&!registerForm.get('email')?.errors?.['noSpaces'] && !registerForm.get('email')?.errors?.['required'] &&!registerForm.get('email')?.errors?.['noLeadingSpace']">
+                Email cannot contain  spaces.
+
+              </small>
+              <small *ngIf="registerForm.get('email')?.errors?.['email'] && !registerForm.get('email')?.errors?.['required'] && !registerForm.get('email')?.errors?.['noSpaces'] && !registerForm.get('email')?.errors?.['spacebetweenValidator']">
+                Please enter a valid email address.
+               
+              </small>
             </div>
-
           </div>
-
+          
           <div class="mb-3">
-
-            <label for="password" class="form-label"> {{ 'login.password' | translate }}</label>
+            <label for="password" class="form-label">{{ 'login.password' | translate }}</label>
             <input type="password" id="password" formControlName="password" class="form-control" />
+          
             <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger">
-              <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
-              <small *ngIf="registerForm.get('password')?.errors?.['pattern']">Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.</small><br>
-              <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long.</small>
+          
+              <!-- Required -->
+              <small *ngIf="registerForm.get('password')?.errors?.['required']">
+                Password is required.
+              </small>
+          
+              <!-- Only spaces -->
+              <small *ngIf="!registerForm.get('password')?.errors?.['required'] 
+                            && registerForm.get('password')?.errors?.['noSpaces']">
+                Password cannot contain only spaces.
+              </small>
+          
+              <!-- Leading or Trailing spaces -->
+              <small *ngIf="!registerForm.get('password')?.errors?.['required'] 
+                            && !registerForm.get('password')?.errors?.['noSpaces'] 
+                            && registerForm.get('password')?.errors?.['noLeadingSpace']">
+                Password cannot start or end with a space.
+              </small>
+          
+              <!-- Spaces in between -->
+              <small *ngIf="!registerForm.get('password')?.errors?.['required'] 
+                            && !registerForm.get('password')?.errors?.['noSpaces'] 
+                            && !registerForm.get('password')?.errors?.['noLeadingSpace'] 
+                            && registerForm.get('password')?.errors?.['spacebetweenValidator']">
+                Password cannot contain spaces.
+              </small>
+          
+              <!-- Minimum length -->
+              <small *ngIf="!registerForm.get('password')?.errors?.['required'] 
+                            && !registerForm.get('password')?.errors?.['noSpaces'] 
+                            && !registerForm.get('password')?.errors?.['noLeadingSpace'] 
+                            && !registerForm.get('password')?.errors?.['spacebetweenValidator'] 
+                            && registerForm.get('password')?.errors?.['minlength']">
+                Password must be at least 8 characters long.
+              </small>
+              <small *ngIf="!registerForm.get('password')?.errors?.['required'] 
+                            && !registerForm.get('password')?.errors?.['noSpaces'] 
+                            && !registerForm.get('password')?.errors?.['noLeadingSpace'] 
+                            && !registerForm.get('password')?.errors?.['spacebetweenValidator'] 
+                            && !registerForm.get('password')?.errors?.['minlength']
+                            && registerForm.get('password')?.errors?.['maxlength']">
+                Password must be less than 50 characters.
+              </small>
+          
+              <!-- Pattern -->
+              <small *ngIf="!registerForm.get('password')?.errors?.['required'] 
+                            && !registerForm.get('password')?.errors?.['noSpaces'] 
+                            && !registerForm.get('password')?.errors?.['noLeadingSpace'] 
+                            && !registerForm.get('password')?.errors?.['spacebetweenValidator'] 
+                            && !registerForm.get('password')?.errors?.['minlength'] 
+                            && !registerForm.get('password')?.errors?.['maxlength']
+                            && registerForm.get('password')?.errors?.['pattern']">
+                Password must include at least one uppercase letter, one lowercase letter, one number, and one special character.
+              </small>
+              
+          
             </div>
-
           </div>
-
+          
+          
+          
+          
           <div class="mb-3">
-
-            <label for="confirmPassword" class="form-label"> {{ 'login.confirm_password' | translate }}</label>
+            <label for="confirmPassword" class="form-label">{{ 'login.confirm_password' | translate }}</label>
             <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" />
+          
             <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="text-danger">
-              <small *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</small>
-              <small *ngIf="registerForm.get('confirmPassword')?.errors?.['compare']">Passwords must match.</small>
+          
+              <!-- Required -->
+              <small *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+                Confirm Password is required.
+              </small>
+          
+              <!-- Compare Passwords -->
+              <small *ngIf="!registerForm.get('confirmPassword')?.errors?.['required'] 
+                            && registerForm.get('confirmPassword')?.errors?.['compare']">
+                Passwords must match.
+              </small>
+          
             </div>
-
           </div>
+          
+          
+          
 
           <div class="mb-3">
 

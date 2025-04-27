@@ -5,17 +5,32 @@
     <div class="col-md-12" >
       <label for="CaregoryName" class="form-label">Category Name</label>
       <input type="text" class="form-control" id="CaregoryName" formControlName="categoryName" placeholder="Enter Category Name">
-      @if(formControls['categoryName'].invalid && formControls['categoryName'].touched){
-        <div id="CaregoryNameId" class="form-text text-danger">
-          @if(formControls['categoryName'].hasError('required')){
-              <span>Required Field</span>
-          }
-          @else if(formControls['categoryName'].hasError('minlength')){
-              <span>Category name should be at least 3 characters long.</span>
-  
-          }
-        </div>
-          }
+      <div *ngIf="formControls['categoryName'].invalid && formControls['categoryName'].touched" id="CaregoryNameId" class="form-text text-danger">
+
+        <div class="text-danger" *ngIf="formControls['categoryName'].touched && formControls['categoryName'].invalid">
+
+          <div *ngIf="formControls['categoryName'].errors?.['required']">
+            <span>Required Field</span>
+          </div>
+        
+          <div *ngIf="!formControls['categoryName'].errors?.['required'] && formControls['categoryName'].errors?.['noSpaces']">
+            <span>Category name cannot contain only spaces.</span>
+          </div>
+        
+          <div *ngIf="!formControls['categoryName'].errors?.['required'] && !formControls['categoryName'].errors?.['noSpaces'] && formControls['categoryName'].errors?.['noLeadingSpace']">
+            <span>Category name cannot start or end with spaces.</span>
+          </div>
+        
+          <div *ngIf="!formControls['categoryName'].errors?.['required'] && !formControls['categoryName'].errors?.['noSpaces'] && !formControls['categoryName'].errors?.['noLeadingSpace'] && formControls['categoryName'].errors?.['minlength']">
+            <span>Category name should be at least 3 characters long.</span>
+          </div>
+        
+          <div *ngIf="!formControls['categoryName'].errors?.['required'] && !formControls['categoryName'].errors?.['noSpaces'] && !formControls['categoryName'].errors?.['noLeadingSpace'] && !formControls['categoryName'].errors?.['minlength'] && formControls['categoryName'].errors?.['maxlength']">
+            <span>Category name should not exceed 100 characters.</span>
+          </div>
+        
+        </div> 
+      </div>      
     </div>
     <div class="col-md-12 my-3">
       <label for="Descreption" class="form-label">Descreption</label>
@@ -25,22 +40,41 @@
           @if (formControls['description'].hasError('required')) {
             <span>Required Field</span>
           }
+          @else if (formControls['description'].hasError('noSpaces')) {
+            <span>Description cannot contain only spaces.</span>
+          }
+          @else if (formControls['description'].hasError('noLeadingSpace')) {
+            <span>Description cannot start or end with spaces.</span>
+          }
           @else if (formControls['description'].hasError('minlength')) {
             <span>Description should be at least 9 characters long.</span>
           }
+          @else if (formControls['description'].hasError('maxlength')) {
+            <span>Description should not exceed 1000 characters.</span>
+          
+
+      }
         </div>
       }
   </div>
   <div class="mb-3 my-3">
     <label>Category Image</label>
-    <input type="file" (change)="handleFileInput($event)" class="form-control">
+    <input type="file" (change)="handleFileInput($event)" class="form-control" />
   
-    <div class="text-danger" *ngIf="fileError">{{ fileError }}</div>
+    <!-- خطأ حجم أو نوع الصورة -->
+    <div class="text-danger mt-1" *ngIf="fileError">
+      {{ fileError }}
+    </div>
   
-    <div class="form-text text-danger" *ngIf="formControls['categoryImg'].touched && formControls['categoryImg'].hasError('required')">
-      <span>Required Field</span>
+    <!-- خطأ الريكوايرد -->
+    <div class="form-text text-danger mt-1"
+      *ngIf="!fileError && formControls['categoryImg']?.touched && formControls['categoryImg']?.errors?.['required']">
+      Required Field
     </div>
   </div>
+  
+  
+  
   
   
     
