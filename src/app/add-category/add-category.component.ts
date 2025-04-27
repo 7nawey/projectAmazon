@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2'; 
 import { Router } from '@angular/router'; 
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
+import { NoLeadingSpaceValidator } from '../app/validators/no-leading-space';
+import { noSpacesValidator } from '../app/validators/no-spaces.validator';
 
 @Component({
   selector: 'app-add-category',
@@ -24,8 +26,8 @@ export class AddCategoryComponent {
     private router: Router 
   ) {
     this.AddCategoryForm = this.formbuilder.group({
-      categoryName: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(9)]],
+      categoryName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100), noSpacesValidator(),NoLeadingSpaceValidator()]],
+      description: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(1000),noSpacesValidator(),NoLeadingSpaceValidator()]],  
       categoryImg: [null, Validators.required]
     });
   }
@@ -37,24 +39,39 @@ export class AddCategoryComponent {
   handleFileInput(event: any) {
     const file = event.target.files[0];
     if (!file) return;
-
+  
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSizeInMB = 1;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+  
     if (!allowedTypes.includes(file.type)) {
       this.fileError = 'File must be an image (jpeg, png, gif, webp)';
       this.imageBase64 = '';
       this.AddCategoryForm.patchValue({ categoryImg: '' });
+      this.AddCategoryForm.get('categoryImg')?.markAsTouched(); // 🛑 هنا
       return;
     }
-
+  
+    if (file.size > maxSizeInBytes) {
+      this.fileError = `File size must not exceed ${maxSizeInMB} MB`;
+      this.imageBase64 = '';
+      this.AddCategoryForm.patchValue({ categoryImg: '' });
+      this.AddCategoryForm.get('categoryImg')?.markAsTouched(); // 🛑 هنا برضو
+      return;
+    }
+  
     this.fileError = '';
     const reader = new FileReader();
     reader.onload = () => {
       this.imageBase64 = reader.result as string;
       this.AddCategoryForm.patchValue({ categoryImg: this.imageBase64 });
+      this.AddCategoryForm.get('categoryImg')?.markAsTouched();
     };
     reader.readAsDataURL(file);
   }
-
+  
+  
+  
   handleAddCategoryForm() {
     if (this.AddCategoryForm.invalid) return;
 

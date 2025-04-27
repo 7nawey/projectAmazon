@@ -2,35 +2,57 @@
 <div class="container">
   <h3 class="my-4">Update Category</h3>
 <form class="row g-3 p-4" [formGroup]="UpdateCategoryForm" (ngSubmit)="handleUpdateCategoryForm()" class="mb-5 p-4 border rounded shadow">
-  <div class="col-md-12" >
-    <label for="CaregoryName" class="form-label">Category Name</label>
-    <input type="text" class="form-control" formControlName="categoryName" >
-    @if(formControls['categoryName'].invalid && formControls['categoryName'].touched){
-      <div id="CaregoryNameId" class="form-text text-danger">
-        @if(formControls['categoryName'].hasError('required')){
-            <span>Required Field</span>
+  <div class="col-md-12">
+    <label for="CategoryName" class="form-label">Category Name</label>
+    <input type="text" class="form-control" formControlName="categoryName">
+    @if (formControls['categoryName'].invalid && formControls['categoryName'].touched) {
+      <div id="CategoryNameId" class="form-text text-danger">
+        @if (formControls['categoryName'].hasError('required')) {
+          <span>Required Field</span>
         }
-        @else if(formControls['categoryName'].hasError('minlength')){
-            <span>Category name should be at least 3 characters long.</span>
-
+        @else if (formControls['categoryName'].hasError('noSpaces')) {
+          <span>Category name cannot contain only spaces.</span>
+        }
+        @else if (formControls['categoryName'].hasError('noLeadingSpace')) {
+          <span>Category name cannot start or end with spaces.</span>
+        }
+        @else if (formControls['categoryName'].hasError('minlength')) {
+          <span>Category name should be at least 3 characters long.</span>
+        }
+        @else if (formControls['categoryName'].hasError('maxlength')) {
+          <span>Category name should not exceed 100 characters.</span>
         }
       </div>
-        }
+    }
   </div>
+  
   <div class="col-md-12 my-3">
-    <label for="Descreption" class="form-label">Descreption</label>
-    <input type="text" class="form-control" id="Descreption"  formControlName="description">
+    <label for="Description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="Description" formControlName="description">
     @if (formControls['description'].invalid && formControls['description'].touched) {
       <div class="form-text text-danger">
         @if (formControls['description'].hasError('required')) {
           <span>Required Field</span>
         }
+        @else if (formControls['description'].hasError('noSpaces')) {
+          <span>Description cannot contain only spaces.</span>
+        }
+        @else if (formControls['description'].hasError('noLeadingSpace')) {
+          <span>Description cannot start or end with spaces.</span>
+        }
         @else if (formControls['description'].hasError('minlength')) {
           <span>Description should be at least 9 characters long.</span>
         }
+        @else if (formControls['description'].hasError('maxlength')) {
+          <span>Description should not exceed 1000 characters.</span>
+        }
       </div>
     }
-</div>
+  </div>
+  
+    
+
+   
   <div class="mb-3 my-3">
       <label>Category Image</label>
       <input type="file" (change)="handleFileInput($event)" class="form-control">

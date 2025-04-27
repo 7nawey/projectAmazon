@@ -7,6 +7,8 @@ import { Category } from '../types/category';
 import { Subcategory } from '../types/subcategory';
 import { CommonModule } from '@angular/common';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
+import { noSpacesValidator } from '../app/validators/no-spaces.validator';
+import { NoLeadingSpaceValidator } from '../app/validators/no-leading-space';
 
 @Component({
   selector: 'app-update-subcategory',
@@ -26,7 +28,7 @@ export class UpdateSubcategoryComponent implements OnInit {
     private subcategoryService: ApiService
   ) {
     this.UpdateSubcategoryForm = this.fb.group({
-      subcategoryName: ['', [Validators.required, Validators.minLength(3)]],
+      subcategoryName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100), noSpacesValidator(),NoLeadingSpaceValidator()]],
       categoryId: ['', Validators.required]
     });
   }

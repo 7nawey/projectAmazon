@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
+import { noSpacesValidator } from '../app/validators/no-spaces.validator';
+import { NoLeadingSpaceValidator } from '../app/validators/no-leading-space';
 
 @Component({
   selector: 'app-add-subcategory',
@@ -24,7 +26,7 @@ export class AddSubcategoryComponent implements OnInit {
     private router: Router
   ) {
     this.AddSubcategoryForm = this.formBuilder.group({
-      subcategoryName: ['', [Validators.required, Validators.minLength(3)]],
+      subcategoryName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100),noSpacesValidator(),NoLeadingSpaceValidator()]],
       categoryId: ['', Validators.required]
     });
   }
@@ -50,6 +52,7 @@ export class AddSubcategoryComponent implements OnInit {
   trackByCategoryId(index: number, item: Category): number {
     return item.categoryID;
   }
+  
   
   handleAddAddSubcategoryForm() {
     if (this.AddSubcategoryForm.invalid) return;

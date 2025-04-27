@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { NavDashbordComponent } from '../nav-dashbord/nav-dashbord.component';
 import { CommonModule, NgIf } from '@angular/common';
+import { noSpacesValidator } from '../app/validators/no-spaces.validator';
+import { NoLeadingSpaceValidator } from '../app/validators/no-leading-space';
 
 
 @Component({
@@ -24,8 +26,8 @@ export class UpdateCategoryComponent implements OnInit {
 
   constructor(private catrgoryService: ApiService, private formbuilder : FormBuilder,private route: ActivatedRoute,  private router: Router,) {
     this.UpdateCategoryForm = this.formbuilder.group({
-      categoryName: ['', [Validators.required, Validators.minLength(3)]],
-      description: ['', [Validators.required, Validators.minLength(9)]],
+      categoryName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(100),noSpacesValidator(),NoLeadingSpaceValidator()]],
+      description: ['', [Validators.required, Validators.minLength(9),Validators.maxLength(1000),noSpacesValidator(),NoLeadingSpaceValidator()]],
       image: [null] 
     });
   }
@@ -73,7 +75,11 @@ export class UpdateCategoryComponent implements OnInit {
     
       if (!file) return;
     
+      console.log("File size:", file.size); // تحقق من الحجم في وحدة البايت
+    
       const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      
+      // التحقق من النوع
       if (!allowedTypes.includes(file.type)) {
         this.fileError = 'File must be an image (jpeg, png, gif, webp)';
         this.imageBase64 = '';
@@ -81,6 +87,16 @@ export class UpdateCategoryComponent implements OnInit {
         return;
       }
     
+      // التحقق من الحجم
+      const maxSize = 2 * 1024 * 1024; // 2MB
+      if (file.size > maxSize) {
+        this.fileError = 'The image size must not exceed 2MB.';
+        this.imageBase64 = '';
+        this.UpdateCategoryForm.patchValue({ image: null });
+        return;
+      }
+    
+      // قراءة الملف وتحويله إلى base64
       const reader = new FileReader();
       reader.onload = () => {
         this.imageBase64 = reader.result as string;
@@ -92,6 +108,8 @@ export class UpdateCategoryComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+    
+    
     
   handleUpdateCategoryForm(): void {
 
